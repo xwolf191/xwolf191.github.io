@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="DNS 是指：域名系统（Domain Name System）。在 Internet 上域名与 IP 地址之间是一一对应的，域名虽然便于人们记忆，但机器之间只能互相认识 IP 地址，它们之间的转换工作称为域名解析，域名解析需要由专门的域名解析系统来完成，DNS 就是进行域名解析的系统。 DNS 协议运行在 UDP 协议之上，使用端口号 53。在传输层 TCP 提供端到端可靠的服务,在 UDP 端提">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dig使用">
+<meta property="og:url" content="http://xwolf191.github.io/2019/05/27/linux/dig使用/index.html">
+<meta property="og:site_name" content="Xwolf">
+<meta property="og:description" content="DNS 是指：域名系统（Domain Name System）。在 Internet 上域名与 IP 地址之间是一一对应的，域名虽然便于人们记忆，但机器之间只能互相认识 IP 地址，它们之间的转换工作称为域名解析，域名解析需要由专门的域名解析系统来完成，DNS 就是进行域名解析的系统。 DNS 协议运行在 UDP 协议之上，使用端口号 53。在传输层 TCP 提供端到端可靠的服务,在 UDP 端提">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://xwolf191.github.io/2019/05/27/linux/dig使用/dig_20190527144531.png">
+<meta property="og:updated_time" content="2020-07-19T00:23:27.879Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dig使用">
+<meta name="twitter:description" content="DNS 是指：域名系统（Domain Name System）。在 Internet 上域名与 IP 地址之间是一一对应的，域名虽然便于人们记忆，但机器之间只能互相认识 IP 地址，它们之间的转换工作称为域名解析，域名解析需要由专门的域名解析系统来完成，DNS 就是进行域名解析的系统。 DNS 协议运行在 UDP 协议之上，使用端口号 53。在传输层 TCP 提供端到端可靠的服务,在 UDP 端提">
+<meta name="twitter:image" content="http://xwolf191.github.io/2019/05/27/linux/dig使用/dig_20190527144531.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://xwolf191.github.io/2019/05/27/linux/dig使用/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>dig使用 | Xwolf</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e201c03696b77e30e2ed8c52937d5ccb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xwolf</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">IT编程学习</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwolf191.github.io/2019/05/27/linux/dig使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xwolf">
+      <meta itemprop="description" content="JAVAEE、大数据、人工智能学习">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xwolf">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">dig使用
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-27 11:30:00" itemprop="dateCreated datePublished" datetime="2019-05-27T11:30:00+08:00">2019-05-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-19 08:23:27" itemprop="dateModified" datetime="2020-07-19T08:23:27+08:00">2020-07-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/05/27/linux/dig使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/27/linux/dig使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">30k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">55 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>DNS 是指：域名系统（Domain Name System）。在 Internet 上域名与 IP 地址之间是一一对应的，域名虽然便于人们记忆，但机器之间只能互相认识 IP 地址，它们之间的转换工作称为域名解析，域名解析需要由专门的域名解析系统来完成，DNS 就是进行域名解析的系统。</p>
+<p>DNS 协议运行在 UDP 协议之上，使用端口号 53。在传输层 TCP 提供端到端可靠的服务,在 UDP 端提供尽力交付的服务。其控制端口作用于 UDP 端口 53。</p>
+<a id="more"></a>
+<h1 id="DNS-解析"><a href="#DNS-解析" class="headerlink" title="DNS 解析"></a>DNS 解析</h1><h2 id="DNS-记录"><a href="#DNS-记录" class="headerlink" title="DNS 记录"></a>DNS 记录</h2><p>Domain Name System 域名管理系统 域名是由圆点分开一串单词或缩写组成的，每一个域名都对应一个惟一的 IP 地址，这一命名的方法或这样管理域名的系统叫做域名管理系统。DNS：Domain Name Server 域名服务器 域名虽然便于人们记忆，但网络中的计算机之间只能互相认识 IP 地址，它们之间的转换工作称为域名解析，域名解析需要由专门的域名解析服务器来完成，DNS 就是进行域名解析的服务器。DNS 记录的类型有: A 记录、NS 记录、MX 记录、CNAME 记录、TXT 记录、TTL 值、PTR 值。</p>
+<blockquote>
+<ul>
+<li>A 记录</li>
+</ul>
+</blockquote>
+<p>A（Address）记录是用来指定主机名（或域名）对应的 IP 地址记录。用户可以将该域名下的网站服务器指向到自己的 web server 上。同时也可以设置域名的子域名。通俗来说 A 记录就是服务器的 IP,域名绑定 A 记录就是告诉 DNS,当你输入域名的时候给你引导向设置在 DNS 的 A 记录所对应的服务器。 简单的说，A 记录是指定域名对应的 IP 地址。</p>
+<blockquote>
+<ul>
+<li>NS 记录</li>
+</ul>
+</blockquote>
+<p>NS（Name Server）记录是域名服务器记录，用来指定该域名由哪个 DNS 服务器来进行解析。 注册域名时，总有默认的 DNS 服务器，每个注册的域名都是由一个 DNS 域名服务器来进行解析的，DNS 服务器 NS 记录地址一般以以下的形式出现： ns1.domain.com、ns2.domain.com 等。 简单的说，NS 记录是指定由哪个 DNS 服务器解析你的域名。</p>
+<blockquote>
+<ul>
+<li>MX 记录</li>
+</ul>
+</blockquote>
+<p>MX（Mail Exchanger）记录是邮件交换记录，它指向一个邮件服务器，用于电子邮件系统发邮件时根据收信人的地址后缀来定位邮件服务器。例如，当 Internet 上的某用户要发一封信给 user@mydomain.com 时，该用户的邮件系统通过 DNS 查找 mydomain.com 这个域名的 MX 记录，如果 MX 记录存在， 用户计算机就将邮件发送到 MX 记录所指定的邮件服务器上。</p>
+<blockquote>
+<ul>
+<li>CNAME 记录</li>
+</ul>
+</blockquote>
+<p>CNAME（Canonical Name ）别名记录，允许将多个名字映射到同一台计算机。通常用于同时提供 WWW 和 MAIL 服务的计算机。例如，有一台计算机名为 “host.mydomain.com”（A 记录），它同时提供 WWW 和 MAIL 服务，为了便于用户访问服务。可以为该计算机设置两个别名（CNAME）：WWW 和 MAIL， 这两个别名的全称就“www.mydomain.com”和“mail.mydomain.com”，实际上他们都指向 “host.mydomain.com”。</p>
+<blockquote>
+<ul>
+<li>TXT 记录</li>
+</ul>
+</blockquote>
+<p>一般指某个主机名或域名的说明，如：admin IN TXT “管理员, 电话：XXXXXXXXXXX”，mail IN TXT “邮件主机，存放在 xxx , 管理人：AAA”，Jim IN TXT “contact: abc@mailserver.com”，也就是您可以设置 TXT 内容以便使别人联系到您。 TXT 的应用之一，SPF（Sender Policy Framework）反垃圾邮件。SPF 是跟 DNS 相关的一项技术，它的内容写在 DNS 的 TXT 类型的记录里面。MX 记录的作用是给寄信者指明某个域名的邮件服务器有哪些。SPF 的作用跟 MX 相反，它向收信者表明，哪些邮件服务器是经过某个域名认可会发送邮件的。SPF 的作用主要是反垃圾邮件，主要针对那些发信人伪造域名的垃圾邮件。例如：当邮件服务器收到自称发件人是 spam@gmail.com 的邮件，那么到底它是不是真的 gmail.com 的邮件服务器发过来的呢，我们可以查询 gmail.com 的 SPF 记录，以此防止别人伪造你来发邮件。</p>
+<blockquote>
+<ul>
+<li>TTL 值</li>
+</ul>
+</blockquote>
+<p>TTL（Time-To-Live）原理：TTL 是 IP 协议包中的一个值，它告诉网络路由器包在网络中的时间是否太长而应被丢弃。有很多原因使包在一定时间内不能被传递到目的地。例如，不正确的路由表可能导致包的无限循环。一个解决方法就是在一段时间后丢弃这个包，然后给发送者一个报文，由发送者决定是否要重发。TTL 的初值通常是系统缺省值，是包头中的 8 位的域。TTL 的最初设想是确定一个时间范围，超过此时间就把包丢弃。由于每个路由器都至少要把 TTL 域减一，TTL 通常表示包在被丢弃前最多能经过的路由器个数。当记数到 0 时，路由器决定丢弃该包，并发送一个 ICMP 报文给最初的发送者。 简单的说，TTL 就是一条域名解析记录在 DNS 服务器中的存留时间。当各地的 DNS 服务器接受到解析请求时，就会向域名指定的 NS 服务器发出解析请求从而获得解析记录；在获得这个记录之后，记录会在 DNS 服务器中保存一段时间，这段时间内如果再接到这个域名的解析请求，DNS 服务器将不再向 NS 服务器发出请求，而是直接返回刚才获得的记录，而这个记录在 DNS 服务器上保留的时间，就是 TTL 值。 TTL 值设置的应用：一是增大 TTL 值，以节约域名解析时间，给网站访问加速。 一般情况下，域名的各种记录是极少更改的，很可能几个月、几年内都不会有什么变化。我们完全可以增大域名记录的 TTL 值让记录在各地 DNS 服务器中缓存的时间加长，这样在更长的一段时间内，我们访问这个网站时，本地 ISP 的 DNS 服务器就不需要向域名的 NS 服务器发出解析请求，而直接从缓存中返回域名解析记录。 二是减小 TTL 值，减少更换空间时的不可访问时间。 更换空间 99.9%会有 DNS 记录更改的问题，因为缓存的问题，新的域名记录在有的地方可能生效了，但在有的地方可能等上一两天甚至更久才生效。结果就是有的人可能访问到了新服务器，有的人访问到了旧服务器。仅仅是访问的话，这也不是什么大问题，但如果涉及到了邮件发送，这个就有点麻烦了，说不定哪封重要信件就被发送到了那已经停掉的旧服务器上。 为了尽可能的减小这个各地的解析时间差，合理的做法是： 第一步，先查看域名当前的 TTL 值，我们假定是 1 天。 第二步，修改 TTL 值为可设定的最小值，可能的话，建议为 1 分钟，就是 60。 第三步，等待一天，保证各地的 DNS 服务器缓存都过期并更新了记录。 第四步，设置修改新记录，这个时候各地的 DNS 就能以最快的速度更新到新的记录。 第五步，确认各地的 DNS 已经更新完成后，把 TTL 值设置成您想要的值。 一般操作系统的默认 TTL 值如下： TTL=32 Windows 9x/Me ，TTL=64 LINUX ，TTL=128 Windows 200x/XP， TTL=255 Unix</p>
+<blockquote>
+<ul>
+<li>PTR 值</li>
+</ul>
+</blockquote>
+<p>PTR 是 pointer 的简写，用于将一个 IP 地址映射到对应的域名，也可以看成是 A 记录的反向，IP 地址的反向解析。 PTR 主要用于邮件服务器，比如邮箱 AAA@XXX.com 给邮箱 BBB@yahoo.com 发了一封邮件，yahoo 邮件服务器接到邮件时会查看这封邮件的头文件，并分析是由哪个 IP 地址发出来的，然后根据这个 IP 地址进行反向解析，如果解析结果对应 XXX.com 的 IP 地址就接受这封邮件，反之则拒绝接收这封邮件。<br>泛域名与泛解析：泛域名是指在一个域名根下，以 XXX.Domain.com 的形式表示这个域名根所有未建立的子域名。 泛解析是把*.Domain.com 的 A 记录解析到某个 IP 地址上，通过访问任意的前缀.domain.com 都能访问到你解析的站点上。</p>
+<blockquote>
+<ul>
+<li>域名绑定</li>
+</ul>
+</blockquote>
+<p>域名绑定是指将域名指向服务器 IP 的操作。</p>
+<blockquote>
+<ul>
+<li>域名转向</li>
+</ul>
+</blockquote>
+<p>域名转向又称为域名指向或域名转发，当用户地址栏中输入您的域名时，将会自动跳转到所指定的另一个域名。一般是使用短的好记的域名转向复杂难记的域名。</p>
+<h2 id="记录的用法"><a href="#记录的用法" class="headerlink" title="记录的用法"></a>记录的用法</h2><p>主机记录就是域名前缀，常见用法有：</p>
+<blockquote>
+<ul>
+<li>www</li>
+</ul>
+</blockquote>
+<p>解析后的域名为 www.87677677.com</p>
+<blockquote>
+<ul>
+<li>@</li>
+</ul>
+</blockquote>
+<p>直接解析主域名 87677677.com</p>
+<blockquote>
+<hr>
+</blockquote>
+<p>**泛解析，匹配其他所有域名 <code>.87677677.com</code></p>
+<h1 id="Linux-DNS-解析-dig"><a href="#Linux-DNS-解析-dig" class="headerlink" title="Linux DNS 解析(dig)"></a>Linux DNS 解析(dig)</h1><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>centos 安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install <span class="built_in">bind</span>-utils</span><br></pre></td></tr></table></figure>
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@docker ~]<span class="comment"># dig</span></span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-73.el7_6 &lt;&lt;&gt;&gt;</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 9725</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 13, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;.                              IN      NS</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">.                       5747    IN      NS      d.root-servers.net.</span><br><span class="line">.                       5747    IN      NS      c.root-servers.net.</span><br><span class="line">.                       5747    IN      NS      b.root-servers.net.</span><br><span class="line">.                       5747    IN      NS      a.root-servers.net.</span><br><span class="line">.                       5747    IN      NS      m.root-servers.net.</span><br><span class="line">.                       5747    IN      NS      k.root-servers.net.</span><br><span class="line">.                       5747    IN      NS      f.root-servers.net.</span><br><span class="line">.                       5747    IN      NS      l.root-servers.net.</span><br><span class="line">.                       5747    IN      NS      j.root-servers.net.</span><br><span class="line">.                       5747    IN      NS      g.root-servers.net.</span><br><span class="line">.                       5747    IN      NS      i.root-servers.net.</span><br><span class="line">.                       5747    IN      NS      e.root-servers.net.</span><br><span class="line">.                       5747    IN      NS      h.root-servers.net.</span><br><span class="line"></span><br><span class="line">;; Query time: 40 msec</span><br><span class="line">;; SERVER: 8.8.8.8<span class="comment">#53(8.8.8.8)</span></span><br><span class="line">;; WHEN: 一 5月 27 22:37:23 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 239</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/27/linux/dig使用/dig_20190527144531.png" alt></p>
+<p>dig 命令默认的输出信息比较丰富,大概可以分为 5 个部分。</p>
+<blockquote>
+<ul>
+<li>第一部分显示 dig 命令的版本和输入的参数。</li>
+<li>第二部分显示服务返回的一些技术详情，比较重要的是 status。如果 status 的值为 NOERROR 则说明本次查询成功结束。</li>
+<li>第三部分中的 “QUESTION SECTION” 显示我们要查询的域名。</li>
+<li>第四部分的 “ANSWER SECTION” 是查询到的结果。</li>
+<li>第五部分则是本次查询的一些统计信息，比如用了多长时间，查询了哪个 DNS 服务器，在什么时间进行的查询等等。</li>
+</ul>
+</blockquote>
+<p>dig -h 帮助命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">[root@docker ~]<span class="comment"># dig -h</span></span><br><span class="line">Usage:  dig [@global-server] [domain] [q-type] [q-class] &#123;q-opt&#125;</span><br><span class="line">            &#123;global<span class="_">-d</span>-opt&#125; host [@<span class="built_in">local</span>-server] &#123;<span class="built_in">local</span><span class="_">-d</span>-opt&#125;</span><br><span class="line">            [ host [@<span class="built_in">local</span>-server] &#123;<span class="built_in">local</span><span class="_">-d</span>-opt&#125; [...]]</span><br><span class="line">Where:  domain    is <span class="keyword">in</span> the Domain Name System</span><br><span class="line">        q-class  is one of (<span class="keyword">in</span>,hs,ch,...) [default: <span class="keyword">in</span>]</span><br><span class="line">        q-type   is one of (a,any,mx,ns,soa,hinfo,axfr,txt,...) [default:a]</span><br><span class="line">                 (Use ixfr=version <span class="keyword">for</span> <span class="built_in">type</span> ixfr)</span><br><span class="line">        q-opt    is one of:</span><br><span class="line">                 -x dot-notation     (shortcut <span class="keyword">for</span> reverse lookups)</span><br><span class="line">                 -i                  (use IP6.INT <span class="keyword">for</span> IPv6 reverse lookups)</span><br><span class="line">                 -f filename         (batch mode)</span><br><span class="line">                 -b address[<span class="comment">#port]   (bind to source address/port)</span></span><br><span class="line">                 -p port             (specify port number)</span><br><span class="line">                 -q name             (specify query name)</span><br><span class="line">                 -t <span class="built_in">type</span>             (specify query <span class="built_in">type</span>)</span><br><span class="line">                 -c class            (specify query class)</span><br><span class="line">                 -k keyfile          (specify tsig key file)</span><br><span class="line">                 -y [hmac:]name:key  (specify named base64 tsig key)</span><br><span class="line">                 -4                  (use IPv4 query transport only)</span><br><span class="line">                 -6                  (use IPv6 query transport only)</span><br><span class="line">                 -m                  (<span class="built_in">enable</span> memory usage debugging)</span><br><span class="line">        d-opt    is of the form +keyword[=value], <span class="built_in">where</span> keyword is:</span><br><span class="line">                 +[no]vc             (TCP mode)</span><br><span class="line">                 +[no]tcp            (TCP mode, alternate syntax)</span><br><span class="line">                 +time=<span class="comment">###           (Set query timeout) [5]</span></span><br><span class="line">                 +tries=<span class="comment">###          (Set number of UDP attempts) [3]</span></span><br><span class="line">                 +retry=<span class="comment">###          (Set number of UDP retries) [2]</span></span><br><span class="line">                 +domain=<span class="comment">###         (Set default domainname)</span></span><br><span class="line">                 +bufsize=<span class="comment">###        (Set EDNS0 Max UDP packet size)</span></span><br><span class="line">                 +ndots=<span class="comment">###          (Set NDOTS value)</span></span><br><span class="line">                 +[no]edns[=<span class="comment">###]     (Set EDNS version) [0]</span></span><br><span class="line">                 +[no]search         (Set whether to use searchlist)</span><br><span class="line">                 +[no]showsearch     (Search with intermediate results)</span><br><span class="line">                 +[no]defname        (Ditto)</span><br><span class="line">                 +[no]recurse        (Recursive mode)</span><br><span class="line">                 +[no]ignore         (Don<span class="string">'t revert to TCP for TC responses.)</span></span><br><span class="line"><span class="string">                 +[no]fail           (Don'</span>t try next server on SERVFAIL)</span><br><span class="line">                 +[no]besteffort     (Try to parse even illegal messages)</span><br><span class="line">                 +[no]aaonly         (Set AA flag <span class="keyword">in</span> query (+[no]aaflag))</span><br><span class="line">                 +[no]adflag         (Set AD flag <span class="keyword">in</span> query)</span><br><span class="line">                 +[no]cdflag         (Set CD flag <span class="keyword">in</span> query)</span><br><span class="line">                 +[no]cl             (Control display of class <span class="keyword">in</span> records)</span><br><span class="line">                 +[no]cmd            (Control display of <span class="built_in">command</span> line)</span><br><span class="line">                 +[no]comments       (Control display of comment lines)</span><br><span class="line">                 +[no]rrcomments     (Control display of per-record comments)</span><br><span class="line">                 +[no]question       (Control display of question)</span><br><span class="line">                 +[no]answer         (Control display of answer)</span><br><span class="line">                 +[no]authority      (Control display of authority)</span><br><span class="line">                 +[no]additional     (Control display of additional)</span><br><span class="line">                 +[no]stats          (Control display of statistics)</span><br><span class="line">                 +[no]short          (Disable everything except short</span><br><span class="line">                                      form of answer)</span><br><span class="line">                 +[no]ttlid          (Control display of ttls <span class="keyword">in</span> records)</span><br><span class="line">                 +[no]all            (Set or clear all display flags)</span><br><span class="line">                 +[no]qr             (Print question before sending)</span><br><span class="line">                 +[no]nssearch       (Search all authoritative nameservers)</span><br><span class="line">                 +[no]identify       (ID responders <span class="keyword">in</span> short answers)</span><br><span class="line">                 +[no]trace          (Trace delegation down from root [+dnssec])</span><br><span class="line">                 +[no]dnssec         (Request DNSSEC records)</span><br><span class="line">                 +[no]nsid           (Request Name Server ID)</span><br><span class="line">                 +[no]sigchase       (Chase DNSSEC signatures)</span><br><span class="line">                 +trusted-key=<span class="comment">####   (Trusted Key when chasing DNSSEC sigs)</span></span><br><span class="line">                 +[no]topdown        (Do DNSSEC validation top down mode)</span><br><span class="line">                 +[no]split=<span class="comment">##       (Split hex/base64 fields into chunks)</span></span><br><span class="line">                 +[no]multiline      (Print records <span class="keyword">in</span> an expanded format)</span><br><span class="line">                 +[no]onesoa         (AXFR prints only one soa record)</span><br><span class="line">        global d-opts and servers (before host name) affect all queries.</span><br><span class="line">        <span class="built_in">local</span> d-opts and servers (after host name) affect only that lookup.</span><br><span class="line">        -h                           (<span class="built_in">print</span> <span class="built_in">help</span> and <span class="built_in">exit</span>)</span><br><span class="line">        -v                           (<span class="built_in">print</span> version and <span class="built_in">exit</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="dig-跟踪解析信息"><a href="#dig-跟踪解析信息" class="headerlink" title="dig 跟踪解析信息"></a>dig 跟踪解析信息</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@docker ~]<span class="comment"># dig www.baidu.com</span></span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-73.el7_6 &lt;&lt;&gt;&gt; www.baidu.com</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 49066</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;www.baidu.com.                 IN      A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">www.baidu.com.          559     IN      CNAME   www.a.shifen.com.</span><br><span class="line">www.a.shifen.com.       265     IN      A       220.181.38.150</span><br><span class="line">www.a.shifen.com.       265     IN      A       220.181.38.149</span><br><span class="line"></span><br><span class="line">;; Query time: 12 msec</span><br><span class="line">;; SERVER: 8.8.8.8<span class="comment">#53(8.8.8.8)</span></span><br><span class="line">;; WHEN: ? 5? 27 19:06:53 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 101</span><br></pre></td></tr></table></figure>
+<h4 id="4-查看域名对应的-IP-信息"><a href="#4-查看域名对应的-IP-信息" class="headerlink" title="-4 查看域名对应的 IP 信息"></a>-4 查看域名对应的 IP 信息</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@docker ~]<span class="comment"># dig -4 baidu.com</span></span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-73.el7_6 &lt;&lt;&gt;&gt; -4 baidu.com</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 63475</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;baidu.com.                     IN      A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">baidu.com.              69      IN      A       123.125.114.144</span><br><span class="line">baidu.com.              69      IN      A       220.181.57.216</span><br><span class="line"></span><br><span class="line">;; Query time: 17 msec</span><br><span class="line">;; SERVER: 8.8.8.8<span class="comment">#53(8.8.8.8)</span></span><br><span class="line">;; WHEN: 一 5月 27 23:13:13 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 70</span><br></pre></td></tr></table></figure>
+<h4 id="trace-跟踪整个解析过程"><a href="#trace-跟踪整个解析过程" class="headerlink" title="+trace 跟踪整个解析过程"></a>+trace 跟踪整个解析过程</h4><p>dig 非常著名的一个查询选项就是+trace，当使用这个查询选项后，dig 会从根域查询一直跟踪直到查询到最终结果，并将整个过程信息输出出来。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@docker ~]<span class="comment"># dig +trace  www.baidu.com</span></span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-73.el7_6 &lt;&lt;&gt;&gt; +trace www.baidu.com</span><br><span class="line">;; global options: +cmd</span><br><span class="line">.                       17828   IN      NS      m.root-servers.net.</span><br><span class="line">.                       17828   IN      NS      i.root-servers.net.</span><br><span class="line">.                       17828   IN      NS      k.root-servers.net.</span><br><span class="line">.                       17828   IN      NS      g.root-servers.net.</span><br><span class="line">.                       17828   IN      NS      l.root-servers.net.</span><br><span class="line">.                       17828   IN      NS      j.root-servers.net.</span><br><span class="line">.                       17828   IN      NS      a.root-servers.net.</span><br><span class="line">.                       17828   IN      NS      c.root-servers.net.</span><br><span class="line">.                       17828   IN      NS      b.root-servers.net.</span><br><span class="line">.                       17828   IN      NS      h.root-servers.net.</span><br><span class="line">.                       17828   IN      NS      d.root-servers.net.</span><br><span class="line">.                       17828   IN      NS      f.root-servers.net.</span><br><span class="line">.                       17828   IN      NS      e.root-servers.net.</span><br><span class="line">.                       84718   IN      RRSIG   NS 8 0 518400 20190608170000 20190526160000 25266 . puMtHfihNwO4XbPLjH4y0H1pRc7OTrzIYcXQksxj4n6XIotEV/nwmVoi K/8fuqubwtjF2lNLh/ppB/cZNFT7GWA3sZuAF4l1Gfpy5iI5+sxEE2O8 NdTCnj4GRW6/sOF/j3rWb6UmaoqHlqRTTGDyH+NAayUHc3DuOIp9tWzZ x2DVnZrSnioDFr4ypvuMC9knXosE5+FMuQKJBx53i+UB510x0B3iGOs7 h/hTnjgW4eKCvvPq657coHZo5ak9KO0fjOFZ+6qw+uNx2NfqvybnUm/7 bs1AiF0yOxUPYwolQSWEsr2xaGQTHqf4Hk8etO7BJoFnlw92CTOeZj0m HI8Jig==</span><br><span class="line">;; Received 525 bytes from 8.8.8.8<span class="comment">#53(8.8.8.8) in 6469 ms</span></span><br><span class="line"></span><br><span class="line">www.baidu.com.          3       IN      CNAME   www.a.shifen.com.</span><br><span class="line">www.a.shifen.com.       8       IN      A       220.181.38.150</span><br><span class="line">www.a.shifen.com.       8       IN      A       220.181.38.149</span><br><span class="line">;; Received 101 bytes from 192.33.4.12<span class="comment">#53(c.root-servers.net) in 7 ms</span></span><br></pre></td></tr></table></figure>
+<h4 id="x-根据-IP-反查域名"><a href="#x-根据-IP-反查域名" class="headerlink" title="-x 根据 IP 反查域名"></a>-x 根据 IP 反查域名</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@docker ~]<span class="comment"># dig -x 8.8.8.8</span></span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-73.el7_6 &lt;&lt;&gt;&gt; -x 8.8.8.8</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 37738</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;8.8.8.8.in-addr.arpa.          IN      PTR</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">8.8.8.8.in-addr.arpa.   8107    IN      PTR     google-public-dns-a.google.com.</span><br><span class="line"></span><br><span class="line">;; Query time: 32 msec</span><br><span class="line">;; SERVER: 8.8.8.8<span class="comment">#53(8.8.8.8)</span></span><br><span class="line">;; WHEN: 一 5月 27 23:08:36 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 93</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
+<ul>
+<li><a href="http://roclinux.cn/?p=2449" target="_blank" rel="noopener">《dig 挖出 DNS 的秘密》-linux 命令五分钟系列之三十四</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/25/数据结构和算法/leetcode/Kth Largest Element in a Stream/" rel="next" title="703. Kth Largest Element in a Stream">
+                <i class="fa fa-chevron-left"></i> 703. Kth Largest Element in a Stream
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/27/security/XSS测试代码大全/" rel="prev" title="XSS测试代码大全">
+                XSS测试代码大全 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xwolf</p>
+              <div class="site-description motion-element" itemprop="description">JAVAEE、大数据、人工智能学习</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">221</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/xwolf191" title="GitHub &rarr; https://github.com/xwolf191" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/snowxwolf@foxmail.com" title="E-Mail &rarr; snowxwolf@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS-解析"><span class="nav-number">1.</span> <span class="nav-text">DNS 解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS-记录"><span class="nav-number">1.1.</span> <span class="nav-text">DNS 记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记录的用法"><span class="nav-number">1.2.</span> <span class="nav-text">记录的用法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-DNS-解析-dig"><span class="nav-number">2.</span> <span class="nav-text">Linux DNS 解析(dig)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.0.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本命令"><span class="nav-number">2.0.2.</span> <span class="nav-text">基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dig-跟踪解析信息"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">dig 跟踪解析信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-查看域名对应的-IP-信息"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">-4 查看域名对应的 IP 信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#trace-跟踪整个解析过程"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">+trace 跟踪整个解析过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x-根据-IP-反查域名"><span class="nav-number">2.0.2.4.</span> <span class="nav-text">-x 根据 IP 反查域名</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xwolf</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">722k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">21:52</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'rqvt1pdlqsfcoMaUV34AtqwX-gzGzoHsz',
+    appKey: '9d3lSojiD6ccALSPy1sDeQYe',
+    placeholder: '^8^,不想说两句再走么?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('5');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

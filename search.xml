@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title></title>
+    <url>%2F2020%2F07%2F19%2F%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%2Fgitlab%E5%AE%89%E8%A3%85%2F</url>
+    <content type="text"><![CDATA[下载速度很慢 参考资料 gitlab 官网 gitlab 安装文档(centos7)]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[1. Two Sum]]></title>
+    <url>%2F2020%2F06%2F09%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%2Fleetcode%2FTwo%20Sum%2F</url>
+    <content type="text"><![CDATA[Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use the same element twice. Example 1234Given nums = [2, 7, 11, 15], target = 9,Because nums[0] + nums[1] = 2 + 7 = 9,return [0, 1]. 实现暴力枚举暴力枚举是循环找出所有元素中符合条件的元素。123456789101112131415161718/** * 暴力枚举. * * @param nums * @param target * @return */ public int[] twoSum(int[] nums, int target) &#123; var length = nums.length; for (var i = 0; i &lt; length - 1; i++) &#123; for (var j = i + 1; j &lt; length; j++) &#123; if (nums[i] + nums[j] == target) &#123; return new int[]&#123;i, j&#125;; &#125; &#125; &#125; return new int[]&#123;-1, -1&#125;; &#125; 字典暂存实现利用字典将目标值保存，最后从字典中取值即可。12345678910111213141516public static int[] twoSumByDict(int[] nums, int target) &#123; var arr = new int[]&#123;-1, -1&#125;; if (nums == null || nums.length == 0) &#123; return arr; &#125; var map = new HashMap&lt;Integer, Integer&gt;(); for (var i = 0; i &lt; nums.length; i++) &#123; if (map.containsKey(target - nums[i])) &#123; arr[0] = i; arr[1] = map.get(target - nums[i]); return arr; &#125; map.put(nums[i], i); &#125; return arr; &#125; 双指针实现双指针需要先排序数组,指针来指向首尾元素,根据首尾元素之和与目标和的大小关系来移动指针。123456789101112131415161718192021222324252627282930313233/** * 双指针实现. * * @param nums * @param target * @return */ public static int[] twoSumByDoublePointer(int[] nums, int target) &#123; var newNums = Arrays.copyOf(nums, nums.length); Arrays.sort(newNums); var left = 0; var right = newNums.length - 1; var result = new int[]&#123;&#125;; while (left &lt; right) &#123; var sum = newNums[left] + newNums[right]; if (sum == target) &#123; result = new int[]&#123;left, right&#125;; break; &#125; if (sum &gt; target) &#123; right--; &#125; if (sum &lt; target) &#123; left++; &#125; &#125; var list = new ArrayList&lt;Integer&gt;(); for (int num : nums) &#123; list.add(num); &#125; return new int[]&#123;list.indexOf(newNums[result[0]]), list.lastIndexOf(newNums[result[1]])&#125;; &#125; 参考 Two Sum]]></content>
+      <categories>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>arrays</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[numpy基础使用]]></title>
+    <url>%2F2019%2F09%2F04%2Fpython%2Fnumpy%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[NumPy(Numerical Python) 是 Python 语言的一个扩展程序库，支持大量的维度数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。 NumPy 的前身 Numeric 最早是由 Jim Hugunin 与其它协作者共同开发，2005 年，Travis Oliphant 在 Numeric 中结合了另一个同性质的程序库 Numarray 的特色，并加入了其它扩展而开发了 NumPy。NumPy 为开放源代码并且由许多协作者共同维护开发。 NumPy 是一个运行速度非常快的数学库，主要用于数组计算，包含： 一个强大的 N 维数组对象 ndarray 广播功能函数 整合 C/C++/Fortran 代码的工具 线性代数、傅里叶变换、随机数生成等功能 三角函数numpy 支持各种不同的三角函数,例子中列举部分三角函数. 123456789101112131415161718192021222324252627import numpy as np def trigonometricFunction(self): """ 三角函数,sin cos tan arcsin arccos arctan :return: """ # 角度转化为弧度 angle = 30 / 180 * np.pi # 正弦 print("sin30°=", np.sin(angle)) # 余弦 print("cos30°=", np.cos(angle)) # 正切 print("tan30°=", np.tan(angle)) # 没有提供余切,可用正切的倒数来计算 print("cot30°= 1/tan30°=", 1 / np.tan(angle)) # 反正弦 print("arcsin30°=", np.arcsin(angle)) # 反余弦 print("arccos30°=", np.arccos(angle)) # 反正切 print("arctan30°=", np.arctan(angle)) # 反双曲正弦 print("arcsinh30°=", np.arcsinh(angle)) 输出结果: 12345678sin30°= 0.49999999999999994cos30°= 0.8660254037844387tan30°= 0.5773502691896257cot30°= 1/tan30°= 1.7320508075688774arcsin30°= 0.5510695830994463arccos30°= 1.0197267436954502arctan30°= 0.48234790710102493arcsinh30°= 0.5022189850346115/ 基础的几个三角函数至此已大概列出. N 维数组(ndarray)N 维数组对象是 numpy 的核心,NumPy 最重要的一个特点是其 N 维数组对象 ndarray，它是一系列同类型数据的集合，以 0 下标为开始进行集合中元素的索引。 ndarray 对象是用于存放同类型元素的多维数组。 ndarray 中的每个元素在内存中都有相同存储大小的区域。 ndarray 内部由以下内容组成： 一个指向数据（内存或内存映射文件中的一块数据）的指针。 数据类型或 dtype，描述在数组中的固定大小值的格子。 一个表示数组形状（shape）的元组，表示各维度大小的元组。 一个跨度元组（stride），其中的整数指的是为了前进到当前维度下一个元素需要”跨过”的字节数。 创建narray 对象的构建方式有这么几种: array(p_object, dtype=None, copy=True, order=’K’, subok=False, ndmin=0) p_object:普通 array 对象;dtype 指定元素类型;copy 对象是否需要复制;order 创建数组的样式，C 为行方向，F 为列方向，A 为任意方向;subok 默认返回一个与基类类型一致的数组;ndmin 指定生成数组的最小维度. arange(start=None, stop=None, step=None, dtype=None) start 指定开始元素;stop 指定结束元素;step 指定步长;dtype 指定元素类型 zeros(shape, dtype=None, order=’C’) 指定元素全部为 0 的对象,shape 指定数组形状;dtype 指定元素类型;order ‘C’ 用于 C 的行数组，或者 ‘F’ 用于 FORTRAN 的列数组。 empty(shape, dtype=None, order=’C’) 指定元素全部为未初始化预设值的对象,order 有”C”和”F”两个选项,分别代表，行优先和列优先，在计算机内存中的存储元素的顺序。其余参数和 zeros 一样. ones(shape, dtype=None, order=’C’) 创建指定形状的数组，数组元素以 1 来填充.order: ‘C’ 用于 C 的行数组，或者 ‘F’ 用于 FORTRAN 的列数组. eye(N, M=None, k=0, dtype=float, order=’C’) 创建对角线为 1,其他为 0 的数组. N:行数，M 列数. identity(n, dtype=None) 创建对角线为 1,其他为 0 的 n 阶方阵. 123456789101112131415161718192021222324252627282930import numpy as np def narray(self): """ 多维数组创建 :return: """ # 普通数组转化为ndarray对象 ary = [1, 4, 65, 1] aAry = np.array(ary) print("根据普通数据创建ndarray对象", aAry) # 创建全是0的多维数组 zeroAry = np.zeros((2, 5)) print("创建元素全是0的多维数组", zeroAry) # 创建空元素数组,默认会是比较奇怪的预设元素 emptyAry = np.empty((4,)) print("创建元素全是未初始化预设元素的多维数组", emptyAry) # 通过arange生成有序数组 bAry = np.arange(10, dtype='float') print("arange生成数组对象", bAry) # 通过arange生成有序数组 cAry = np.arange(start=2, stop=50, step=3, dtype='float') print("arange生成数组对象", cAry) # 元素都为1的数组 one = np.ones((1, 3)) print("元素为1的数组", one) # 对角线为1,其他均为0 c = np.eye(4, 4) print("指定对角线为1的数组", c) 输出信息为: 1234567891011根据普通数据创建ndarray对象 [ 1 4 65 1]创建元素全是0的多维数组 [[0. 0. 0. 0. 0.] [0. 0. 0. 0. 0.]]创建元素全是未初始化预设元素的多维数组 [1.78018403e-306 1.69120281e-306 7.56599807e-307 8.90104239e-307]arange生成数组对象 [0. 1. 2. 3. 4. 5. 6. 7. 8. 9.]arange生成数组对象 [ 2. 5. 8. 11. 14. 17. 20. 23. 26. 29. 32. 35. 38. 41. 44. 47.]元素为1的数组 [[1. 1. 1.]]指定对角线为1的数组 [[1. 0. 0. 0.] [0. 1. 0. 0.] [0. 0. 1. 0.] [0. 0. 0. 1.]] 基本的创建操作完成. 属性和方法numpy 中的二维数组的元素索引方式图: 线性代数矩阵和行列式相关计算. 12 参考资料 Numpy 官网]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[java导出word]]></title>
+    <url>%2F2019%2F09%2F02%2Fjava%2Fjava%E5%AF%BC%E5%87%BAword%2F</url>
+    <content type="text"><![CDATA[在企业级应用中经常会有导出 word 或者 excel 的需求。通常的方法有直接用 POI 构造 word 或 excel 输出,还有一种是提前设计好模板只需填充数据即可。本文以最后一种方式来说明。 准备模板新建 excel 模板: 另存为 xml 后的内容为: 注意要填充的目标字段属性不能被空格或其他字符破坏，否则数据填充失败. 填充数据此处以简单的对象填充入手. 1234567891011121314151617public void exportExcel() throws Exception&#123; Map&lt;String, Object&gt; map = Maps.newHashMap(); map.put("month", "201908"); map.put("name", "斯马拉森"); map.put("empNo", "TN2018323223"); map.put("baseSalary", "4000"); map.put("salary", "50000"); Configuration configuration = new Configuration(); configuration.setDefaultEncoding("UTF-8"); // 指定模板路径为/ configuration.setClassForTemplateLoading(ExportExcelTest.class.getClass(),"/"); Template template = configuration.getTemplate("salary.xml"); // 指定输出目录 Writer writer = new FileWriter(new File("c:/abc.xls")); template.process(map,writer); &#125; 注意基础路径的设置,否则会抛出找不到模板文件的异常 freemarker.template.TemplateNotFoundException。执行完成后即可看到目标文件已经生成,数据也填充成功. list 填充简单对象填充后,一般都是 List 数据类型的导出.修改 excel 对应的 xml 模板,加上 freemarker 的 List 标签。 123456789101112131415161718192021222324252627282930&lt;#list itemList as item &gt;&lt;Row ss:AutoFitHeight="0" ss:Height="55.5" ss:StyleID="s62"&gt; &lt;Cell ss:StyleID="s72"&gt; &lt;Data ss:Type="String"&gt;$&#123;item.month&#125;&lt;/Data&gt; &lt;/Cell&gt; &lt;Cell ss:StyleID="s72"&gt; &lt;Data ss:Type="String"&gt;$&#123;item.name&#125;&lt;/Data&gt; &lt;/Cell&gt; &lt;Cell ss:StyleID="s72"&gt; &lt;Data ss:Type="String"&gt;$&#123;item.empNo&#125;&lt;/Data&gt; &lt;/Cell&gt; &lt;Cell ss:StyleID="s72"&gt; &lt;Data ss:Type="String"&gt;$&#123;item.baseSalary&#125;&lt;/Data&gt; &lt;/Cell&gt; &lt;Cell ss:StyleID="s72"/&gt; &lt;Cell ss:StyleID="s72"/&gt; &lt;Cell ss:StyleID="s72"/&gt; &lt;Cell ss:StyleID="s72"/&gt; &lt;Cell ss:StyleID="s72"/&gt; &lt;Cell ss:StyleID="s72"/&gt; &lt;Cell ss:StyleID="s72"/&gt; &lt;Cell ss:StyleID="s72"/&gt; &lt;Cell ss:StyleID="s72"/&gt; &lt;Cell ss:StyleID="s72"/&gt; &lt;Cell ss:StyleID="s72"/&gt; &lt;Cell ss:StyleID="s72"&gt; &lt;Data ss:Type="String"&gt;$&#123;item.salary&#125;&lt;/Data&gt; &lt;/Cell&gt; &lt;/Row&gt; &lt;/#list&gt; 修改导出程序如下: 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283public class ExportExcelTest &#123; class Item&#123; private String month; private String name; private String empNo; private String baseSalary; private String salary; public String getMonth() &#123; return month; &#125; public void setMonth(String month) &#123; this.month = month; &#125; public String getName() &#123; return name; &#125; public void setName(String name) &#123; this.name = name; &#125; public String getEmpNo() &#123; return empNo; &#125; public void setEmpNo(String empNo) &#123; this.empNo = empNo; &#125; public String getBaseSalary() &#123; return baseSalary; &#125; public void setBaseSalary(String baseSalary) &#123; this.baseSalary = baseSalary; &#125; public String getSalary() &#123; return salary; &#125; public void setSalary(String salary) &#123; this.salary = salary; &#125; &#125; /** * List导出 **/ @Test public void exportListExcel() throws Exception&#123; Item item = new Item(); item.setMonth("201908"); item.setEmpNo("SA322W"); item.setName("王司机"); item.setBaseSalary("4000"); item.setSalary("50040"); Item item1 = new Item(); item1.setMonth("201908"); item1.setEmpNo("SA322W"); item1.setName("王司机"); item1.setBaseSalary("4000"); item1.setSalary("50040"); List&lt;Item&gt; items = Lists.newArrayList(item,item1); Map&lt;String,Object&gt; data = Maps.newHashMap(); data.put("itemList",items); Configuration configuration = new Configuration(); configuration.setDefaultEncoding("UTF-8"); configuration.setClassForTemplateLoading(ExportExcelTest.class.getClass(),"/"); Template template = configuration.getTemplate("salary1.xml"); Writer writer = new FileWriter(new File("c:/abc.xls")); template.process(data,writer); &#125;&#125; 数据列表导出的时候一直报空,但是确实有数据.有点奇怪,终于在 stackoverflow 中找到了答案,封装的实体对象必须是 public 的。 所以一定要将上边的 Item 对象声明为 public。 至此，excel 的导出模板完成,word 也是一样的道理. 参考资料 the-following-has-evaluated-to-null-or-missing-when-executing-freemarker(stackoverflow) Create a data-model(Freemarker Official)]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[用户线程和守护线程]]></title>
+    <url>%2F2019%2F08%2F30%2Fjava%2F%E7%94%A8%E6%88%B7%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%AE%88%E6%8A%A4%E7%BA%BF%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[Java 提供了两种类型的线程：守护线程 和 用户线程。 用户线程是高优先级线程。JVM 在终止之前会等待所有用户线程完成其任务。 守护线程是低优先级线程。其唯一作用是为用户线程提供服务。 所有非守护线程执行完成后会退出 JVM,不管守护线程是否执行完成,所以在守护线程中不要做一些 IO 操作,可能会出现资源无法正常关闭等问题。 守护线程的创建通过 setDaemon(true)方法将线程设置为守护线程,并且必须在 start()方法之前设置否则会抛出 IllegalThreadStateException。通过 isDaemon()方法判断当前线程是否是守护线程，返回 true 表示当前线程为守护线程。 12345678910111213141516171819202122232425262728293031/** * 所有非守护线程执行完成后会退出JVM,不管守护线程是否执行完成. * * @author xwolf */public class DaemonThread &#123; /** * 设置为守护线程. */ public void daemon() &#123; Thread thread = new Thread(() -&gt; &#123; try &#123; TimeUnit.DAYS.sleep(Long.MAX_VALUE); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125; &#125;, "Daemon-Thread"); thread.setDaemon(true); thread.start(); System.out.println("守护线程启动," + thread.getName()); &#125; public static void main(String[] args) throws InterruptedException &#123; DaemonThread daemonThread = new DaemonThread(); daemonThread.daemon(); TimeUnit.SECONDS.sleep(5); System.out.println("main线程完成退出."); &#125;&#125; 可见主线程执行 5s 后 JVM 退出,此时虽然还是有 Daemon 线程运行. 再看另一种类型的主线程退出,但是仍有用户线程执行的情况. 1234567891011121314151617181920212223242526272829303132333435import java.util.concurrent.TimeUnit;/** * 所有非守护线程执行完成后会退出JVM,不管守护线程是否执行完成. * * @author xwolf */public class DaemonThread &#123; /** * 设置为非守护线程. */ public void noneDaemon() &#123; Thread thread = new Thread(() -&gt; &#123; try &#123; TimeUnit.DAYS.sleep(Long.MAX_VALUE); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125; &#125;, "NoneDaemon-Thread"); // 设置为非守护线程 thread.setDaemon(false); thread.start(); System.out.println("非守护线程启动," + thread.getName()); &#125; public static void main(String[] args) throws InterruptedException &#123; DaemonThread daemonThread = new DaemonThread(); daemonThread.noneDaemon(); TimeUnit.SECONDS.sleep(5); System.out.println("main线程完成退出."); &#125;&#125; 虽然主线程退出了,但是此时仍有用户线程执行 JVM 不会退出。 至此,大概的用户线程和守护线程的区别已介绍完了。]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux自定义服务启动脚本]]></title>
+    <url>%2F2019%2F08%2F13%2Flinux%2Flinux%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC%2F</url>
+    <content type="text"><![CDATA[如题,启动 java 程序的时候启停服务比较麻烦,自定义 shell 脚本来完成此项任务. shell 的语法脚本看着比较怪. shift 用法shift 参数操作，是将参数从左到右逐个移动。 比如：现在有$1, $2, $3, $4, $5, ….几个参数shift操作后，$1 被处理过之后，$2变为$1, $3变为$2, $4变为$3, $5变为$4, … 就这样依次变动shift 操作后，参数还是按照上面的一个规律进行变化。 123456#!/bin/bashwhile [ $# -ne 0 ]do echo "第一个参数为: $1 参数个数为: $#" shiftdone 输出结果: 1234567[root@aa test]# ./shift.sh a b c d e f第一个参数为: a 参数个数为: 6第一个参数为: b 参数个数为: 5第一个参数为: c 参数个数为: 4第一个参数为: d 参数个数为: 3第一个参数为: e 参数个数为: 2第一个参数为: f 参数个数为: 1 启动脚本123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960#!/bin/bash# 获取第一个启动参数case $1 instart)# 堆内存设置MIN_HEAP_SIZE='-Xms128m'MAX_HEAP_SIZE='-Xmx512m'DATE="`date '+%Y%m%d%H%M'`"# log dirLOG_DIR="/app/logs/life-$DATE.log"echo $LOG_DIR# app nameAPP="life-0.0.1-SNAPSHOT.jar"# start appnohup java -jar $MIN_HEAD_SIZE $MAX_HEAP_SIZE $APP &gt;$LOG_DIR &amp;;;## 停止服务stop)## 服务名称SERVICE="life-"## 服务PID(排除grep本身进程)PID=$(ps -ef | grep $SERVICE | grep -v "grep" | awk '&#123;print $2&#125;')# 判断PID是否存在if [[ ! -z "$PID" ]] then echo "The PID is $PID,will be killed." kill -9 $PIDelse echo "There's no service to stop."fi;;## 重启服务restart) shift # 先停止服务 "$0" stop $&#123;@&#125; sleep 3 # 启动服务 "$0" start $&#123;@&#125; ;;## 输入其他信息返回提示信息*) echo "Usage: $0 &#123;start|stop|restart&#125;" ;;esac 简单的服务脚本已 ok。]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[414 Request-URI Too Large]]></title>
+    <url>%2F2019%2F08%2F08%2Flinux%2F414%20Request-URI%20Too%20Large%2F</url>
+    <content type="text"><![CDATA[发布文章时,访问服务器nginx错误信息:123456789101112&lt;html&gt;&lt;head&gt; &lt;title&gt;414 Request-URI Too Large&lt;/title&gt;&lt;/head&gt;&lt;body bgcolor="white"&gt; &lt;center&gt; &lt;h1&gt;414 Request-URI Too Large&lt;/h1&gt; &lt;/center&gt; &lt;hr&gt; &lt;center&gt;openresty/1.13.6.2&lt;/center&gt;&lt;/body&gt;&lt;/html&gt; 文章内容数据量比较大,修改nginx的缓存区大小 12client_header_buffer_size 1m;large_client_header_buffers 4 1m; 重启nginx即可.]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[小程序设置全局分享]]></title>
+    <url>%2F2019%2F08%2F04%2F%E5%89%8D%E7%AB%AF%2F%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E5%88%86%E4%BA%AB%2F</url>
+    <content type="text"><![CDATA[如题在app.js中配置即可，设置全局分享页面 123456789101112131415161718!function () &#123; var PageTmp = Page; Page = function (pageConfig) &#123; // 设置全局默认分享 pageConfig = Object.assign(&#123; onShareAppMessage: function () &#123; return &#123; title: '点滴', imageUrl: '/images/share.jpg', path: '/pages/home/home/index' &#125;; &#125; &#125;, pageConfig); PageTmp(pageConfig); &#125;;&#125;();]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>小程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[小程序tab不显示]]></title>
+    <url>%2F2019%2F08%2F04%2F%E5%89%8D%E7%AB%AF%2F%E5%B0%8F%E7%A8%8B%E5%BA%8Ftab%E4%B8%8D%E6%98%BE%E7%A4%BA%2F</url>
+    <content type="text"><![CDATA[配置好tabBar后页面不显示菜单. 必须要保证pages和tabbar顺序一致: 12345678910111213141516171819202122232425262728293031323334353637&#123; "pages": [ "pages/index/index", "pages/home/home/index", "pages/account/home/index", "pages/statistic/home/index", "pages/center/home/index" ], "tabBar": &#123; "list": [&#123; "pagePath": "pages/home/home/index", "text": "首页", "iconPath": "/static/images/bar/home.png", "selectedIconPath": "/static/images/bar/home-active.png" &#125;, &#123; "pagePath": "pages/account/home/index", "text": "记账", "iconPath": "/static/images/bar/account.png", "selectedIconPath": "/static/images/bar/account-active.png" &#125;, &#123; "pagePath": "pages/statistic/home/index", "text": "统计", "iconPath": "/static/images/bar/statistics.png", "selectedIconPath": "/static/images/bar/statistics-active.png" &#125;, &#123; "pagePath": "pages/center/home/index", "text": "个人中心", "iconPath": "/static/images/bar/user.png", "selectedIconPath": "/static/images/bar/user-active.png" &#125;] &#125;&#125; 这样就可以显示菜单了,pages中第一个页面为启动页，可自行配置。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>小程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[nginx配置https]]></title>
+    <url>%2F2019%2F08%2F02%2Flinux%2Fnginx%E9%85%8D%E7%BD%AEhttps%2F</url>
+    <content type="text"><![CDATA[https 配置首先需要去购买 ssl 证书.我是从西部数据购买的证书。当然阿里云、腾讯、百度、华为都有免费的 SSL 证书。 购买证书购买后下载 SSL 证书即可 将证书上传至服务器. 配置 nginx直接配置 nginx 的 ssl 证书路径即可. 1234567891011121314151617181920212223242526272829# HTTPS server server &#123; listen 443 ssl; server_name www.example.com; ssl_certificate /var/ssl/example.com.crt; ssl_certificate_key /var/ssl/example.com.key; ssl_session_cache shared:SSL:1m; ssl_session_timeout 5m; ssl_ciphers HIGH:!aNULL:!MD5; ssl_prefer_server_ciphers on; location / &#123; root html; index index.html index.htm; &#125; location /life/api/v1/ &#123; proxy_pass http://127.0.0.1:9090/api/v1/; proxy_redirect off; proxy_set_header Host $http_host; proxy_set_header X-Real-IP $remote_addr; proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; proxy_set_header Cookie $http_cookie; &#125; &#125; nginx 配置的话也比较简单。]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[nginx默认首页配置]]></title>
+    <url>%2F2019%2F07%2F27%2Flinux%2Fnginx%E9%BB%98%E8%AE%A4%E9%A6%96%E9%A1%B5%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[http节点下配置index,指定具体的路径即可. 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364worker_processes 1;error_log /logs/openresty/error.log;events &#123; worker_connections 1024;&#125;http &#123; include mime.types; default_type application/octet-stream; log_format main &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos; &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos; &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;; access_log /logs/openresty/access.log; sendfile on; #tcp_nopush on; #keepalive_timeout 0; keepalive_timeout 65; # 指定默认配置首页路径 index index.html; #gzip on; server &#123; listen 80; server_name localhost 39.104.70.154; charset utf8; #access_log logs/host.access.log main; location /api/&#123; proxy_pass http://127.0.0.1:8080; index index.html index.htm; &#125; location / &#123; root html; index index.html; &#125; location /hello &#123; default_type text/html; content_by_lua &apos;ngx.say(&quot;Hello Nginx&quot;)&apos;; &#125; error_page 404 /404.html; # redirect server error pages to the static page /50x.html # error_page 500 502 503 504 /50x.html; location = /50x.html &#123; root html; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Token校验失败,请检查确认]]></title>
+    <url>%2F2019%2F07%2F25%2F%E5%89%8D%E7%AB%AF%2FToken%E6%A0%A1%E9%AA%8C%E5%A4%B1%E8%B4%A5%E8%AF%B7%E6%A3%80%E6%9F%A5%E7%A1%AE%E8%AE%A4%2F</url>
+    <content type="text"><![CDATA[小程序开启消息推送的时候需要做签名验证,但是总是提示失败。 确认签名规则检查签名字符串的拼接规则,开发者通过检验 signature 对请求进行校验（下面有校验方式）。若确认此次 GET 请求来自微信服务器，请原样返回 echostr 参数内容，则接入生效，成为开发者成功，否则接入失败。加密/校验流程如下： 将 token、timestamp、nonce 三个参数进行字典序排序 将三个参数字符串拼接成一个字符串进行 sha1 加密 开发者获得加密后的字符串可与 signature 对比，标识该请求来源于微信 先将值放入数组中,再字典排序后拼接为一个字符串最后 SHA-1 加密得到签名。 实现方法12345678910111213141516171819@GetMapping("sign") public void sign( @RequestParam("signature") String signature, @RequestParam("timestamp") String timestamp, @RequestParam("nonce") String nonce, @RequestParam("echostr") String echostr, HttpServletResponse response) &#123; log.info("timestamp=&#123;&#125;,nonce=&#123;&#125;,echostr=&#123;&#125;,signature=&#123;&#125;", timestamp, nonce, echostr, signature); String token = "U2FsdGVkX1CuUzHYj7SALkzMSP1Kj913"; String[] signAry = &#123;timestamp, nonce, token&#125;; String sign = SignUtil.sign(signAry); log.info("sign=&#123;&#125;", sign); if(Objects.equals(sign, signature)) &#123; try &#123; response.getWriter().write(echostr); &#125; catch (IOException e) &#123; e.printStackTrace(); &#125; &#125; &#125; 签名方法1234567891011121314151617public class SignUtil &#123; /** * 将数组排序后SHA1签名. * * @param strAry 待签名数组 */ public static String sign(String[] strAry) &#123; if(strAry == null || strAry.length == 0) &#123; return null; &#125; Arrays.sort(strAry); String signStr = String.join("", strAry); return SHA1Util.encrypt(signStr); &#125;&#125; SHA-1 加密12345678910111213141516171819202122232425262728293031323334353637383940public class SHA1Util &#123; private static final char[] HEX_DIGITS = &#123;'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'&#125;; /** * Takes the raw bytes from the digest and formats them correct. * * @param bytes the raw bytes from the digest. * @return the formatted bytes. */ private static String getFormattedText(byte[] bytes) &#123; int len = bytes.length; StringBuilder buf = new StringBuilder(len * 2); // 把密文转换成十六进制的字符串形式 for(int j = 0; j &lt; len; j++) &#123; buf.append(HEX_DIGITS[( bytes[j] &gt;&gt; 4 ) &amp; 0x0f]); buf.append(HEX_DIGITS[bytes[j] &amp; 0x0f]); &#125; return buf.toString(); &#125; /** * 加密. * * @param str 待加密字符串 */ public static String encrypt(String str) &#123; if(str == null) &#123; return null; &#125; try &#123; MessageDigest messageDigest = MessageDigest.getInstance("SHA1"); messageDigest.update(str.getBytes()); return getFormattedText(messageDigest.digest()); &#125; catch (Exception e) &#123; throw new RuntimeException(e); &#125; &#125;&#125; 返回值类型最后如果验签通过,返回 echostr.一定返回地是普通的文本内容,非字符串。否则也会配置失败。 参考资料 微信消息推送文档]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>小程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[渗透测试之信息收集]]></title>
+    <url>%2F2019%2F07%2F16%2Fsecurity%2F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%2F</url>
+    <content type="text"><![CDATA[渗透测试主要的一点就是获取服务器的各种信息.本节主要是一些基础的服务器信息收集的工具和常识. 域名信息主要通过 whois 查看域名的拥有者等信息.Whois 简单来说，就是一个用来查询域名是否已经被注册，以及注册域名的详细信息的数据库（如域名所有人、域名注册商、域名注册日期和过期日期等）。通过域名 Whois 服务器查询，可以查询域名归属者联系方式，以及注册和到期时间,可以用 whois.chinaz.com 访问或者 linux 上已经集成了该命令. 获取真实 IP验证是否存在 CDN使用各种多地 ping 的服务，查看对应 IP 地址是否唯一，如果不唯一多半是使用了 CDN,多地 Ping 网站有： 站长工具 &gt; Ping 检测 网站 Ping 检测—检测网站在各地的 Ping 值—卡卡网 Ping 查询_专业的 IP 地址库_IPIP.NET PING 检测-爱站网 以其中一个工具检测 dns 信息: linux 下可以用 nslookup 查看 dns 信息. 绕过 CDN 查找网站真实 IP查看 IP 与 域名绑定的历史记录，可能会存在使用 CDN 前的记录，相关查询网站有： DNSDB 微步在线 viewdns netcraft 用其中一个来查看的部分信息: 搜索引擎掌握搜索引擎的常用用法可以检索一些特定的信息,包括 url,正文,title 等特定位置的特定信息. google 搜索引擎语法12345678910111213141516inurl: 在url地址栏中显示的信息页面intext: 显示在正文信息中的内容页面site: 限制显示你某个域名的所有页面filetype: 搜索文件的后缀或者扩展名intitle: 限制你搜索的网页标题页面link: 将显示有到指定网页的链接的网页cache:将显示在Google cache中的网页allintitle: 搜索所有关键字构成标题的网页.（allintite:关键字或者url地址） 操作符123456 + 把google可能忽略的字列如查询范围 - 把某个字忽略~ 同意词. 单一的通配符* 通配符，可代表多个字母&quot;&quot; 精确查询 服务端口信息通过 nmap,windows 下的图形化工具 zenmap 来检测服务的开放端口来猜测服务的类型,从而展开对应的安全测试、攻击.下面列举了部分应用的默认端口号. 常见网络协议端口 端口 服务类型 20,21 FTP 22 SSH 23 Telnet 53 DNS 67/68 DHCP 443 https 1080 SOCKS 代理协议服务器常用端口 69 TFTP 邮件服务 端口 服务类型 25 SMTP 110 POP3 143 IMAP WEB 服务器类 端口 服务类型 80 Apache,Nginx 8080 Tomcat,Jboss,jetty,glassfish 等 servlet 容器的默认端口 4848 glassfish 控制台端口 7001/7002 weblogic 控制台 9090 webshpere 控制台 9090 webshpere 控制台 1352 Lotus domino 邮件服务 10000 webmin-web 控制台 数据库类 端口 服务类型 3306 MySQL 1521 Oracle 5432 postgreSQL 2100 Oracle XDB FTP 服务 1433 MSSQL SERVER 数据库 server 1434 MSSQL SERVER 数据库 monitor 5000 Sysbase DB2 6379 redis 11211 memcache 27017 mongod 和 mongos 实例的默认端口。你可以通过 port 或 —port 改变该端口。 27018 mongodb 设置 —shardsvr 运行变量或在配置文件里设置 clusterRole 为 shardsvr 时的默认端口。 27019 mongodb 设置 —configsvr 运行变量或在配置文件中将 clusterRole 设置为 configsvr 时的默认端口。 28017 mongodb 系统状态网页的默认端口。系统状态网络页面永远可以在比 port 大 1000 的端口反问。 其他服务 端口 服务类型 2181 zookeeper 5671 rabbitMQ 3128 squid 代理服务器 8069 zabbix 7077 spark 9200/9300 Elasticearch 3690 SVN 512/513/514 Linux Rexec 服务 873 Rsync 服务 50000 SAP management console 检测服务目录渗透测试中，扫描服务器的敏感目录或文件是主要的环节,从中可以获取文件的后台控制页面、敏感秘钥文件目录、甚至获取到网站的源代码.比较常用的工 具有御剑后台扫描,DirBuster,wwwscan 等工具来扫描服务器的目录信息。 wwwscan 扫描的结果,发现的目录会直接显示出来. 子域名检测到这几个网站上即可在线检测域名对应的子域名信息 https://phpinfo.me/domain/站长工具 &gt; 子域名查询 参考资料 红帽企业 Linux 中的服务、守护进程、和程序所使用的最常见的通信端口 上海交通大学网络信息中心网络紧急响应组 渗透测试研究中心 google hacker 语法手册]]></content>
+      <categories>
+        <category>security</category>
+      </categories>
+      <tags>
+        <tag>security</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[鱼羊野史]]></title>
+    <url>%2F2019%2F07%2F15%2F%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%2F%E9%B1%BC%E7%BE%8A%E9%87%8E%E5%8F%B2%2F</url>
+    <content type="text"><![CDATA[内容简介《鱼羊野史(1-6 卷)(套装共 6 册)》是东方卫视脱口秀节目《晓松说——历史上的今天》未删节版完整收录的超级读本。 《鱼羊野史》讲述每一天在历史上发生的大事件或有趣的事，以高晓松的角度来重新解读历史事件，风格轻松幽默，与严肃的讲历史的不同，有很多高晓松个人见解和趣闻，重温故国、故城、故人芳华刹那。 作者简介高晓松，中国著名音乐制作人、电影导演、词曲创作者、写字者，阿里音乐集团董事长。 代表作品： 音乐作品 《同桌的你》《恋恋风尘》《万物生》《彼得堡遗书》 《校园民谣》作品集、《青春无悔》作品集、《万物生长》作品集 电影作品 《那时花开》《我心飞翔》《大武生》《同桌的你》 文学作品 《写在墙上的脸》《如丧：我们终于老得可以谈谈未来》“晓说”系列 读后感读了第四卷,感觉高晓松挺渊博也挺八卦的,当趣闻看了…]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[121. Best Time to Buy and Sell Stock]]></title>
+    <url>%2F2019%2F07%2F15%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%2Fleetcode%2FBest%20Time%20to%20Buy%20and%20Sell%20Stock%2F</url>
+    <content type="text"><![CDATA[Say you have an array for which the ith element is the price of a given stock on day i. If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit. Note that you cannot sell a stock before you buy one. Example 1: 1234Input: [7,1,5,3,6,4]Output: 5Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5. Not 7-1 = 6, as selling price needs to be larger than buying price. Example 2: 123Input: [7,6,4,3,1]Output: 0Explanation: In this case, no transaction is done, i.e. max profit = 0. 题意给定一个股票价格的数组,索引表示买入股票的天数.求出某一天卖出股票使得股票收益最大,求出这个最大收益值. 实现 java 暴力枚举求解,时间复杂度为 O(n^2) 1234567891011121314public static int maxProfit(int[] prices) &#123; int len = prices.length; int result = 0; for(int i = 0; i &lt; len; i++) &#123; int a = prices[i]; for(int j = i + 1; j &lt; len; j++) &#123; int b = prices[j]; if(b &gt; a &amp;&amp; ( b - a ) &gt; result) &#123; result = b - a; &#125; &#125; &#125; return result; &#125; java 动态规划 12345678public static int maxProfitDp(int[] prices) &#123; int maxCur = 0, maxSoFar = 0; for(int i = 1; i &lt; prices.length; i++) &#123; maxCur = Math.max(0, maxCur += prices[i] - prices[i - 1]); maxSoFar = Math.max(maxCur, maxSoFar); &#125; return maxSoFar; &#125; 动态规划 1234567891011public int maxProfit(int[] prices) &#123; int min = Integer.MAX_VALUE, max = -1, n = prices.length; if (n == 0) return 0; for(int i=0;i&lt;n;i++)&#123; if(min&gt;prices[i])&#123; min = prices[i]; &#125; max = Math.max(max,prices[i]-min); &#125; return max; &#125; 参考 best-time-to-buy-and-sell-stock]]></content>
+      <categories>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>DP</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[kail linux 网络配置]]></title>
+    <url>%2F2019%2F07%2F14%2Fsecurity%2Fkail%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[执行msfupdate更新metasploit时失败,网络配置错误,下载失败. 按照如下配置网卡、DNS后，重启网络配置. ping一下目标ip,发现网络已经ok。继续执行操作即可.另外: kail的默认密码为toor.]]></content>
+      <categories>
+        <category>security</category>
+      </categories>
+      <tags>
+        <tag>security</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[渗透测试环境DVWA环境搭建]]></title>
+    <url>%2F2019%2F07%2F13%2Fsecurity%2F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83DVWA%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%2F</url>
+    <content type="text"><![CDATA[DVWA主要是用于学习Web的常见攻击，比如SQL注入、XSS等的一个渗透测试系统. 前期准备由于DVWA是用php语言写的安全测试平台，所以我们先要创建一个php开发集成环境。 XAMPP安装 下载到 DVWA下载应用包,是一个zip。解压到xampp的htdocs目录并重命名为dvwa。 启动xampp 配置浏览器输入localhost://82/dvma即可进入dvwa配置界面 配置数据库点击创建即可,下面会提示错误信息.数据库未连接等.修改配置 成功后进入登录页面输入密码 admin/password进入主界面. 至此DVWA的环境已经搭建ok. 遇到的问题DVWA System error - config file not found. Copy config/config.inc.php.dist to config/config.inc.php and configure to your environment.将config.inc.php.dist 重命名为config.inc.php即可. Could not connect to the MySQL service.Please check the config file.修改config.inc.php中对应的数据库用户名、密码等信息。]]></content>
+      <categories>
+        <category>security</category>
+      </categories>
+      <tags>
+        <tag>security</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[天才在左 疯子在右]]></title>
+    <url>%2F2019%2F07%2F09%2F%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%2F%E5%A4%A9%E6%89%8D%E5%9C%A8%E5%B7%A6%E7%96%AF%E5%AD%90%E5%9C%A8%E5%8F%B3%2F</url>
+    <content type="text"><![CDATA[内容简介本书以访谈录的形式记载了生活在另一个角落的人群（精神病患者、心理障碍者等边缘人）深刻、视角独特的所思所想，让人们可以了解到疯子抑或天才真正的内心世界。此书是国内第一本具有人文情怀的精神病患谈访录。内容涉及生理学、心理学、佛学、宗教、量子物理、符号学以及玛雅文明和预言等众多领域。 作者简介高铭，男，汉族。生于上世纪 70 年代的北京。目前任职于某公司项目总监。 自认为死心眼一根筋，对于探索未知事物总是有无尽渴望。从学龄前就已经有了至今仍然挂在嘴边的口头禅：“为什么？”成年后曾一度沉迷于宗教、哲学、量子物理、非线性动力学、心理学、生物学、天体物理等学科。21 世纪以来又开始对精神病患、心理障碍者、边缘人的内心世界产生了强烈好奇。 2004—2008 年间，通过各种渠道，利用所有的闲暇时间，探访精神病院、公安部等机构，对“非正常人群”进行近距离访谈，并加工整理出了这本书的内容。 “我从未想到居然有这么多人鼓励并欣赏这些内容，长久以来，我一直以为自己是个疯子。但是，我很欣慰。” 读后感开始的几个问题感觉还是很不错的,打破惯性思维、勇于拆掉思维的墙. 关于女人的 X 染色体基因数是一千多,而男人的 Y 染色体是几十个,得出女人最终要统治地球的结论果然很让人很精神,女人的世界男人理解不了,这些也是以后的事了,当下并没有这些的研究来论证这个问题.]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[24. Swap Nodes in Pairs]]></title>
+    <url>%2F2019%2F07%2F09%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%2Fleetcode%2FSwap%20Nodes%20in%20Pairs%2F</url>
+    <content type="text"><![CDATA[Given a linked list, swap every two adjacent nodes and return its head. You may not modify the values in the list’s nodes, only nodes itself may be changed. Example: 1Given 1-&gt;2-&gt;3-&gt;4, you should return the list as 2-&gt;1-&gt;4-&gt;3. 题意交换链表相邻两个节点的值. 实现 java 递归实现 12345678910public ListNode swap(ListNode head) &#123; if(( head == null ) || ( head.next == null )) &#123; return head; &#125; ListNode n = head.next; System.out.println(n); head.next = swapPairs(head.next.next); n.next = head; return n; &#125; 参考 swap-nodes-in-pairs]]></content>
+      <categories>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>递归</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[118. Pascal's Triangle]]></title>
+    <url>%2F2019%2F07%2F08%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%2Fleetcode%2FPascal's%20Triangle%2F</url>
+    <content type="text"><![CDATA[Given a non-negative integer numRows, generate the first numRows of Pascal’s triangle. In Pascal’s triangle, each number is the sum of the two numbers directly above it. Example: Input: 5 Output: 1234567[ [1], [1,1], [1,2,1], [1,3,3,1], [1,4,6,4,1]] 题意实现帕斯卡三角. 实现 java 递归实现。 123456789101112131415161718192021222324252627public List&lt;List&lt;Integer&gt;&gt; generate(int numRows) &#123; List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;(); for(int i = 0; i &lt; numRows; i++) &#123; result = result(result); &#125; return result; &#125; public List&lt;List&lt;Integer&gt;&gt; result(List&lt;List&lt;Integer&gt;&gt; result) &#123; int size = result.size(); if(size == 0) &#123; List&lt;Integer&gt; ele = new ArrayList&lt;&gt;(); ele.add(1); result.add(ele); return result; &#125; List&lt;Integer&gt; lastEle = result.get(size - 1); int lastSize = lastEle.size(); List&lt;Integer&gt; e = new ArrayList&lt;&gt;(); e.add(1); for(int i = 0; i &lt; lastSize - 1; i++) &#123; e.add(lastEle.get(i) + lastEle.get(i + 1)); &#125; e.add(1); result.add(e); return result; &#125; 参考 118. Pascal’s Triangle]]></content>
+      <categories>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>DP</tag>
+        <tag>leetcode</tag>
+        <tag>递归</tag>
+      </tags>
+  </entry>
+</search>
