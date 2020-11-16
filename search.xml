@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Incompatibile SockJS! Main site uses "1.1.5", the iframe "1.0.0"]]></title>
+    <url>%2F2020%2F11%2F16%2Fjava%2FIncompatibile%20SockJS%2F</url>
+    <content type="text"><![CDATA[在spring boot 后端开发集成websocket的过程中，本地测试都OK,但是部署到服务器上后抛出了异常 Incompatibile SockJS! Main site uses: “1.1.5”, the iframe: “1.0.0”。 大概意思是版本不匹配，和服务器部署唯一的不同之处就是服务器通过nginx来代理请求。主要原因是upgrade header没有从nginx传给spring，nginx对应代理服务节点上配置下边的头信息即可: 1234567#告诉nginx使用HTTP/1.1通信协议，这是websoket必须要使用的协议）proxy_http_version 1.1;#告诉nginx，当它想要使用WebSocket时，响应http升级请求proxy_set_header Upgrade $http_upgrade;proxy_set_header Connection &quot;upgrade&quot;; nginx配置完成后重启nginx问题就解决了。]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[g2.ps1，因为在此系统上禁止运行脚本]]></title>
+    <url>%2F2020%2F08%2F05%2F%E5%89%8D%E7%AB%AF%2Fg2.ps1%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC%2F</url>
+    <content type="text"><![CDATA[在进行安装配置nutui开发环境的时候各种出错。用的官方推荐的工具gaea CLI,刚开始执行命令便出错了。1234567g2 : 无法加载文件 C:\Users\Administrator\AppData\Roaming\npm\g2.ps1，因为在此系统上禁止运行脚本。有关详细信息，请参阅 https:/go.microsoft.com/fwlink/?LinkID=135170 中的 about_Execution_Policies。所在位置 行:1 字符: 1+ g2 init driver-nut+ ~~ + CategoryInfo : SecurityError: (:) []，PSSecurityException + FullyQualifiedErrorId : UnauthorizedAccess 解决方法也较简单，重新设置一下权限，再次安装即可。项目可以正常初始化了，在nodejs安装依赖的过程中又出现了各种错误。 python版本必须是2.x,不支持python3 . 这就是在编译nutui的过程中遇到的问题。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>app</tag>
+        <tag>nutui</tag>
+      </tags>
+  </entry>
+  <entry>
     <title></title>
     <url>%2F2020%2F07%2F19%2F%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%2Fgitlab%E5%AE%89%E8%A3%85%2F</url>
     <content type="text"><![CDATA[下载速度很慢 参考资料 gitlab 官网 gitlab 安装文档(centos7)]]></content>
@@ -193,31 +216,6 @@
       </categories>
       <tags>
         <tag>读书笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[24. Swap Nodes in Pairs]]></title>
-    <url>%2F2019%2F07%2F09%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%2Fleetcode%2FSwap%20Nodes%20in%20Pairs%2F</url>
-    <content type="text"><![CDATA[Given a linked list, swap every two adjacent nodes and return its head. You may not modify the values in the list’s nodes, only nodes itself may be changed. Example: 1Given 1-&gt;2-&gt;3-&gt;4, you should return the list as 2-&gt;1-&gt;4-&gt;3. 题意交换链表相邻两个节点的值. 实现 java 递归实现 12345678910public ListNode swap(ListNode head) &#123; if(( head == null ) || ( head.next == null )) &#123; return head; &#125; ListNode n = head.next; System.out.println(n); head.next = swapPairs(head.next.next); n.next = head; return n; &#125; 参考 swap-nodes-in-pairs]]></content>
-      <categories>
-        <category>algorithm</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>递归</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[118. Pascal's Triangle]]></title>
-    <url>%2F2019%2F07%2F08%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%2Fleetcode%2FPascal's%20Triangle%2F</url>
-    <content type="text"><![CDATA[Given a non-negative integer numRows, generate the first numRows of Pascal’s triangle. In Pascal’s triangle, each number is the sum of the two numbers directly above it. Example: Input: 5 Output: 1234567[ [1], [1,1], [1,2,1], [1,3,3,1], [1,4,6,4,1]] 题意实现帕斯卡三角. 实现 java 递归实现。 123456789101112131415161718192021222324252627public List&lt;List&lt;Integer&gt;&gt; generate(int numRows) &#123; List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;(); for(int i = 0; i &lt; numRows; i++) &#123; result = result(result); &#125; return result; &#125; public List&lt;List&lt;Integer&gt;&gt; result(List&lt;List&lt;Integer&gt;&gt; result) &#123; int size = result.size(); if(size == 0) &#123; List&lt;Integer&gt; ele = new ArrayList&lt;&gt;(); ele.add(1); result.add(ele); return result; &#125; List&lt;Integer&gt; lastEle = result.get(size - 1); int lastSize = lastEle.size(); List&lt;Integer&gt; e = new ArrayList&lt;&gt;(); e.add(1); for(int i = 0; i &lt; lastSize - 1; i++) &#123; e.add(lastEle.get(i) + lastEle.get(i + 1)); &#125; e.add(1); result.add(e); return result; &#125; 参考 118. Pascal’s Triangle]]></content>
-      <categories>
-        <category>algorithm</category>
-      </categories>
-      <tags>
-        <tag>DP</tag>
-        <tag>leetcode</tag>
-        <tag>递归</tag>
       </tags>
   </entry>
 </search>
