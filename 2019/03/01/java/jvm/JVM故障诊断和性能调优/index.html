@@ -1,23 +1,1599 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
 
-{% block content %}
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="jdk 安装的时候内置了很多命令工具,如下图所示">
+<meta name="keywords" content="jvm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM故障诊断和性能调优">
+<meta property="og:url" content="http://xwolf191.github.io/2019/03/01/java/jvm/JVM故障诊断和性能调优/index.html">
+<meta property="og:site_name" content="Xwolf">
+<meta property="og:description" content="jdk 安装的时候内置了很多命令工具,如下图所示">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://xwolf191.github.io/2019/03/01/java/jvm/JVM%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD%E5%92%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/jvm_20190227153301.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/03/01/java/jvm/JVM%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD%E5%92%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/OQL_20190227165615.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/03/01/java/jvm/JVM%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD%E5%92%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/OQL_class_detail.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/03/01/java/jvm/JVM%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD%E5%92%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/JHAT_20190227182850.png">
+<meta property="og:updated_time" content="2020-07-19T00:23:27.865Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM故障诊断和性能调优">
+<meta name="twitter:description" content="jdk 安装的时候内置了很多命令工具,如下图所示">
+<meta name="twitter:image" content="http://xwolf191.github.io/2019/03/01/java/jvm/JVM%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD%E5%92%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/jvm_20190227153301.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://xwolf191.github.io/2019/03/01/java/jvm/JVM故障诊断和性能调优/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JVM故障诊断和性能调优 | Xwolf</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e201c03696b77e30e2ed8c52937d5ccb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xwolf</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">IT编程学习</p>
+      
+    
+    
   </div>
 
-{% endblock %}
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwolf191.github.io/2019/03/01/java/jvm/JVM故障诊断和性能调优/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xwolf">
+      <meta itemprop="description" content="JAVAEE、大数据、人工智能学习">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xwolf">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JVM故障诊断和性能调优
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-01 16:00:00" itemprop="dateCreated datePublished" datetime="2019-03-01T16:00:00+08:00">2019-03-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-19 08:23:27" itemprop="dateModified" datetime="2020-07-19T08:23:27+08:00">2020-07-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/03/01/java/jvm/JVM故障诊断和性能调优/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/01/java/jvm/JVM故障诊断和性能调优/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">57k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1:44</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>jdk 安装的时候内置了很多命令工具,如下图所示<br><img src="/2019/03/01/java/jvm/JVM%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD%E5%92%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/jvm_20190227153301.png" alt></p>
+<span id="more"></span>
+<h1 id="jmap"><a href="#jmap" class="headerlink" title="jmap"></a>jmap</h1><p>jmap 主要是输出 jvm 的内存分配信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># jmap</span></span><br><span class="line">Usage:</span><br><span class="line">    jmap [option] &lt;pid&gt;</span><br><span class="line">        (to connect to running process)</span><br><span class="line">    jmap [option] &lt;executable &lt;core&gt;</span><br><span class="line">        (to connect to a core file)</span><br><span class="line">    jmap [option] [server_id@]&lt;remote server IP or hostname&gt;</span><br><span class="line">        (to connect to remote debug server)</span><br><span class="line"></span><br><span class="line"><span class="built_in">where</span> &lt;option&gt; is one of:</span><br><span class="line">    &lt;none&gt;               to <span class="built_in">print</span> same info as Solaris pmap</span><br><span class="line">    -heap                to <span class="built_in">print</span> java heap summary</span><br><span class="line">    -histo[:live]        to <span class="built_in">print</span> histogram of java object heap; <span class="keyword">if</span> the <span class="string">&quot;live&quot;</span></span><br><span class="line">                         suboption is specified, only count live objects</span><br><span class="line">    -clstats             to <span class="built_in">print</span> class loader statistics</span><br><span class="line">    -finalizerinfo       to <span class="built_in">print</span> information on objects awaiting finalization</span><br><span class="line">    -dump:&lt;dump-options&gt; to dump java heap <span class="keyword">in</span> hprof binary format</span><br><span class="line">                         dump-options:</span><br><span class="line">                           live         dump only live objects; <span class="keyword">if</span> not specified,</span><br><span class="line">                                        all objects <span class="keyword">in</span> the heap are dumped.</span><br><span class="line">                           format=b     binary format</span><br><span class="line">                           file=&lt;file&gt;  dump heap to &lt;file&gt;</span><br><span class="line">                         Example: jmap -dump:live,format=b,file=heap.bin &lt;pid&gt;</span><br><span class="line">    -F                   force. Use with -dump:&lt;dump-options&gt; &lt;pid&gt; or -histo</span><br><span class="line">                         to force a heap dump or histogram when &lt;pid&gt; does not</span><br><span class="line">                         respond. The <span class="string">&quot;live&quot;</span> suboption is not supported</span><br><span class="line">                         <span class="keyword">in</span> this mode.</span><br><span class="line">    -h | -<span class="built_in">help</span>           to <span class="built_in">print</span> this <span class="built_in">help</span> message</span><br><span class="line">    -J&lt;flag&gt;             to pass &lt;flag&gt; directly to the runtime system</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># jmap -heap 912</span></span><br><span class="line">Attaching to process ID 912, please <span class="built_in">wait</span>...</span><br><span class="line">Debugger attached successfully.</span><br><span class="line">Server compiler detected.</span><br><span class="line">JVM version is 25.171-b11</span><br><span class="line"></span><br><span class="line">using thread-local object allocation.</span><br><span class="line">Mark Sweep Compact GC</span><br><span class="line"></span><br><span class="line">Heap Configuration:</span><br><span class="line">   MinHeapFreeRatio         = 40</span><br><span class="line">   MaxHeapFreeRatio         = 70</span><br><span class="line">   MaxHeapSize              = 1073741824 (1024.0MB)</span><br><span class="line">   NewSize                  = 178913280 (170.625MB)</span><br><span class="line">   MaxNewSize               = 357892096 (341.3125MB)</span><br><span class="line">   OldSize                  = 357957632 (341.375MB)</span><br><span class="line">   NewRatio                 = 2</span><br><span class="line">   SurvivorRatio            = 8</span><br><span class="line">   MetaspaceSize            = 21807104 (20.796875MB)</span><br><span class="line">   CompressedClassSpaceSize = 1073741824 (1024.0MB)</span><br><span class="line">   MaxMetaspaceSize         = 17592186044415 MB</span><br><span class="line">   G1HeapRegionSize         = 0 (0.0MB)</span><br><span class="line"></span><br><span class="line">Heap Usage:</span><br><span class="line">New Generation (Eden + 1 Survivor Space):</span><br><span class="line">   capacity = 161153024 (153.6875MB)</span><br><span class="line">   used     = 2965600 (2.828216552734375MB)</span><br><span class="line">   free     = 158187424 (150.85928344726562MB)</span><br><span class="line">   1.8402385052358683% used</span><br><span class="line">Eden Space:</span><br><span class="line">   capacity = 143261696 (136.625MB)</span><br><span class="line">   used     = 2869664 (2.736724853515625MB)</span><br><span class="line">   free     = 140392032 (133.88827514648438MB)</span><br><span class="line">   2.003092299005032% used</span><br><span class="line">From Space:</span><br><span class="line">   capacity = 17891328 (17.0625MB)</span><br><span class="line">   used     = 95936 (0.09149169921875MB)</span><br><span class="line">   free     = 17795392 (16.97100830078125MB)</span><br><span class="line">   0.536215086996337% used</span><br><span class="line">To Space:</span><br><span class="line">   capacity = 17891328 (17.0625MB)</span><br><span class="line">   used     = 0 (0.0MB)</span><br><span class="line">   free     = 17891328 (17.0625MB)</span><br><span class="line">   0.0% used</span><br><span class="line">tenured generation:</span><br><span class="line">   capacity = 357957632 (341.375MB)</span><br><span class="line">   used     = 65830848 (62.78118896484375MB)</span><br><span class="line">   free     = 292126784 (278.59381103515625MB)</span><br><span class="line">   18.39068149830648% used</span><br><span class="line"></span><br><span class="line">34389 interned Strings occupying 4043536 bytes.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>可以看到新生代、老年代、from、to 区域内存大小,使用比例等信息。</p>
+<p>jmap 生成堆栈文件,可以用 jvisualvm,MAT 来查看。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opt]<span class="comment"># jmap -dump:format=b,file=/opt/tyty.dmp 912</span></span><br><span class="line">Dumping heap to /opt/tyty.dmp ...</span><br><span class="line">Heap dump file created</span><br></pre></td></tr></table></figure>
+<p>jmap -histo:live 打印存活对象的堆信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># jmap -histo:live 4803|more</span></span><br><span class="line"></span><br><span class="line"> num     <span class="comment">#instances         #bytes  class name</span></span><br><span class="line">----------------------------------------------</span><br><span class="line">   1:        241408       19711856  [C</span><br><span class="line">   2:          6376        6575832  [B</span><br><span class="line">   3:        239513        5748312  java.lang.String</span><br><span class="line">   4:         60783        5348904  java.lang.reflect.Method</span><br><span class="line">   5:         46181        3325032  com.platform.entity.SysRegionEntity</span><br><span class="line">   6:         88804        2841728  java.util.concurrent.ConcurrentHashMap<span class="variable">$Node</span></span><br><span class="line">   7:        139099        2225584  java.lang.Integer</span><br><span class="line">   8:          6272        1746832  [I</span><br><span class="line">   9:         26527        1658824  [Ljava.lang.Object;</span><br><span class="line">  10:         13734        1571192  java.lang.Class</span><br><span class="line">  11:         33734        1349360  java.util.LinkedHashMap<span class="variable">$Entry</span></span><br><span class="line">  12:         36504        1168128  java.util.HashMap<span class="variable">$Node</span></span><br><span class="line">  13:         14199        1065040  [Ljava.util.HashMap<span class="variable">$Node</span>;</span><br><span class="line">  14:         17774         995344  java.util.LinkedHashMap</span><br><span class="line">  15:           768         834944  [Ljava.util.concurrent.ConcurrentHashMap<span class="variable">$Node</span>;</span><br><span class="line">  16:         22656         724992  java.lang.ref.WeakReference</span><br><span class="line">  17:         30572         674312  [Ljava.lang.Class;</span><br><span class="line">  18:         12764         612672  org.aspectj.weaver.reflect.ShadowMatchImpl</span><br><span class="line">  19:         24666         591984  java.util.ArrayList</span><br><span class="line">  20:         21486         515664  org.springframework.core.MethodClassKey</span><br><span class="line">  21:         14789         455880  [Ljava.lang.String;</span><br><span class="line">  22:         12764         408448  org.aspectj.weaver.patterns.ExposedState</span><br><span class="line">--More--</span><br></pre></td></tr></table></figure>
+<p>class name 是对象类型，说明如下：</p>
+<font color="red">
+B byte
+C char
+D double
+F float
+I int
+J long
+Z boolean
+[ 数组，如[I 表示 int[]L+类名 其他对象
+</font>
+
+<h1 id="jhat"><a href="#jhat" class="headerlink" title="jhat"></a>jhat</h1><p>jhat 分析 jmap 生成的堆栈文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opt]<span class="comment"># jhat tyty.dmp</span></span><br><span class="line">Reading from tyty.dmp...</span><br><span class="line">Dump file created Wed Feb 27 16:45:13 CST 2019</span><br><span class="line">Snapshot <span class="built_in">read</span>, resolving...</span><br><span class="line">Resolving 2250009 objects...</span><br><span class="line">Chasing references, expect 450 dots..................................................................................................................................................................................................................................................................................................................................................................................................................................................................</span><br><span class="line">Eliminating duplicate references..................................................................................................................................................................................................................................................................................................................................................................................................................................................................</span><br><span class="line">Snapshot resolved.</span><br><span class="line">Started HTTP server on port 7000</span><br><span class="line">Server is ready.</span><br></pre></td></tr></table></figure>
+<p>浏览器访问 IP:7000 即可看到类的信息.<br><img src="/2019/03/01/java/jvm/JVM%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD%E5%92%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/OQL_20190227165615.png" alt></p>
+<h2 id="随意点击一个-class"><a href="#随意点击一个-class" class="headerlink" title="随意点击一个 class"></a>随意点击一个 class</h2><p>点击对应的 class 即可看到<br><img src="/2019/03/01/java/jvm/JVM%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD%E5%92%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/OQL_class_detail.png" alt><br>该页面主要包含了该类的父类、子类信息、类加载器、GC ROOT 引用链信息和从当前对象开始所有可达的对象信息。</p>
+<h2 id="主要看下面几个入口信息"><a href="#主要看下面几个入口信息" class="headerlink" title="主要看下面几个入口信息"></a>主要看下面几个入口信息</h2><p><img src="/2019/03/01/java/jvm/JVM%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD%E5%92%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/JHAT_20190227182850.png" alt></p>
+<h3 id="All-classes-including-platform"><a href="#All-classes-including-platform" class="headerlink" title="All classes including platform"></a>All classes including platform</h3><p>查看所有类的信息</p>
+<h3 id="Show-all-members-of-the-rootset"><a href="#Show-all-members-of-the-rootset" class="headerlink" title="Show all members of the rootset"></a>Show all members of the rootset</h3><p>GC roots 下的所有引用的 class 信息</p>
+<h3 id="Show-instance-counts-for-all-classes-including-platform"><a href="#Show-instance-counts-for-all-classes-including-platform" class="headerlink" title="Show instance counts for all classes (including platform)"></a>Show instance counts for all classes (including platform)</h3><p>所有的实例对象信息,某一个对象创建的个数和占用的空间.(包含 JDK 的类信息)</p>
+<h3 id="Show-instance-counts-for-all-classes-excluding-platform"><a href="#Show-instance-counts-for-all-classes-excluding-platform" class="headerlink" title="Show instance counts for all classes (excluding platform)"></a>Show instance counts for all classes (excluding platform)</h3><p>所有的实例对象信息,某一个对象创建的个数和占用的空间.(不包含 JDK 的类信息)</p>
+<h3 id="Show-heap-histogram"><a href="#Show-heap-histogram" class="headerlink" title="Show heap histogram"></a>Show heap histogram</h3><h3 id="Show-finalizer-summary"><a href="#Show-finalizer-summary" class="headerlink" title="Show finalizer summary"></a>Show finalizer summary</h3><p>GC 回收的信息</p>
+<h3 id="Execute-Object-Query-Language-OQL-query"><a href="#Execute-Object-Query-Language-OQL-query" class="headerlink" title="Execute Object Query Language (OQL) query"></a>Execute Object Query Language (OQL) query</h3><p>对象查询语言,可以获取对象的一些信息。不过多介绍，具体参考文章末尾的参考资料信息。</p>
+<h1 id="jstack"><a href="#jstack" class="headerlink" title="jstack"></a>jstack</h1><p>jstack 主要是输出 jvm 的栈信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># jstack</span></span><br><span class="line">Usage:</span><br><span class="line">    jstack [-l] &lt;pid&gt;</span><br><span class="line">        (to connect to running process)</span><br><span class="line">    jstack -F [-m] [-l] &lt;pid&gt;</span><br><span class="line">        (to connect to a hung process)</span><br><span class="line">    jstack [-m] [-l] &lt;executable&gt; &lt;core&gt;</span><br><span class="line">        (to connect to a core file)</span><br><span class="line">    jstack [-m] [-l] [server_id@]&lt;remote server IP or hostname&gt;</span><br><span class="line">        (to connect to a remote debug server)</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">    -F  to force a thread dump. Use when jstack &lt;pid&gt; does not respond (process is hung)</span><br><span class="line">    -m  to <span class="built_in">print</span> both java and native frames (mixed mode)</span><br><span class="line">    -l  long listing. Prints additional information about locks</span><br><span class="line">    -h or -<span class="built_in">help</span> to <span class="built_in">print</span> this <span class="built_in">help</span> message</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># jstack 912</span></span><br><span class="line">2019-02-27 15:18:38</span><br><span class="line">Full thread dump Java HotSpot(TM) 64-Bit Server VM (25.171-b11 mixed mode):</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;Attach Listener&quot;</span> <span class="comment">#89 daemon prio=9 os_prio=0 tid=0x00007f0411464800 nid=0x24c0 waiting on condition [0x0000000000000000]</span></span><br><span class="line">   java.lang.Thread.State: RUNNABLE</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;http-nio-8084-exec-45&quot;</span> <span class="comment">#88 daemon prio=5 os_prio=0 tid=0x00007f0410ba0800 nid=0x195 waiting on condition [0x00007f03fe3dc000]</span></span><br><span class="line">   java.lang.Thread.State: WAITING (parking)</span><br><span class="line">	at sun.misc.Unsafe.park(Native Method)</span><br><span class="line">	- parking to <span class="built_in">wait</span> <span class="keyword">for</span>  &lt;0x00000000d71bdf78&gt; (a java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="variable">$ConditionObject</span>)</span><br><span class="line">	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)</span><br><span class="line">	at java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="variable">$ConditionObject</span>.await(AbstractQueuedSynchronizer.java:2039)</span><br><span class="line">	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)</span><br><span class="line">	at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:103)</span><br><span class="line">	at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:31)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor<span class="variable">$Worker</span>.run(ThreadPoolExecutor.java:624)</span><br><span class="line">	at org.apache.tomcat.util.threads.TaskThread<span class="variable">$WrappingRunnable</span>.run(TaskThread.java:61)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:748)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;Thread-7&quot;</span> <span class="comment">#41 daemon prio=5 os_prio=0 tid=0x00007f040c07e000 nid=0x11be waiting on condition [0x00007f0404fe8000]</span></span><br><span class="line">   java.lang.Thread.State: WAITING (parking)</span><br><span class="line">	at sun.misc.Unsafe.park(Native Method)</span><br><span class="line">	- parking to <span class="built_in">wait</span> <span class="keyword">for</span>  &lt;0x00000000d7467db8&gt; (a java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="variable">$ConditionObject</span>)</span><br><span class="line">	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)</span><br><span class="line">	at java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="variable">$ConditionObject</span>.await(AbstractQueuedSynchronizer.java:2039)</span><br><span class="line">	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)</span><br><span class="line">	at org.LatencyUtils.PauseDetector<span class="variable">$PauseDetectorThread</span>.run(PauseDetector.java:85)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;lettuce-nioEventLoop-4-1&quot;</span> <span class="comment">#40 daemon prio=5 os_prio=0 tid=0x0000000001c34000 nid=0x11bd runnable [0x00007f04050e9000]</span></span><br><span class="line">   java.lang.Thread.State: RUNNABLE</span><br><span class="line">	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)</span><br><span class="line">	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)</span><br><span class="line">	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)</span><br><span class="line">	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)</span><br><span class="line">	- locked &lt;0x00000000d7467ff8&gt; (a io.netty.channel.nio.SelectedSelectionKeySet)</span><br><span class="line">	- locked &lt;0x00000000d7467fe8&gt; (a java.util.Collections<span class="variable">$UnmodifiableSet</span>)</span><br><span class="line">	- locked &lt;0x00000000d7468010&gt; (a sun.nio.ch.EPollSelectorImpl)</span><br><span class="line">	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)</span><br><span class="line">	at io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:62)</span><br><span class="line">	at io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:753)</span><br><span class="line">	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:409)</span><br><span class="line">	at io.netty.util.concurrent.SingleThreadEventExecutor<span class="variable">$5</span>.run(SingleThreadEventExecutor.java:884)</span><br><span class="line">	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:748)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;Druid-ConnectionPool-Create-1478196796&quot;</span> <span class="comment">#37 daemon prio=5 os_prio=0 tid=0x00007f0400024800 nid=0x3cc waiting on condition [0x00007f0428ffe000]</span></span><br><span class="line">   java.lang.Thread.State: WAITING (parking)</span><br><span class="line">	at sun.misc.Unsafe.park(Native Method)</span><br><span class="line">	- parking to <span class="built_in">wait</span> <span class="keyword">for</span>  &lt;0x00000000d6713938&gt; (a java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="variable">$ConditionObject</span>)</span><br><span class="line">	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)</span><br><span class="line">	at java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="variable">$ConditionObject</span>.await(AbstractQueuedSynchronizer.java:2039)</span><br><span class="line">	at com.alibaba.druid.pool.DruidDataSource<span class="variable">$CreateConnectionThread</span>.run(DruidDataSource.java:2059)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;Abandoned connection cleanup thread&quot;</span> <span class="comment">#36 daemon prio=5 os_prio=0 tid=0x00007f0400154000 nid=0x3ca in Object.wait() [0x00007f04281b3000]</span></span><br><span class="line">   java.lang.Thread.State: TIMED_WAITING (on object monitor)</span><br><span class="line">	at java.lang.Object.wait(Native Method)</span><br><span class="line">	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)</span><br><span class="line">	- locked &lt;0x00000000d71bd738&gt; (a java.lang.ref.ReferenceQueue<span class="variable">$Lock</span>)</span><br><span class="line">	at com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:64)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor<span class="variable">$Worker</span>.run(ThreadPoolExecutor.java:624)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:748)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;DestroyJavaVM&quot;</span> <span class="comment">#35 prio=5 os_prio=0 tid=0x00007f0438009000 nid=0x393 waiting on condition [0x0000000000000000]</span></span><br><span class="line">   java.lang.Thread.State: RUNNABLE</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;C2 CompilerThread0&quot;</span> <span class="comment">#5 daemon prio=9 os_prio=0 tid=0x00007f04380d5800 nid=0x398 waiting on condition [0x0000000000000000]</span></span><br><span class="line">   java.lang.Thread.State: RUNNABLE</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;Signal Dispatcher&quot;</span> <span class="comment">#4 daemon prio=9 os_prio=0 tid=0x00007f04380d4000 nid=0x397 runnable [0x0000000000000000]</span></span><br><span class="line">   java.lang.Thread.State: RUNNABLE</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;Finalizer&quot;</span> <span class="comment">#3 daemon prio=8 os_prio=0 tid=0x00007f04380a1000 nid=0x396 in Object.wait() [0x00007f043c897000]</span></span><br><span class="line">   java.lang.Thread.State: WAITING (on object monitor)</span><br><span class="line">	at java.lang.Object.wait(Native Method)</span><br><span class="line">	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)</span><br><span class="line">	- locked &lt;0x00000000d56578d8&gt; (a java.lang.ref.ReferenceQueue<span class="variable">$Lock</span>)</span><br><span class="line">	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:164)</span><br><span class="line">	at java.lang.ref.Finalizer<span class="variable">$FinalizerThread</span>.run(Finalizer.java:212)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;Reference Handler&quot;</span> <span class="comment">#2 daemon prio=10 os_prio=0 tid=0x00007f043809c800 nid=0x395 in Object.wait() [0x00007f043c998000]</span></span><br><span class="line">   java.lang.Thread.State: WAITING (on object monitor)</span><br><span class="line">	at java.lang.Object.wait(Native Method)</span><br><span class="line">	at java.lang.Object.wait(Object.java:502)</span><br><span class="line">	at java.lang.ref.Reference.tryHandlePending(Reference.java:191)</span><br><span class="line">	- locked &lt;0x00000000d5657a90&gt; (a java.lang.ref.Reference<span class="variable">$Lock</span>)</span><br><span class="line">	at java.lang.ref.Reference<span class="variable">$ReferenceHandler</span>.run(Reference.java:153)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;VM Thread&quot;</span> os_prio=0 tid=0x00007f0438095000 nid=0x394 runnable</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;VM Periodic Task Thread&quot;</span> os_prio=0 tid=0x00007f04380e0000 nid=0x39b waiting on condition</span><br><span class="line"></span><br><span class="line">JNI global references: 1495</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>主要是一些线程的状态信息,可用来检测定位死锁问题。</p>
+<h1 id="jinfo"><a href="#jinfo" class="headerlink" title="jinfo"></a>jinfo</h1><p>jinfo 主要是输出系统和 JVM 的参数信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># jinfo</span></span><br><span class="line">Usage:</span><br><span class="line">    jinfo [option] &lt;pid&gt;</span><br><span class="line">        (to connect to running process)</span><br><span class="line">    jinfo [option] &lt;executable &lt;core&gt;</span><br><span class="line">        (to connect to a core file)</span><br><span class="line">    jinfo [option] [server_id@]&lt;remote server IP or hostname&gt;</span><br><span class="line">        (to connect to remote debug server)</span><br><span class="line"></span><br><span class="line"><span class="built_in">where</span> &lt;option&gt; is one of:</span><br><span class="line">    -flag &lt;name&gt;         to <span class="built_in">print</span> the value of the named VM flag</span><br><span class="line">    -flag [+|-]&lt;name&gt;    to <span class="built_in">enable</span> or <span class="built_in">disable</span> the named VM flag</span><br><span class="line">    -flag &lt;name&gt;=&lt;value&gt; to <span class="built_in">set</span> the named VM flag to the given value</span><br><span class="line">    -flags               to <span class="built_in">print</span> VM flags</span><br><span class="line">    -sysprops            to <span class="built_in">print</span> Java system properties</span><br><span class="line">    &lt;no option&gt;          to <span class="built_in">print</span> both of the above</span><br><span class="line">    -h | -<span class="built_in">help</span>           to <span class="built_in">print</span> this <span class="built_in">help</span> message</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@localhost ~]<span class="comment"># jinfo 912</span></span><br><span class="line">Attaching to process ID 912, please <span class="built_in">wait</span>...</span><br><span class="line">Debugger attached successfully.</span><br><span class="line">Server compiler detected.</span><br><span class="line">JVM version is 25.171-b11</span><br><span class="line">Java System Properties:</span><br><span class="line"></span><br><span class="line">java.runtime.name = Java(TM) SE Runtime Environment</span><br><span class="line">java.vm.version = 25.171-b11</span><br><span class="line">sun.boot.library.path = /usr/java/jdk1.8.0_171-amd64/jre/lib/amd64</span><br><span class="line">java.protocol.handler.pkgs = org.springframework.boot.loader</span><br><span class="line">java.vendor.url = http://java.oracle.com/</span><br><span class="line">java.vm.vendor = Oracle Corporation</span><br><span class="line">path.separator = :</span><br><span class="line">file.encoding.pkg = sun.io</span><br><span class="line">java.vm.name = Java HotSpot(TM) 64-Bit Server VM</span><br><span class="line">sun.os.patch.level = unknown</span><br><span class="line">sun.java.launcher = SUN_STANDARD</span><br><span class="line">user.country = US</span><br><span class="line">user.dir = /data/bj/devops/tyty</span><br><span class="line">java.vm.specification.name = Java Virtual Machine Specification</span><br><span class="line">PID = 912</span><br><span class="line">java.runtime.version = 1.8.0_171-b11</span><br><span class="line">java.awt.graphicsenv = sun.awt.X11GraphicsEnvironment</span><br><span class="line">os.arch = amd64</span><br><span class="line">java.endorsed.dirs = /usr/java/jdk1.8.0_171-amd64/jre/lib/endorsed</span><br><span class="line">line.separator =</span><br><span class="line"></span><br><span class="line">java.io.tmpdir = /tmp</span><br><span class="line">java.vm.specification.vendor = Oracle Corporation</span><br><span class="line">os.name = Linux</span><br><span class="line">sun.jnu.encoding = UTF-8</span><br><span class="line">java.library.path = /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib</span><br><span class="line">spring.beaninfo.ignore = <span class="literal">true</span></span><br><span class="line">sun.nio.ch.bugLevel =</span><br><span class="line">java.specification.name = Java Platform API Specification</span><br><span class="line">java.class.version = 52.0</span><br><span class="line">sun.management.compiler = HotSpot 64-Bit Tiered Compilers</span><br><span class="line">os.version = 3.10.0-693.el7.x86_64</span><br><span class="line">user.home = /root</span><br><span class="line">user.timezone = Asia/Shanghai</span><br><span class="line">catalina.useNaming = <span class="literal">false</span></span><br><span class="line">java.awt.printerjob = sun.print.PSPrinterJob</span><br><span class="line">file.encoding = UTF-8</span><br><span class="line">java.specification.version = 1.8</span><br><span class="line">catalina.home = /tmp/tomcat.2534035305981805332.8084</span><br><span class="line">user.name = root</span><br><span class="line">java.class.path = /data/bj/tyty-0.0.1-SNAPSHOT.jar</span><br><span class="line">java.vm.specification.version = 1.8</span><br><span class="line">sun.arch.data.model = 64</span><br><span class="line">sun.java.command = /data/bj/tyty-0.0.1-SNAPSHOT.jar</span><br><span class="line">java.home = /usr/java/jdk1.8.0_171-amd64/jre</span><br><span class="line">user.language = en</span><br><span class="line">java.specification.vendor = Oracle Corporation</span><br><span class="line">awt.toolkit = sun.awt.X11.XToolkit</span><br><span class="line">java.vm.info = mixed mode</span><br><span class="line">java.version = 1.8.0_171</span><br><span class="line">java.ext.dirs = /usr/java/jdk1.8.0_171-amd64/jre/lib/ext:/usr/java/packages/lib/ext</span><br><span class="line">sun.boot.class.path = /usr/java/jdk1.8.0_171-amd64/jre/lib/resources.jar:/usr/java/jdk1.8.0_171-amd64/jre/lib/rt.jar:/usr/java/jdk1.8.0_171-amd64/jre/lib/sunrsasign.jar:/usr/java/jdk1.8.0_171-amd64/jre/lib/jsse.jar:/usr/java/jdk1.8.0_171-amd64/jre/lib/jce.jar:/usr/java/jdk1.8.0_171-amd64/jre/lib/charsets.jar:/usr/java/jdk1.8.0_171-amd64/jre/lib/jfr.jar:/usr/java/jdk1.8.0_171-amd64/jre/classes</span><br><span class="line">java.awt.headless = <span class="literal">true</span></span><br><span class="line">java.vendor = Oracle Corporation</span><br><span class="line">catalina.base = /tmp/tomcat.2534035305981805332.8084</span><br><span class="line">file.separator = /</span><br><span class="line">java.vendor.url.bug = http://bugreport.sun.com/bugreport/</span><br><span class="line">sun.io.unicode.encoding = UnicodeLittle</span><br><span class="line">sun.cpu.endian = little</span><br><span class="line">sun.cpu.isalist =</span><br><span class="line"></span><br><span class="line">VM Flags:</span><br><span class="line">Non-default VM flags: -XX:CICompilerCount=2 -XX:InitialHeapSize=536870912 -XX:MaxHeapSize=1073741824 -XX:MaxNewSize=357892096 -XX:MinHeapDeltaBytes=196608 -XX:NewSize=178913280 -XX:OldSize=357957632 -XX:+UseCompressedClassPointers -XX:+UseCompressedOops</span><br><span class="line">Command line:  -Xms512m -Xmx1024m</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="jstat"><a href="#jstat" class="headerlink" title="jstat"></a>jstat</h1><p>jvm 统计信息.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># jstat</span></span><br><span class="line">invalid argument count</span><br><span class="line">Usage: jstat -<span class="built_in">help</span>|-options</span><br><span class="line">       jstat -&lt;option&gt; [-t] [-h&lt;lines&gt;] &lt;vmid&gt; [&lt;interval&gt; [&lt;count&gt;]]</span><br><span class="line"></span><br><span class="line">Definitions:</span><br><span class="line">  &lt;option&gt;      An option reported by the -options option</span><br><span class="line">  &lt;vmid&gt;        Virtual Machine Identifier. A vmid takes the following form:</span><br><span class="line">                     &lt;lvmid&gt;[@&lt;hostname&gt;[:&lt;port&gt;]]</span><br><span class="line">                Where &lt;lvmid&gt; is the <span class="built_in">local</span> vm identifier <span class="keyword">for</span> the target</span><br><span class="line">                Java virtual machine, typically a process <span class="built_in">id</span>; &lt;hostname&gt; is</span><br><span class="line">                the name of the host running the target Java virtual machine;</span><br><span class="line">                and &lt;port&gt; is the port number <span class="keyword">for</span> the rmiregistry on the</span><br><span class="line">                target host. See the jvmstat documentation <span class="keyword">for</span> a more complete</span><br><span class="line">                description of the Virtual Machine Identifier.</span><br><span class="line">  &lt;lines&gt;       Number of samples between header lines.</span><br><span class="line">  &lt;interval&gt;    Sampling interval. The following forms are allowed:</span><br><span class="line">                    &lt;n&gt;[<span class="string">&quot;ms&quot;</span>|<span class="string">&quot;s&quot;</span>]</span><br><span class="line">                Where &lt;n&gt; is an <span class="built_in">integer</span> and the suffix specifies the units as</span><br><span class="line">                milliseconds(<span class="string">&quot;ms&quot;</span>) or seconds(<span class="string">&quot;s&quot;</span>). The default units are <span class="string">&quot;ms&quot;</span>.</span><br><span class="line">  &lt;count&gt;       Number of samples to take before terminating.</span><br><span class="line">  -J&lt;flag&gt;      Pass &lt;flag&gt; directly to the runtime system.</span><br><span class="line"></span><br><span class="line">[root@localhost ~]<span class="comment"># jstat -help</span></span><br><span class="line">Usage: jstat -<span class="built_in">help</span>|-options</span><br><span class="line">       jstat -&lt;option&gt; [-t] [-h&lt;lines&gt;] &lt;vmid&gt; [&lt;interval&gt; [&lt;count&gt;]]</span><br><span class="line"></span><br><span class="line">Definitions:</span><br><span class="line">  &lt;option&gt;      An option reported by the -options option</span><br><span class="line">  &lt;vmid&gt;        Virtual Machine Identifier. A vmid takes the following form:</span><br><span class="line">                     &lt;lvmid&gt;[@&lt;hostname&gt;[:&lt;port&gt;]]</span><br><span class="line">                Where &lt;lvmid&gt; is the <span class="built_in">local</span> vm identifier <span class="keyword">for</span> the target</span><br><span class="line">                Java virtual machine, typically a process <span class="built_in">id</span>; &lt;hostname&gt; is</span><br><span class="line">                the name of the host running the target Java virtual machine;</span><br><span class="line">                and &lt;port&gt; is the port number <span class="keyword">for</span> the rmiregistry on the</span><br><span class="line">                target host. See the jvmstat documentation <span class="keyword">for</span> a more complete</span><br><span class="line">                description of the Virtual Machine Identifier.</span><br><span class="line">  &lt;lines&gt;       Number of samples between header lines.</span><br><span class="line">  &lt;interval&gt;    Sampling interval. The following forms are allowed:</span><br><span class="line">                    &lt;n&gt;[<span class="string">&quot;ms&quot;</span>|<span class="string">&quot;s&quot;</span>]</span><br><span class="line">                Where &lt;n&gt; is an <span class="built_in">integer</span> and the suffix specifies the units as</span><br><span class="line">                milliseconds(<span class="string">&quot;ms&quot;</span>) or seconds(<span class="string">&quot;s&quot;</span>). The default units are <span class="string">&quot;ms&quot;</span>.</span><br><span class="line">  &lt;count&gt;       Number of samples to take before terminating.</span><br><span class="line">  -J&lt;flag&gt;      Pass &lt;flag&gt; directly to the runtime system.</span><br><span class="line"></span><br><span class="line">[root@localhost ~]<span class="comment"># jstat -options</span></span><br><span class="line">-class</span><br><span class="line">-compiler</span><br><span class="line">-gc</span><br><span class="line">-gccapacity</span><br><span class="line">-gccause</span><br><span class="line">-gcmetacapacity</span><br><span class="line">-gcnew</span><br><span class="line">-gcnewcapacity</span><br><span class="line">-gcold</span><br><span class="line">-gcoldcapacity</span><br><span class="line">-gcutil</span><br><span class="line">-printcompilation</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="统计编译信息"><a href="#统计编译信息" class="headerlink" title="统计编译信息"></a>统计编译信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@localhost ~]<span class="comment">#  jstat -compiler 4803</span></span><br><span class="line">Compiled Failed Invalid   Time   FailedType FailedMethod</span><br><span class="line">   18450      2       0   292.99          1 org/springframework/util/ConcurrentReferenceHashMap<span class="variable">$Segment</span> restructureIfNecessary</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>Compiled：编译数量。</li>
+<li>Failed：失败数量</li>
+<li>Invalid：不可用数量</li>
+<li>Time：时间</li>
+<li>FailedType：失败类型</li>
+<li>FailedMethod：失败的方法</li>
+</ul>
+</blockquote>
+<h2 id="统计-GC-信息"><a href="#统计-GC-信息" class="headerlink" title="统计 GC 信息"></a>统计 GC 信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># jstat -gc 4803 250 10</span></span><br><span class="line"></span><br><span class="line"> S0C    S1C    S0U    S1U      EC       EU        OC         OU       MC     MU    CCSC   CCSU   YGC     YGCT    FGC    FGCT     GCT</span><br><span class="line">6464.0 6464.0  0.0    0.0   51904.0  13873.2   129364.0   69903.3   89472.0 84206.7 9856.0 8857.8   1526    9.749  10      2.029   11.7                           78</span><br><span class="line">6464.0 6464.0  0.0    0.0   51904.0  13873.2   129364.0   69903.3   89472.0 84206.7 9856.0 8857.8   1526    9.749  10      2.029   11.7                           78</span><br><span class="line">6464.0 6464.0  0.0    0.0   51904.0  13873.2   129364.0   69903.3   89472.0 84206.7 9856.0 8857.8   1526    9.749  10      2.029   11.7                           78</span><br><span class="line">6464.0 6464.0  0.0    0.0   51904.0  13873.2   129364.0   69903.3   89472.0 84206.7 9856.0 8857.8   1526    9.749  10      2.029   11.7                           78</span><br><span class="line">6464.0 6464.0  0.0    0.0   51904.0  13873.2   129364.0   69903.3   89472.0 84206.7 9856.0 8857.8   1526    9.749  10      2.029   11.7                           78</span><br><span class="line">6464.0 6464.0  0.0    0.0   51904.0  13873.2   129364.0   69903.3   89472.0 84206.7 9856.0 8857.8   1526    9.749  10      2.029   11.7                           78</span><br><span class="line">6464.0 6464.0  0.0    0.0   51904.0  13873.2   129364.0   69903.3   89472.0 84206.7 9856.0 8857.8   1526    9.749  10      2.029   11.7                           78</span><br><span class="line">6464.0 6464.0  0.0    0.0   51904.0  13873.2   129364.0   69903.3   89472.0 84206.7 9856.0 8857.8   1526    9.749  10      2.029   11.7                           78</span><br><span class="line">6464.0 6464.0  0.0    0.0   51904.0  13873.2   129364.0   69903.3   89472.0 84206.7 9856.0 8857.8   1526    9.749  10      2.029   11.7                           78</span><br><span class="line">6464.0 6464.0  0.0    0.0   51904.0  13873.2   129364.0   69903.3   89472.0 84206.7 9856.0 8857.8   1526    9.749  10      2.029   11.7                           78</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>S0C、S1C、S0U、S1U：Survivor 0/1 区容量（Capacity）和使用量（Used）</li>
+<li>EC、EU：Eden 区容量和使用量</li>
+<li>OC、OU：年老代容量和使用量</li>
+<li>MC、MU：元数据区容量和使用量</li>
+<li>CCSC、CCSU:压缩类空间容量和使用量</li>
+<li>YGC、YGCT：年轻代 GC 次数和 GC 耗时</li>
+<li>FGC、FGCT：Full GC 次数和 Full GC 耗时</li>
+<li>GCT：GC 总耗时</li>
+</ul>
+</blockquote>
+<h2 id="GC-统计信息"><a href="#GC-统计信息" class="headerlink" title="GC 统计信息"></a>GC 统计信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># jstat -gcutil 4803</span></span><br><span class="line">  S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT</span><br><span class="line">  0.00   0.00  49.91  54.04  94.12  89.87   1526    9.749    10    2.029   11.778</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>S0：S0 区当前使用比例</li>
+<li>S1：S1 区当前使用比例</li>
+<li>E： Eden 区使用比例</li>
+<li>O：老年代使用比例</li>
+<li>M：元数据区使用比例</li>
+<li>CCS：压缩类空间使用百分比</li>
+<li>YGC：年轻代垃圾回收次数</li>
+<li>FGC：老年代垃圾回收次数</li>
+<li>FGCT：老年代垃圾回收消耗时间</li>
+<li>GCT：垃圾回收消耗总时间</li>
+</ul>
+</blockquote>
+<p>此文到此算结束了,略显粗糙，如有错误欢迎批评指正。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
+<ul>
+<li><a href="https://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Freference%2Foqlsyntax.html">OQL 语法</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Object_Query_Language">Object_Query_Language</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jvm/" rel="tag"># jvm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/20/linux/Linux性能调优/" rel="next" title="Linux性能调优">
+                <i class="fa fa-chevron-left"></i> Linux性能调优
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/06/devops/docker部署spring boot项目/" rel="prev" title="docker部署spring boot项目">
+                docker部署spring boot项目 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xwolf</p>
+              <div class="site-description motion-element" itemprop="description">JAVAEE、大数据、人工智能学习</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/xwolf191" title="GitHub &rarr; https://github.com/xwolf191" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/snowxwolf@foxmail.com" title="E-Mail &rarr; snowxwolf@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jmap"><span class="nav-number">1.</span> <span class="nav-text">jmap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jhat"><span class="nav-number">2.</span> <span class="nav-text">jhat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#随意点击一个-class"><span class="nav-number">2.1.</span> <span class="nav-text">随意点击一个 class</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要看下面几个入口信息"><span class="nav-number">2.2.</span> <span class="nav-text">主要看下面几个入口信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#All-classes-including-platform"><span class="nav-number">2.2.1.</span> <span class="nav-text">All classes including platform</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Show-all-members-of-the-rootset"><span class="nav-number">2.2.2.</span> <span class="nav-text">Show all members of the rootset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Show-instance-counts-for-all-classes-including-platform"><span class="nav-number">2.2.3.</span> <span class="nav-text">Show instance counts for all classes (including platform)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Show-instance-counts-for-all-classes-excluding-platform"><span class="nav-number">2.2.4.</span> <span class="nav-text">Show instance counts for all classes (excluding platform)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Show-heap-histogram"><span class="nav-number">2.2.5.</span> <span class="nav-text">Show heap histogram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Show-finalizer-summary"><span class="nav-number">2.2.6.</span> <span class="nav-text">Show finalizer summary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Execute-Object-Query-Language-OQL-query"><span class="nav-number">2.2.7.</span> <span class="nav-text">Execute Object Query Language (OQL) query</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jstack"><span class="nav-number">3.</span> <span class="nav-text">jstack</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jinfo"><span class="nav-number">4.</span> <span class="nav-text">jinfo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jstat"><span class="nav-number">5.</span> <span class="nav-text">jstat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计编译信息"><span class="nav-number">5.1.</span> <span class="nav-text">统计编译信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计-GC-信息"><span class="nav-number">5.2.</span> <span class="nav-text">统计 GC 信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC-统计信息"><span class="nav-number">5.3.</span> <span class="nav-text">GC 统计信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xwolf</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">813k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">24:37</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'rqvt1pdlqsfcoMaUV34AtqwX-gzGzoHsz',
+    appKey: '9d3lSojiD6ccALSPy1sDeQYe',
+    placeholder: '^8^,不想说两句再走么?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('5');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

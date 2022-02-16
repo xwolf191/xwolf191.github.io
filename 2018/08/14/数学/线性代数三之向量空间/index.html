@@ -1,23 +1,1594 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
 
-{% block content %}
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="向量空间是现代数学中的一个基本概念。是线性代数研究的基本对象。 向量空间的一个直观模型是向量几何，几何上的向量及相关的运算即向量加法，标量乘法，以及对运算的一些限制如封闭性，结合律，已大致地描述了“向量空间”这个数学概念的直观形象。 在现代数学中，“向量”的概念不仅限于此，满足下列公理的任何数学对象都可被当作向量处理。譬如，实系数多项式的集合在定义适当的运算后构成向量空间，在代数上处理是方便的。单">
+<meta name="keywords" content="线代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性代数三之向量空间">
+<meta property="og:url" content="http://xwolf191.github.io/2018/08/14/数学/线性代数三之向量空间/index.html">
+<meta property="og:site_name" content="Xwolf">
+<meta property="og:description" content="向量空间是现代数学中的一个基本概念。是线性代数研究的基本对象。 向量空间的一个直观模型是向量几何，几何上的向量及相关的运算即向量加法，标量乘法，以及对运算的一些限制如封闭性，结合律，已大致地描述了“向量空间”这个数学概念的直观形象。 在现代数学中，“向量”的概念不仅限于此，满足下列公理的任何数学对象都可被当作向量处理。譬如，实系数多项式的集合在定义适当的运算后构成向量空间，在代数上处理是方便的。单">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-19T00:23:27.986Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="线性代数三之向量空间">
+<meta name="twitter:description" content="向量空间是现代数学中的一个基本概念。是线性代数研究的基本对象。 向量空间的一个直观模型是向量几何，几何上的向量及相关的运算即向量加法，标量乘法，以及对运算的一些限制如封闭性，结合律，已大致地描述了“向量空间”这个数学概念的直观形象。 在现代数学中，“向量”的概念不仅限于此，满足下列公理的任何数学对象都可被当作向量处理。譬如，实系数多项式的集合在定义适当的运算后构成向量空间，在代数上处理是方便的。单">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://xwolf191.github.io/2018/08/14/数学/线性代数三之向量空间/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>线性代数三之向量空间 | Xwolf</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e201c03696b77e30e2ed8c52937d5ccb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xwolf</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">IT编程学习</p>
+      
+    
+    
   </div>
 
-{% endblock %}
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwolf191.github.io/2018/08/14/数学/线性代数三之向量空间/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xwolf">
+      <meta itemprop="description" content="JAVAEE、大数据、人工智能学习">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xwolf">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">线性代数三之向量空间
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-14 00:10:00" itemprop="dateCreated datePublished" datetime="2018-08-14T00:10:00+08:00">2018-08-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-19 08:23:27" itemprop="dateModified" datetime="2020-07-19T08:23:27+08:00">2020-07-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数学/" itemprop="url" rel="index"><span itemprop="name">数学</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/08/14/数学/线性代数三之向量空间/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/14/数学/线性代数三之向量空间/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">5.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">9 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>向量空间是现代数学中的一个基本概念。是线性代数研究的基本对象。</p>
+<p>向量空间的一个直观模型是向量几何，几何上的向量及相关的运算即向量加法，标量乘法，以及对运算的一些限制如封闭性，结合律，已大致地描述了“向量空间”这个数学概念的直观形象。</p>
+<p>在现代数学中，“向量”的概念不仅限于此，满足下列公理的任何数学对象都可被当作向量处理。譬如，实系数多项式的集合在定义适当的运算后构成向量空间，在代数上处理是方便的。单变元实函数的集合在定义适当的运算后，也构成向量空间，研究此类函数向量空间的数学分支称为泛函分析。<br><span id="more"></span></p>
+<h1 id="定义和例子"><a href="#定义和例子" class="headerlink" title="定义和例子"></a>定义和例子</h1><h2 id="欧几里得向量空间"><a href="#欧几里得向量空间" class="headerlink" title="欧几里得向量空间"></a>欧几里得向量空间</h2><p>首先最基本的向量空间就是欧几里得向量空间$R^n,n=1,2,3…$。为简单起见我们首先考虑$R^2$。$R^2$中的非零向量在几何上表示有向线段。这种集合表示有利于我们理解$R^2$中标量乘法和加法的作用。给定一非零向量$\vec{x} = \begin{bmatrix}<br>x_1 \<br>x_2<br>\end{bmatrix}$,可将其和一个坐标平面上从(0,0)到点$(x_1,x_2)$的有向线段对应起来。如果将相同长度和方向的线段看成是相同的,则$\vec{x}$可用任何从(a,b)到$(a+x_1,b+x_2)$的线段表示。<br>我们将向量$\vec{x} = \begin{bmatrix}<br>x_1 \<br>x_2<br>\end{bmatrix}$的欧几里得长度看成是任何表示$\vec{x}$的有向线段的长度。从(0,0)到$(x_1,x_2)$的有向线段的长度为$\sqrt{x_1^2+x_2^2}$。对每一个向量$\vec{x} = \begin{bmatrix}<br>x_1 \<br>x_2<br>\end{bmatrix}$和每一个标量$\alpha$,乘积$\alpha\vec{x}$定义为$\alpha\begin{bmatrix}<br>x_1 \<br>x_2<br>\end{bmatrix} =\begin{bmatrix}<br>\alpha x_1 \<br>\alpha x_2<br>\end{bmatrix} $。</p>
+<p>两个向量<br>$<br>\vec{a}=\begin{bmatrix}<br>a_1 \<br>a_2<br>\end{bmatrix} 和<br>\vec{b}=\begin{bmatrix}<br>b_1 \<br>b_2<br>\end{bmatrix}的和的定义为 \vec{a}+\vec{b} = \begin{bmatrix}<br>a_1+b_1 \<br>a_2+b_2<br>\end{bmatrix}$。如果$\vec{b}$放置在$\vec{a}$的终点上,则$\vec{a}+\vec{b}$表示从$\vec{a}$的起点到$\vec{b}$的终点的有向线段。</p>
+<p>一般地，$R^n$中的标量乘法和加法定义为<br>$\alpha \vec{x}=\begin{bmatrix}<br>\alpha x_1 \<br>\alpha x_2 \<br>{\vdots}\<br>\alpha x_n<br>\end{bmatrix} 和 \vec{x}+\vec{y} = \begin{bmatrix}<br>x_1+y_1 \<br>x_2+y_2 \<br>{\vdots}\<br>x_n+y_n<br>\end{bmatrix}$，其中$\vec{x},\vec{y} \in R^n,且\alpha为标量$。</p>
+<h2 id="向量空间-R-m-times-n"><a href="#向量空间-R-m-times-n" class="headerlink" title="向量空间$R^{m\times n}$"></a>向量空间$R^{m\times n}$</h2><p>我们可以将$R^n$空间看成是所有元素都是实数的$n\times 1$矩阵的集合。$R^n$中向量的加法和标量乘法就是通常的矩阵的加法和标量的乘法。更一般地,用$R^{m\times n}$表示所有$m\times n$实矩阵的集合。$R^{m\times n}$上的加法运算和标量乘法运算遵循特定的代数运算法则。这些法则构成了定义向量空间概念的公理。</p>
+<h2 id="向量空间的公理"><a href="#向量空间的公理" class="headerlink" title="向量空间的公理"></a>向量空间的公理</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>令V为一定义了加法和标量乘法运算的集合。这意味着，对V中的每一对元素x和y,可唯一对应V中的一个元素x+y，且对每一个V中的元素x和每一个标量a,可唯一对应V中的元素ax。如果集合V连同其上的加法和标量乘法运算满足下面的公理,则称为向量空间。</p>
+<ol>
+<li>对V中的任何的x和y,x+y = y+x。</li>
+<li>对V中的任何的x,y和z。(x+y)+z = x+(y+z)。</li>
+<li>V中存在一个元素0,满足对任意的$x\in V$有x+0 = x 。</li>
+<li>对每一$x\in V$,存在V中的一个元素-x,满足 x+(-x) = 0。</li>
+<li>对任意标量a和V中的元素x,y,有 a(x+y) = ax+ ay。</li>
+<li>对任意标量a和b及$x\in V$,有(a+b)x = ax+bx。</li>
+<li>对任意标量a和b及$x\in V$,有(ab)x = a(bx)。</li>
+<li>对所有$x\in V$,有 $1\cdot x = x$ 。</li>
+</ol>
+<p>我们称V为空间向量的全集,它的元素称为向量(vector)。并用黑斜体小写字母表示。术语标量(scalar)通常是指实数,一般用小写字母表示。<br>定义中一个重要的部分是两个运算的封闭性,这个性质可以归纳如下:</p>
+<ol>
+<li>若$x\in V$,且a为标量，则$ax \in V$。</li>
+<li>若 $x,y\in V$,则 $ x+y \in V$。</li>
+</ol>
+<p>如果一个集合不满足封闭性则不是向量空间。例如 W= { (a,1)|a是实数 },可能不满足加法和标量乘法。</p>
+<h2 id="向量空间C-a-b"><a href="#向量空间C-a-b" class="headerlink" title="向量空间C[a,b]"></a>向量空间C[a,b]</h2><p>用向量空间C[a,b]表示所有定义在闭区间[a,b]上的实值连续函数。此时，全集为一函数集合。因此，我们的向量为C[a,b]中的函数。C[a,b]中两个函数的和f+g定义为对所有[a,b]中的x,(f+g)(x) = f(x)+g(x)。新函数f+g也是C[a,b]中的元素,因为两个连续函数的和仍为连续函数。同理,若f是C[a,b]中的函数，a为一个实数，则af定义为对所有[a,b]中的x,(af)(x) = af(x)。显然af是[a,b]中的元素,因为一个数乘以一个连续函数也总是连续函数。</p>
+<h2 id="向量空间-P-n"><a href="#向量空间-P-n" class="headerlink" title="向量空间$P_n$"></a>向量空间$P_n$</h2><p>令$P_n$表示次数小于n的所有多项式的集合。定义p+q和ap为所有的实数x,有(p+q)(x) = p(x)+q(x)且(ap)(x) = ap(x)。<br>此时，零向量是零多项式，$<br>z(x)  = 0x^{n-1}+0x^{n-2}+…+0x+0<br>$。容易验证,向量空间的所有公理都成立。因此,$P_n$连同一般的函数加法和标量乘法构成一个向量空间。</p>
+<h2 id="向量空间的其他性质"><a href="#向量空间的其他性质" class="headerlink" title="向量空间的其他性质"></a>向量空间的其他性质</h2><h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><p>若V为向量空间,且x为V中的任一元素，则:</p>
+<ol>
+<li>0x=<strong>0</strong></li>
+<li>x+y = <strong>0</strong> 蕴涵 y=-x</li>
+<li>(-1)x = -x</li>
+</ol>
+<h1 id="子空间"><a href="#子空间" class="headerlink" title="子空间"></a>子空间</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><p>若S为向量空间V的非空子集,且S满足如下条件,</p>
+<blockquote>
+<ul>
+<li>对任意标量a,若$x\in S$,则$ax \in S$</li>
+<li>若 $x\in S 且y\in S$,则$x+y \in S$<br>则S称为V的子空间。</li>
+</ul>
+</blockquote>
+<p>向量空间的任何子空间仍未向量空间。</p>
+<p>注意，在向量空间V中，容易验证{0}和V是V的子空间。所有其他子空间称为真子空间。我们称{0}为零空间。</p>
+<h2 id="矩阵的零空间"><a href="#矩阵的零空间" class="headerlink" title="矩阵的零空间"></a>矩阵的零空间</h2><p>\text{…}</p>
+<h2 id="向量集合的张成"><a href="#向量集合的张成" class="headerlink" title="向量集合的张成"></a>向量集合的张成</h2><h2 id="向量空间的张成"><a href="#向量空间的张成" class="headerlink" title="向量空间的张成"></a>向量空间的张成</h2><h1 id="线性无关"><a href="#线性无关" class="headerlink" title="线性无关"></a>线性无关</h1><h1 id="基和维数"><a href="#基和维数" class="headerlink" title="基和维数"></a>基和维数</h1><h1 id="基变换"><a href="#基变换" class="headerlink" title="基变换"></a>基变换</h1><h1 id="行空间和列空间"><a href="#行空间和列空间" class="headerlink" title="行空间和列空间"></a>行空间和列空间</h1><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
+<ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4">向量空间</a></li>
+<li>线性代数Steven J Leon(原书第8版)</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/线代/" rel="tag"># 线代</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/10/数据库/mysql/leetcode/Exchange Seats/" rel="next" title="626. Exchange Seats">
+                <i class="fa fa-chevron-left"></i> 626. Exchange Seats
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/28/devops/docker基础/" rel="prev" title="docker基础">
+                docker基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xwolf</p>
+              <div class="site-description motion-element" itemprop="description">JAVAEE、大数据、人工智能学习</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/xwolf191" title="GitHub &rarr; https://github.com/xwolf191" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/snowxwolf@foxmail.com" title="E-Mail &rarr; snowxwolf@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义和例子"><span class="nav-number">1.</span> <span class="nav-text">定义和例子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#欧几里得向量空间"><span class="nav-number">1.1.</span> <span class="nav-text">欧几里得向量空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量空间-R-m-times-n"><span class="nav-number">1.2.</span> <span class="nav-text">向量空间$R^{m\times n}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量空间的公理"><span class="nav-number">1.3.</span> <span class="nav-text">向量空间的公理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.3.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量空间C-a-b"><span class="nav-number">1.4.</span> <span class="nav-text">向量空间C[a,b]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量空间-P-n"><span class="nav-number">1.5.</span> <span class="nav-text">向量空间$P_n$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量空间的其他性质"><span class="nav-number">1.6.</span> <span class="nav-text">向量空间的其他性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定理"><span class="nav-number">1.6.1.</span> <span class="nav-text">定理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#子空间"><span class="nav-number">2.</span> <span class="nav-text">子空间</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-1"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的零空间"><span class="nav-number">2.2.</span> <span class="nav-text">矩阵的零空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量集合的张成"><span class="nav-number">2.3.</span> <span class="nav-text">向量集合的张成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量空间的张成"><span class="nav-number">2.4.</span> <span class="nav-text">向量空间的张成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性无关"><span class="nav-number">3.</span> <span class="nav-text">线性无关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基和维数"><span class="nav-number">4.</span> <span class="nav-text">基和维数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基变换"><span class="nav-number">5.</span> <span class="nav-text">基变换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#行空间和列空间"><span class="nav-number">6.</span> <span class="nav-text">行空间和列空间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xwolf</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">813k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">24:37</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'rqvt1pdlqsfcoMaUV34AtqwX-gzGzoHsz',
+    appKey: '9d3lSojiD6ccALSPy1sDeQYe',
+    placeholder: '^8^,不想说两句再走么?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('5');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

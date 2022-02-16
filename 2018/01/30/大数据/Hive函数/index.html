@@ -1,23 +1,1614 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
 
-{% block content %}
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本篇主要介绍Hive的内置函数和自定义函数,以2.3.0版本为例. 内置函数Hive内部提供了很多函数给开发者使用，包括数学函数，类型转换函数，条件函数，字符函数，聚合函数，表生成函数等等，这些函数都统称为内置函数。 数学函数123456789101112131415161718192021222324252627282930313233343536373839404142434445464748">
+<meta name="keywords" content="hive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive函数">
+<meta property="og:url" content="http://xwolf191.github.io/2018/01/30/大数据/Hive函数/index.html">
+<meta property="og:site_name" content="Xwolf">
+<meta property="og:description" content="本篇主要介绍Hive的内置函数和自定义函数,以2.3.0版本为例. 内置函数Hive内部提供了很多函数给开发者使用，包括数学函数，类型转换函数，条件函数，字符函数，聚合函数，表生成函数等等，这些函数都统称为内置函数。 数学函数123456789101112131415161718192021222324252627282930313233343536373839404142434445464748">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-19T00:23:27.961Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hive函数">
+<meta name="twitter:description" content="本篇主要介绍Hive的内置函数和自定义函数,以2.3.0版本为例. 内置函数Hive内部提供了很多函数给开发者使用，包括数学函数，类型转换函数，条件函数，字符函数，聚合函数，表生成函数等等，这些函数都统称为内置函数。 数学函数123456789101112131415161718192021222324252627282930313233343536373839404142434445464748">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://xwolf191.github.io/2018/01/30/大数据/Hive函数/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Hive函数 | Xwolf</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e201c03696b77e30e2ed8c52937d5ccb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xwolf</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">IT编程学习</p>
+      
+    
+    
   </div>
 
-{% endblock %}
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwolf191.github.io/2018/01/30/大数据/Hive函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xwolf">
+      <meta itemprop="description" content="JAVAEE、大数据、人工智能学习">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xwolf">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hive函数
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-01-30 17:20:00" itemprop="dateCreated datePublished" datetime="2018-01-30T17:20:00+08:00">2018-01-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-19 08:23:27" itemprop="dateModified" datetime="2020-07-19T08:23:27+08:00">2020-07-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/大数据/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/01/30/大数据/Hive函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/01/30/大数据/Hive函数/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">45k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1:22</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇主要介绍Hive的内置函数和自定义函数,以2.3.0版本为例.</p>
+<h1 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h1><p>Hive内部提供了很多函数给开发者使用，包括数学函数，类型转换函数，条件函数，字符函数，聚合函数，表生成函数等等，这些函数都统称为内置函数。</p>
+<h2 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 自然常数</span></span><br><span class="line"><span class="keyword">select</span> e();<span class="comment">--  2.718281828459045</span></span><br><span class="line"><span class="comment">-- 圆周率</span></span><br><span class="line"><span class="keyword">select</span> pi();<span class="comment">-- 3.141592653589793</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--  正弦、余弦、正切、反正弦、反余弦、反正切</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">sin</span>(<span class="number">0</span>) ,<span class="built_in">cos</span>(<span class="number">0</span>),<span class="built_in">tan</span>(pi()<span class="operator">/</span><span class="number">4</span>),<span class="built_in">asin</span>(<span class="number">1</span>),<span class="built_in">acos</span>(<span class="number">1</span>),<span class="built_in">atan</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 弧度角度转换函数</span></span><br><span class="line"><span class="keyword">select</span> degrees(pi()<span class="operator">/</span><span class="number">2</span>),radians(<span class="number">90</span>);<span class="comment">--  90.0 | 1.5707963267948966</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- positive直接返回原数,negative 返回相反数,abs 绝对值</span></span><br><span class="line"><span class="keyword">select</span> positive(<span class="number">-32.4343</span>) , negative(<span class="number">-32</span>),<span class="built_in">abs</span>(<span class="number">-32</span>);<span class="comment">--  -32.4343  | 32 |32</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 四舍五入函数 注意和bround的区别</span></span><br><span class="line"><span class="keyword">select</span> round(<span class="number">12.62</span>),round(<span class="number">12.55</span>,<span class="number">1</span>),round(<span class="number">13.556</span>,<span class="number">2</span>),bround(<span class="number">12.65</span>,<span class="number">1</span>),bround(<span class="number">12.66</span>,<span class="number">1</span>);<span class="comment">--  13   | 12.6  | 13.56  | 12.6  | 12.7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--  小于指定数字的最大数和大于指定数字的最小数</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">floor</span>(<span class="number">12.98</span>),<span class="built_in">ceil</span>(<span class="number">12.32</span>);<span class="comment">-- 12 13</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 随机数,如果指定参数生成的随机数是固定的</span></span><br><span class="line"><span class="keyword">select</span> rand(),rand(<span class="number">23</span>);</span><br><span class="line"><span class="operator">+</span><span class="comment">-- -- -- -- -- -- -- -- -- -- +-- -- -- -- -- -- -- -- -- -- -+</span></span><br><span class="line"><span class="operator">|</span>        _c0         <span class="operator">|</span>         _c1         <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-- -- -- -- -- -- -- -- -- -- +-- -- -- -- -- -- -- -- -- -- -+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0.447675386320312</span>  <span class="operator">|</span> <span class="number">0.7321323355141605</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-- -- -- -- -- -- -- -- -- -- +-- -- -- -- -- -- -- -- -- -- -+</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> rand(),rand(<span class="number">23</span>);</span><br><span class="line"></span><br><span class="line"><span class="operator">+</span><span class="comment">-- -- -- -- -- -- -- -- -- -- -+-- -- -- -- -- -- -- -- -- -- -+</span></span><br><span class="line"><span class="operator">|</span>         _c0         <span class="operator">|</span>         _c1         <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-- -- -- -- -- -- -- -- -- -- -+-- -- -- -- -- -- -- -- -- -- -+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0.6958761143570242</span>  <span class="operator">|</span> <span class="number">0.7321323355141605</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-- -- -- -- -- -- -- -- -- -- -+-- -- -- -- -- -- -- -- -- -- -+</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> rand(),rand(<span class="number">23</span>);</span><br><span class="line"><span class="operator">+</span><span class="comment">-- -- -- -- -- -- -- -- -- -- -+-- -- -- -- -- -- -- -- -- -- -+</span></span><br><span class="line"><span class="operator">|</span>         _c0         <span class="operator">|</span>         _c1         <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-- -- -- -- -- -- -- -- -- -- -+-- -- -- -- -- -- -- -- -- -- -+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0.7471695196174757</span>  <span class="operator">|</span> <span class="number">0.7321323355141605</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-- -- -- -- -- -- -- -- -- -- -+-- -- -- -- -- -- -- -- -- -- -+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- a的b次幂,阶乘,平方根,立方根,自然常数e的n次方</span></span><br><span class="line"><span class="keyword">select</span> pow(<span class="number">2</span>,<span class="number">3</span>),factorial(<span class="number">4</span>),<span class="built_in">sqrt</span>(<span class="number">81</span>),cbrt(<span class="number">27</span>),<span class="built_in">exp</span>(<span class="number">2</span>);<span class="comment">--  8.0  | 24   | 9.0  | 3.0|7.3890560989306495</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--  对数</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">ln</span>(e()),log2(<span class="number">8</span>), <span class="built_in">log10</span>(<span class="number">100</span>),<span class="built_in">log</span>(<span class="number">4</span>,<span class="number">64</span>);<span class="comment">--  1.0  | 3.0  | 2.0  | 3.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 最大值/最小值</span></span><br><span class="line"><span class="keyword">select</span> greatest(<span class="number">12</span>,<span class="number">43</span>,<span class="number">54.32</span>,<span class="number">22.54</span>,<span class="number">34.22</span>),least(<span class="number">12</span>,<span class="number">43</span>,<span class="number">54.32</span>,<span class="number">22.54</span>,<span class="number">34.22</span>);<span class="comment">-- 54.32  | 12.00</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 左移、右移、无符号右移</span></span><br><span class="line"> <span class="keyword">select</span> shiftleft(<span class="number">2</span>,<span class="number">3</span>),shiftright(<span class="number">-12</span>,<span class="number">2</span>),shiftrightunsigned(<span class="number">12</span>,<span class="number">2</span>),shiftrightunsigned(<span class="number">-12</span>,<span class="number">2</span>);<span class="comment">--  16 | -3 | 3 | 1073741821</span></span><br></pre></td></tr></table></figure>
+<h2 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 获取当前时间戳,返回Bigint</span></span><br><span class="line"><span class="keyword">select</span> unix_timestamp();<span class="comment">--  1517314216</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取当前日期</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">current_date</span>();<span class="comment">--  2018-01-30</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取当前时间字符串</span></span><br><span class="line"> <span class="keyword">select</span> <span class="built_in">current_timestamp</span>;<span class="comment">--  2018-01-30 20:08:45.598</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 时间戳转化为指定格式的字符串</span></span><br><span class="line"><span class="keyword">select</span> from_unixtime(<span class="number">1517314216</span>,<span class="string">&#x27;YYYY-MM-DD HH:mm:ss.SSS&#x27;</span>);<span class="comment">-- 2018-01-30 20:10:16.000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取时间戳的日期部分,返回日期对象</span></span><br><span class="line"><span class="keyword">select</span> to_date(<span class="string">&#x27;2016-10-21 20:20:21&#x27;</span>);<span class="comment">-- 2016-10-21</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 取日期的年份</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">year</span>(<span class="string">&#x27;2014-10-21&#x27;</span>);<span class="comment">-- 2014</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 取日期的月份</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">month</span>(<span class="string">&#x27;2014-10-21&#x27;</span>);<span class="comment">-- 10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 取日期的日期</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">day</span>(<span class="string">&#x27;2014-10-21 21:30:21&#x27;</span>);<span class="comment">-- 21</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> dayofmonth(<span class="string">&#x27;2014-10-21 21:30:21&#x27;</span>);<span class="comment">-- 21</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 取日期的小时数</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">hour</span>(<span class="string">&#x27;2014-10-21 21:30:21&#x27;</span>);<span class="comment">-- 21</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 取日期的分钟数</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">minute</span>(<span class="string">&#x27;2014-10-21 21:30:21&#x27;</span>);<span class="comment">-- 30</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 取日期的秒数</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">second</span>(<span class="string">&#x27;2014-10-21 21:30:21&#x27;</span>);<span class="comment">-- 21</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 日期加上指定天数后的日期</span></span><br><span class="line"><span class="keyword">select</span> date_add(<span class="string">&#x27;2014-10-21 21:30:21&#x27;</span>,<span class="number">2</span>);<span class="comment">-- 2014-10-23</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> date_add(<span class="string">&#x27;2014-10-21 21:30:21&#x27;</span>,<span class="number">-2</span>);<span class="comment">-- 2014-10-19</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 日期减去指定天数后的日期</span></span><br><span class="line"><span class="keyword">select</span> date_sub(<span class="string">&#x27;2014-10-21 21:30:21&#x27;</span>,<span class="number">2</span>);<span class="comment">-- 2014-10-19</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> date_sub(<span class="string">&#x27;2014-10-21 21:30:21&#x27;</span>,<span class="number">-2</span>);<span class="comment">-- 2014-10-23</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 将日期转化为指定时区的时间</span></span><br><span class="line"><span class="keyword">select</span> from_utc_timestamp(<span class="string">&#x27;2018-09-21 12:11:21.231&#x27;</span>,<span class="string">&#x27;PST&#x27;</span>);<span class="comment">-- 2018-09-21 05:11:21.231</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> from_utc_timestamp(<span class="string">&#x27;2018-09-21 12:11:21.231&#x27;</span>,<span class="string">&#x27;UTC&#x27;</span>);<span class="comment">-- 2018-09-21 12:11:21.231</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> from_utc_timestamp(<span class="string">&#x27;2018-09-21 12:11:21.231&#x27;</span>,<span class="string">&#x27;GMT+8&#x27;</span>);<span class="comment">-- 2018-09-21 20:11:21.231</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> from_utc_timestamp(<span class="string">&#x27;2018-09-21 12:11:21.231&#x27;</span>,<span class="string">&#x27;UTC+8&#x27;</span>);<span class="comment">-- 2018-09-21 12:11:21.231</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- datediff(end,start) end-start的日期差</span></span><br><span class="line"><span class="keyword">select</span> datediff(<span class="string">&#x27;2012-12-08&#x27;</span>,<span class="string">&#x27;2012-12-20&#x27;</span>);<span class="comment">--  -12</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取日期月份差值(end,start)</span></span><br><span class="line"><span class="keyword">select</span> months_between(<span class="string">&#x27;2012-12-08&#x27;</span>,<span class="string">&#x27;2013-12-20&#x27;</span>);<span class="comment">--  -12.38709677</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 指定日期添加指定月份的日期</span></span><br><span class="line"><span class="keyword">select</span> add_months(<span class="string">&#x27;2012-12-08&#x27;</span>,<span class="number">2</span>);<span class="comment">-- 2013-02-08</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取日期最后一天的日期</span></span><br><span class="line"><span class="keyword">select</span> last_day(<span class="string">&#x27;2012-12-08&#x27;</span>);<span class="comment">--  2012-12-31</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取当前时间开始的下一个 周一</span></span><br><span class="line"><span class="keyword">select</span> next_day(<span class="string">&#x27;2017-12-08&#x27;</span>,<span class="string">&#x27;MONDAY&#x27;</span>);<span class="comment">--  2017-12-11</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 按照指定格式格式化截取日期  MONTH/MON/MM, YEAR/YYYY/YY.</span></span><br><span class="line"><span class="keyword">select</span> trunc(<span class="string">&#x27;2015-03-17&#x27;</span>, <span class="string">&#x27;YEAR&#x27;</span>);<span class="comment">--  2015-01-01</span></span><br><span class="line"><span class="keyword">select</span> trunc(<span class="string">&#x27;2015-03-17&#x27;</span>, <span class="string">&#x27;YYYY&#x27;</span>);<span class="comment">--  2015-01-01</span></span><br><span class="line"><span class="keyword">select</span> trunc(<span class="string">&#x27;2015-03-17&#x27;</span>, <span class="string">&#x27;MONTH&#x27;</span>);<span class="comment">--  2015-03-01</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 指定格式格式化日期</span></span><br><span class="line"><span class="keyword">select</span> date_format(&quot;2018-07-12&quot;,&quot;MM-dd&quot;);<span class="comment">--  07-12</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="条件函数"><a href="#条件函数" class="headerlink" title="条件函数"></a>条件函数</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 是否为空判断函数</span></span><br><span class="line"><span class="keyword">select</span> isnull(&quot;&quot;),isnull(<span class="keyword">null</span>),isnotnull(<span class="keyword">null</span>),isnotnull(&quot;&quot;);<span class="comment">--  false  | true  | false  | true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--  if(a,b,c) ,a为true返回b,a为false返回a</span></span><br><span class="line"><span class="keyword">select</span> if(<span class="number">1</span><span class="operator">&gt;</span><span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>),if(<span class="number">1</span><span class="operator">&lt;</span><span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>); <span class="comment">-- 3 | 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 如果为null,返回一个默认值</span></span><br><span class="line"><span class="keyword">select</span> nvl(<span class="keyword">null</span>,<span class="number">1</span>),nvl(<span class="number">2</span>,<span class="number">0</span>); <span class="comment">-- 1| 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 返回第一个不为null的值</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">coalesce</span>(<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="number">2</span>,<span class="number">34</span>);<span class="comment">-- 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 断言,true返回null,否则抛出异常</span></span><br><span class="line"><span class="keyword">select</span> assert_true(<span class="number">1</span><span class="operator">&gt;</span><span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">Error: java.io.IOException: org.apache.hadoop.hive.ql.metadata.HiveException: ASSERT_TRUE(): assertion failed. (state<span class="operator">=</span>,code<span class="operator">=</span><span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> assert_true(<span class="number">1</span><span class="operator">=</span><span class="operator">=</span><span class="number">1</span>);</span><br><span class="line"><span class="operator">+</span><span class="comment">-- -- -- -+</span></span><br><span class="line"><span class="operator">|</span>  _c0  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-- -- -- -+</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">NULL</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-- -- -- -+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--  CASE a WHEN b THEN c [WHEN d THEN e] ELSE f, a==b返回c,a==d 返回e,否则返回f.</span></span><br><span class="line"> <span class="keyword">select</span> <span class="keyword">CASE</span> <span class="string">&#x27;3&#x27;</span> <span class="keyword">WHEN</span> <span class="string">&#x27;2&#x27;</span> <span class="keyword">THEN</span> <span class="string">&#x27;is true&#x27;</span> <span class="keyword">WHEN</span> <span class="string">&#x27;3&#x27;</span>  <span class="keyword">THEN</span> <span class="string">&#x27;equals 3&#x27;</span> <span class="keyword">ELSE</span> <span class="string">&#x27;No Result&#x27;</span> <span class="keyword">END</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- CASE WHEN a THEN b [WHEN c THEN d]* [ELSE e] END; a为true 返回b,c为true返回d,否则返回e.</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="number">1</span><span class="operator">=</span><span class="operator">=</span><span class="number">2</span> <span class="keyword">THEN</span> <span class="string">&#x27;is true&#x27;</span> <span class="keyword">WHEN</span> <span class="number">2</span><span class="operator">=</span><span class="operator">=</span><span class="number">3</span> <span class="keyword">THEN</span> <span class="string">&#x27;is false&#x27;</span> <span class="keyword">ELSE</span> <span class="string">&#x27;No result&#x27;</span> <span class="keyword">END</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 返回字符串的第一个字符的ascii值</span></span><br><span class="line"><span class="keyword">select</span> ascii(<span class="string">&#x27;0ABCD&#x27;</span>);<span class="comment">-- 48</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 返回ascii值对应的字符</span></span><br><span class="line"><span class="keyword">select</span> chr(<span class="number">65</span>);<span class="comment">-- A</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 返回字符长度</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">character_length</span>(<span class="string">&#x27;哎呀A23456&#x27;</span>);<span class="comment">-- 8</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 字符串拼接</span></span><br><span class="line"><span class="keyword">select</span> concat(<span class="string">&#x27;234&#x27;</span>,<span class="string">&#x27;Abc哎呀&#x27;</span>);<span class="comment">-- 234Abc哎呀</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 用指定的分隔符拼接字符串</span></span><br><span class="line"><span class="keyword">select</span> concat_ws(<span class="string">&#x27;$&#x27;</span>,<span class="string">&#x27;2&#x27;</span>,&quot;哎呀&quot;,&quot;Python&quot;,&quot;R&quot;,&quot;Scala&quot;);<span class="comment">--  2$哎呀$Python$R$Scala</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--  set中元素的位置,找不到返回0</span></span><br><span class="line"><span class="keyword">select</span> find_in_set(<span class="string">&#x27;1&#x27;</span>,<span class="string">&#x27;2,3,4,5,1,3,1&#x27;</span>);<span class="comment">-- 5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--  分割</span></span><br><span class="line"> <span class="keyword">select</span> split(<span class="string">&#x27;a,b,c,d&#x27;</span>,<span class="string">&#x27;,&#x27;</span>);<span class="comment">-- [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--  字符串截取、翻转、去空格,重复字符串N次</span></span><br><span class="line"><span class="keyword">select</span> length(&quot;ABC&quot;),substr(&quot;ABC123&quot;,<span class="number">3</span>),<span class="built_in">substring</span>(&quot;ABC123&quot;,<span class="number">3</span>),</span><br><span class="line"><span class="built_in">trim</span>(&quot; A B CDF  &quot;),reverse(&quot;ABCDE123&quot;),repeat(<span class="string">&#x27;ABC&#x27;</span>,<span class="number">3</span>);<span class="comment">--  3    | C123  | C123  | A B CDF  | 321EDCBA |ABCABCABC</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> substring_index(, string delim, <span class="type">int</span> count);<span class="comment">-- </span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 字符串替换,仔细看看translate的用法</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">translate</span>(<span class="string">&#x27;ABCDE123ABC&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;##&#x27;</span>);<span class="comment">-- #BCDE123#BC</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> replace (<span class="string">&#x27;ABCDE123ABC&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;##&#x27;</span>);<span class="comment">--  ##BCDE123##BC</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">translate</span>(<span class="string">&#x27;ABCDE123ABC&#x27;</span>,&quot;AB&quot;,&quot;#$#@&quot;);<span class="comment">-- #$CDE123#$C</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">translate</span>(<span class="string">&#x27;ABCDE123ABCD&#x27;</span>,&quot;ABCD&quot;,&quot;#$#@&quot;);<span class="comment">-- #$#@E123#$#@</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- soundex code,更多信息参考wiki</span></span><br><span class="line"><span class="keyword">select</span> soundex(<span class="string">&#x27;Hello&#x27;</span>);<span class="comment">-- H400</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>二进制操作函数base64,unbase64暂时不举例了.</p>
+<h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">返回值</th>
+<th style="text-align:center">函数名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">BIGINT</td>
+<td style="text-align:center">count(*), count(expr), count(DISTINCT expr[, expr…])</td>
+<td style="text-align:center">总数</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">sum(col), sum(DISTINCT col)</td>
+<td style="text-align:center">求和</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">avg(col), avg(DISTINCT col)</td>
+<td style="text-align:center">求平均值</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">variance(col), var_pop(col)</td>
+<td style="text-align:center">返回组中数字列的方差</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">var_samp(col)</td>
+<td style="text-align:center">返回组中一个数值列的无偏样本方差</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">stddev_pop(col)</td>
+<td style="text-align:center">返回组中数字列的标准差</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">stddev_samp(col)</td>
+<td style="text-align:center">返回组中数字列的无偏抽样标准偏差</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">covar_pop(col1, col2)</td>
+<td style="text-align:center">返回组中一对数字列的总体协方差</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">covar_samp(col1, col2)</td>
+<td style="text-align:center">返回组中一对数字列的协方差</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">corr(col1, col2)</td>
+<td style="text-align:center">返回该组中一对数字列的相关性的皮尔森系数</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">percentile(BIGINT col, p)</td>
+<td style="text-align:center">返回该组中一对数字列的相关性的皮尔森系数</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">regr_count(independent, dependent)</td>
+<td style="text-align:center">返回用于适应线性回归直线的非空对的数量</td>
+</tr>
+<tr>
+<td style="text-align:center">array</td>
+<td style="text-align:center">collect_set(col)</td>
+<td style="text-align:center">返回一组具有重复元素的对象。</td>
+</tr>
+<tr>
+<td style="text-align:center">array</td>
+<td style="text-align:center">collect_list(col)</td>
+<td style="text-align:center">返回一个具有重复的对象列表</td>
+</tr>
+<tr>
+<td style="text-align:center">INTEGER</td>
+<td style="text-align:center">ntile(INTEGER x)</td>
+<td style="text-align:center">将一个有序分区划分为一个名为bucket的x组，并将一个bucket编号分配给分区中的每一行。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="遮盖-加密-函数"><a href="#遮盖-加密-函数" class="headerlink" title="遮盖(加密)函数"></a>遮盖(加密)函数</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 遮盖前几个</span></span><br><span class="line"><span class="keyword">select</span> mask_first_n(<span class="string">&#x27;1234_4332_32&#x27;</span>,<span class="number">4</span>);<span class="comment">-- nnnn_4332_32</span></span><br><span class="line"><span class="comment">-- 遮盖后几个</span></span><br><span class="line"><span class="keyword">select</span> mask_last_n(<span class="string">&#x27;1234_4332_32&#x27;</span>,<span class="number">4</span>);<span class="comment">-- 1234_433n_nn</span></span><br><span class="line"><span class="comment">-- 前几个显示</span></span><br><span class="line"><span class="keyword">select</span> mask_show_first_n(<span class="string">&#x27;1234_4332_32&#x27;</span>,<span class="number">2</span>);<span class="comment">-- 12nn_nnnn_nn</span></span><br><span class="line"><span class="comment">-- 后几个显示</span></span><br><span class="line"><span class="keyword">select</span> mask_show_last_n(<span class="string">&#x27;1234_4332_32&#x27;</span>,<span class="number">2</span>);<span class="comment">--  nnnn_nnnn_32</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- hash函数</span></span><br><span class="line"><span class="keyword">select</span> mask_hash(<span class="string">&#x27;123456&#x27;</span>);<span class="comment">-- e10adc3949ba59abbe56e057f20f883e</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取当前用户</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">current_user</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 当前数据库</span></span><br><span class="line"><span class="keyword">select</span> current_database();</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 登录用户</span></span><br><span class="line"><span class="keyword">select</span> logged_in_user();</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取md5</span></span><br><span class="line"><span class="keyword">select</span> md5(<span class="string">&#x27;123456&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- crc32</span></span><br><span class="line"><span class="keyword">select</span> crc32(<span class="string">&#x27;1234&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- sha,sha加密</span></span><br><span class="line"><span class="keyword">select</span> sha(<span class="string">&#x27;123456&#x27;</span>),sha1(<span class="string">&#x27;123456&#x27;</span>),sha2(<span class="string">&#x27;123456&#x27;</span>,<span class="number">224</span>);<span class="comment">--  7c4a8d09ca3762af61e59520943dc26494f8941b  | 7c4a8d09ca3762af61e59520943dc26494f8941b  | f8cdb04495ded47615258f9dc6a3f4707fd2405434fefc3cbf4ef4e6</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>aes加解密,反射不做演示.</p>
+<h1 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h1><p>编写Hive函数,实体类需要继承UDF,需要有自定义方法evaluate。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.xwolf.big.hive;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hive.ql.exec.UDF;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 转化为大写字母</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> xwolf</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UpperCase</span> <span class="keyword">extends</span> <span class="title class_">UDF</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Text <span class="title function_">evaluate</span><span class="params">(<span class="keyword">final</span> Text s)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (s == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Text</span>(s.toString().toUpperCase());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>将文件打包为jar,上传到hive lib目录下,重启hive。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">##创建自定义函数</span></span><br><span class="line">create <span class="keyword">function</span> to_upper_case  as <span class="string">&#x27;com.xwolf.big.hive.UpperCase&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">##使用函数</span></span><br><span class="line">select to_upper_case(<span class="string">&#x27;afdsf343&#x27;</span>);</span><br><span class="line">+-- -- -- -- -- -+</span><br><span class="line">|    _c0    |</span><br><span class="line">+-- -- -- -- -- -+</span><br><span class="line">| AFDSF343  |</span><br><span class="line">+-- -- -- -- -- -+</span><br><span class="line">1 row selected (1.429 seconds)</span><br><span class="line"></span><br><span class="line"><span class="comment">##查看函数描述</span></span><br><span class="line">describe <span class="keyword">function</span> to_upper_case;+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- +</span><br><span class="line">|                      tab_name                      |</span><br><span class="line">+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- +</span><br><span class="line">| There is no documentation <span class="keyword">for</span> <span class="keyword">function</span> <span class="string">&#x27;to_upper_case&#x27;</span> |</span><br><span class="line">+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- +</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
+<ul>
+<li><a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF">Hive 官方文档</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/Hive/HivePlugins">自定义函数官方文档</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Soundex">Soundex</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hive/" rel="tag"># hive</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/22/linux/vim命令/" rel="next" title="vim命令">
+                <i class="fa fa-chevron-left"></i> vim命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/07/大数据/HiveServer2自定义用户认证/" rel="prev" title="HiveServer2自定义用户认证">
+                HiveServer2自定义用户认证 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xwolf</p>
+              <div class="site-description motion-element" itemprop="description">JAVAEE、大数据、人工智能学习</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/xwolf191" title="GitHub &rarr; https://github.com/xwolf191" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/snowxwolf@foxmail.com" title="E-Mail &rarr; snowxwolf@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内置函数"><span class="nav-number">1.</span> <span class="nav-text">内置函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数学函数"><span class="nav-number">1.1.</span> <span class="nav-text">数学函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期函数"><span class="nav-number">1.2.</span> <span class="nav-text">日期函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件函数"><span class="nav-number">1.3.</span> <span class="nav-text">条件函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串函数"><span class="nav-number">1.4.</span> <span class="nav-text">字符串函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚合函数"><span class="nav-number">1.5.</span> <span class="nav-text">聚合函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遮盖-加密-函数"><span class="nav-number">1.6.</span> <span class="nav-text">遮盖(加密)函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义函数"><span class="nav-number">2.</span> <span class="nav-text">自定义函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xwolf</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">813k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">24:37</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'rqvt1pdlqsfcoMaUV34AtqwX-gzGzoHsz',
+    appKey: '9d3lSojiD6ccALSPy1sDeQYe',
+    placeholder: '^8^,不想说两句再走么?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('5');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

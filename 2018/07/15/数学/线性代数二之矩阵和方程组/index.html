@@ -1,23 +1,1778 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
 
-{% block content %}
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="数学上，一个 m×n 的矩阵是一个由 m 行（row）n 列（column）元素排列成的矩形阵列。矩阵里的元素可以是数字、符号或数学式。以下是一个由 6 个数字元素构成的 2 行 3 列的矩阵：$ \begin{bmatrix}1 &amp;amp; 9 &amp;amp; -13 \20 &amp;amp; 5 &amp;amp; -6 \end{bmatrix} $。大小相同（行数列数都相同）的矩阵之间可以相互加减，具体是对">
+<meta name="keywords" content="线代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性代数二之矩阵和方程组">
+<meta property="og:url" content="http://xwolf191.github.io/2018/07/15/数学/线性代数二之矩阵和方程组/index.html">
+<meta property="og:site_name" content="Xwolf">
+<meta property="og:description" content="数学上，一个 m×n 的矩阵是一个由 m 行（row）n 列（column）元素排列成的矩形阵列。矩阵里的元素可以是数字、符号或数学式。以下是一个由 6 个数字元素构成的 2 行 3 列的矩阵：$ \begin{bmatrix}1 &amp;amp; 9 &amp;amp; -13 \20 &amp;amp; 5 &amp;amp; -6 \end{bmatrix} $。大小相同（行数列数都相同）的矩阵之间可以相互加减，具体是对">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/8LcQTO5.png">
+<meta property="og:image" content="https://i.imgur.com/ranigMT.png">
+<meta property="og:image" content="https://i.imgur.com/2hyKSQd.png">
+<meta property="og:image" content="https://i.imgur.com/7NiKhim.png">
+<meta property="og:image" content="https://i.imgur.com/kURtMJS.png">
+<meta property="og:image" content="https://i.imgur.com/70hnAK0.png">
+<meta property="og:image" content="https://i.imgur.com/RYKFJYg.png">
+<meta property="og:updated_time" content="2020-07-19T00:23:28.003Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="线性代数二之矩阵和方程组">
+<meta name="twitter:description" content="数学上，一个 m×n 的矩阵是一个由 m 行（row）n 列（column）元素排列成的矩形阵列。矩阵里的元素可以是数字、符号或数学式。以下是一个由 6 个数字元素构成的 2 行 3 列的矩阵：$ \begin{bmatrix}1 &amp;amp; 9 &amp;amp; -13 \20 &amp;amp; 5 &amp;amp; -6 \end{bmatrix} $。大小相同（行数列数都相同）的矩阵之间可以相互加减，具体是对">
+<meta name="twitter:image" content="https://i.imgur.com/8LcQTO5.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://xwolf191.github.io/2018/07/15/数学/线性代数二之矩阵和方程组/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>线性代数二之矩阵和方程组 | Xwolf</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e201c03696b77e30e2ed8c52937d5ccb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xwolf</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">IT编程学习</p>
+      
+    
+    
   </div>
 
-{% endblock %}
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwolf191.github.io/2018/07/15/数学/线性代数二之矩阵和方程组/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xwolf">
+      <meta itemprop="description" content="JAVAEE、大数据、人工智能学习">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xwolf">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">线性代数二之矩阵和方程组
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-15 09:30:00" itemprop="dateCreated datePublished" datetime="2018-07-15T09:30:00+08:00">2018-07-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-19 08:23:28" itemprop="dateModified" datetime="2020-07-19T08:23:28+08:00">2020-07-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数学/" itemprop="url" rel="index"><span itemprop="name">数学</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/07/15/数学/线性代数二之矩阵和方程组/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/15/数学/线性代数二之矩阵和方程组/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">21k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">38 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数学上，一个 m×n 的矩阵是一个由 m 行（row）n 列（column）元素排列成的矩形阵列。矩阵里的元素可以是数字、符号或数学式。以下是一个由 6 个数字元素构成的 2 行 3 列的矩阵：<br>$ \begin{bmatrix}1 &amp; 9 &amp; -13 \20 &amp; 5 &amp; -6 \end{bmatrix} $。<br>大小相同（行数列数都相同）的矩阵之间可以相互加减，具体是对每个位置上的元素做加减法。矩阵的乘法则较为复杂。两个矩阵可以相乘，当且仅当第一个矩阵的列数等于第二个矩阵的行数。矩阵的乘法满足结合律和分配律，但不满足交换律。</p>
+<p>矩阵的一个重要用途是解线性方程组。线性方程组中未知量的系数可以排成一个矩阵，加上常数项，则称为增广矩阵。另一个重要用途是表示线性变换，即是诸如 f(x)=4x 之类的线性函数的推广。设定基底后，某个矢量 v 可以表示为 m×1 的矩阵，而线性变换 f 可以表示为列数为 m 的矩阵 A，使得经过变换后得到的矢量 f(v)可以表示成 Av 的形式。矩阵的特征值和特征矢量可以揭示线性变换的深层特性。</p>
+<p>矩阵是高等代数学中的常见工具，也常见于统计分析等应用数学学科中。在物理学中，矩阵于力学、电路学、光学和量子物理中都有应用；计算机科学中，三维动画制作也需要用到矩阵。矩阵的运算是数值分析领域的重要问题。将矩阵分解为简单矩阵的组合可以在理论和实际应用上简化矩阵的运算。对一些应用广泛而形式特殊的矩阵，例如稀疏矩阵和准对角矩阵，有特定的快速运算算法。关于矩阵相关理论的发展和应用，请参考矩阵理论。在天体物理、量子力学等领域，也会出现无穷维的矩阵，是矩阵的一种推广。</p>
+<span id="more"></span>
+<h1 id="线性方程组"><a href="#线性方程组" class="headerlink" title="线性方程组"></a>线性方程组</h1><p>形如$ a<em>1x_1+a_2x_2+…+a_nx_n=b $ 的方程称为含有 n 个未知量的线性方程,其中$ a_1,a_2,…a_n $ 和 b 为实数,$ x_1,x_2,…x_n $称为变量。含有 m 个方程和 n 个未知量的线性方程组定义为:<br>$<br>\begin{cases}<br>a</em>{11}x<em>1+a</em>{12}x<em>2+…+a</em>{1n}x<em>1=b_1 \<br>a</em>{21}x<em>1+a</em>{22}x<em>2+…+a</em>{2n}x<em>2=b_2 \<br>                   {\vdots} \<br>a</em>{m1}x<em>1+a</em>{m2}x<em>2+…+a</em>{mn}x_n=b_m<br>\end{cases}<br>$.<br>线性方程组的所有解的集合称为方程组的解集。</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>若两个含有相同变量的方程组具有相同的解集,则称它们为等价的。</p>
+<h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><p>若方程组中,第 k 个方程的前 k-1 个变量的系数均为 0,且$x_k(k=1,2,3…n)$的系数都不为 0,则称这样的方程组为严格三角形的。</p>
+<blockquote>
+<ul>
+<li>例 1<br>求解方程组<br>$<br>\begin{cases}<br>3x_1 + 2x_2 + x_3 = 1 \<br>x_2 - x_3 = 2 \<br>2x_3=4<br>\end{cases}<br>$.</li>
+</ul>
+</blockquote>
+<p>很简单,回代法解此方程,先求解$x_3$,代入第二个方程,依次求解。求解后方程组的解为(-3,4,2)。</p>
+<blockquote>
+<ul>
+<li>例 2</li>
+</ul>
+</blockquote>
+<p>求解方程组<br>$<br>\begin{cases}<br>x_1 + 2x_2 + x_3 = 3 \<br>3x_1 - x_2 - 3x_3 = -1  \<br>2x_1 + 3x_2 + x_3 = 4<br>\end{cases}<br>$。<br>化简为严格三角形的方程组:<br>$<br>\begin{cases}<br>x_1 + 2x_2 + x_3 = 3 \<br>-7x_2 - 6x_3 = -10 \<br>-\frac{1}{7}x_3= -\frac{4}{7}<br>\end{cases}<br>$<br>,可得方程组的解集为(3,-2,4)。</p>
+<p>可以把例 2 中的方程组同一个以系数$x_i$为元的$3\times3$的数字阵列联系起来。<br>$<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 1 \<br>3 &amp; -1 &amp; -3 \<br>2 &amp; 3 &amp; 1<br>\end{bmatrix}<br>$ 称这个阵列为方程组的系数矩阵。一个 m 行 n 列的矩阵称为$m \times n$矩阵。如果矩阵的行数和列数相等,即 m=n,则称该矩阵为方阵。<br>如果在系数矩阵右边加一列方程组的右端项,得到一个新的矩阵</p>
+<script type="math/tex; mode=display">
+\left [
+    \begin {array} {cc|c}
+      1 & 2 & 1 & 3 \\
+      3 & -1 & -3 & -1\\
+      2 & 3 & 1 & 4
+    \end {array}
+\right ]</script><p>称这个矩阵为方程组的增广矩阵。一般地,当一个$m\times r$的矩阵 B 采用上述方法附加到一个$m \times n$的矩阵 A 上,相应的增广矩阵记为$A \mid B $。若<br>$<br>A=\begin{bmatrix}<br>{a<em>{11}}&amp;{a</em>{12}}&amp;{\cdots}&amp;{a<em>{1n}}\<br>{a</em>{21}}&amp;{a<em>{22}}&amp;{\cdots}&amp;{a</em>{2n}}\<br>{\vdots}&amp;{\vdots}&amp; &amp;{\vdots}\<br>{a<em>{m1}}&amp;{a</em>{m2}}&amp;{\cdots}&amp;{a<em>{mn}}\<br>\end{bmatrix}<br>,<br>B= \begin{bmatrix}<br>{b</em>{11}}&amp;{b<em>{12}}&amp;{\cdots}&amp;{b</em>{1r}}\<br>{b<em>{21}}&amp;{b</em>{22}}&amp;{\cdots}&amp;{b<em>{2r}}\<br>{\vdots}&amp;{\vdots}&amp; &amp;{\vdots}\<br>{b</em>{m1}}&amp;{b<em>{m2}}&amp;{\cdots}&amp;{b</em>{mr}}\<br>\end{bmatrix}<br>$<br>则<br>$<br>(A\mid B)=\left [<br>    \begin {array} {ccc|ccc}<br>      {a<em>{11}}&amp;{\cdots}&amp;{a</em>{1n}} &amp; {b<em>{11}}&amp;{\cdots}&amp;{a</em>{1r}}  \<br>      {\vdots}&amp; \<br>      {a<em>{m1}}&amp;{\cdots}&amp;{a</em>{mn}}&amp; {b<em>{m1}}&amp;{\cdots}&amp;{b</em>{mn}}<br>    \end {array}<br>\right ]<br>$。<br>对每一个方程组，均对应于一个增广矩阵，形如:<br>$<br>\left[<br>    \begin {array} {ccc|c}<br>      {a<em>{11}}&amp;{\cdots}&amp;{a</em>{1n}} &amp; {b<em>1} \<br>      {\vdots}&amp; &amp; &amp;{\vdots}\<br>      {a</em>{m1}}&amp;{\cdots}&amp;{a_{mn}} &amp; {b_m}<br>    \end {array}<br>\right]<br>$。<br>方程组的求解可以通过计算增广矩阵得到。用于得到等价方程组的三个运算,可对增广矩阵进行如下运算:</p>
+<ol>
+<li>交换两行</li>
+<li>以非 0 实数乘以某行</li>
+<li>将某行替换为它与其他行的倍数的和</li>
+</ol>
+<blockquote>
+<ul>
+<li>例 3</li>
+</ul>
+</blockquote>
+<p>求解方程组</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+-x_2 - x_3 + x_4 = 0 \\
+x_1 + x_2 + x_3 + x_4 = 6  \\
+2x_1 + 4x_2 + x_3 - 2x_4 = -1 \\
+3x_1 + x_2 - 2x_3 + 2x_4 = 3
+\end{cases}</script><p>解：该方程组对应的增广矩阵为:</p>
+<script type="math/tex; mode=display">
+\left[
+    \begin {array} {cccc|c}
+     0 & -1 & -1 & 1 & 0 \\
+     1 & 1 &  1 & 1 & 6 \\
+     2 & 4 & 1 & -2 & -1 \\
+     3 & 1 & -2 & 2 & 3
+    \end {array}
+\right]</script><p>交换第 1、2 行,得增广矩阵为: $$<br>\left[<br>\begin {array} {cccc|c}<br>1 &amp; 1 &amp; 1 &amp; 1 &amp; 6 \<br>0 &amp; -1 &amp; -1 &amp; 1 &amp; 0 \<br>2 &amp; 4 &amp; 1 &amp; -2 &amp; -1 \<br>3 &amp; 1 &amp; -2 &amp; 2 &amp; 3<br>\end {array}<br>\right]</p>
+<script type="math/tex; mode=display">
+第 1 行都乘以-2,然后第 3 行加上去,同理第 1 行乘以-3，第 4 行加上去，得增广矩阵:</script><p>\left[<br>\begin {array} {cccc|c}<br>1 &amp; 1 &amp; 1 &amp; 1 &amp; 6 \<br>0 &amp; -1 &amp; -1 &amp; 1 &amp; 0 \<br>0 &amp; 2 &amp; -1 &amp; -4 &amp; -13 \<br>0 &amp; -2 &amp; -5 &amp; -1 &amp; -15<br>\end {array}<br>\right]</p>
+<script type="math/tex; mode=display">
+</script><p>\left[<br>\begin {array} {cccc|c}<br>1 &amp; 1 &amp; 1 &amp; 1 &amp; 6 \<br>0 &amp; -1 &amp; -1 &amp; 1 &amp; 0 \<br>0 &amp; 0 &amp; -3 &amp; -2 &amp; -13 \<br>0 &amp; 0 &amp; 0 &amp; -1 &amp; -2<br>\end {array}<br>\right]</p>
+<script type="math/tex; mode=display">
+回代法求解即可得到方程组的解为:(2,-1,3,2)。
+
+# 行阶梯形
+
+## 定义
+
+### 定义
+
+若一个矩阵满足
+
+1. 每一个非零行中的一个非零元为 1;
+2. 第 k 行的元不全为零时,第 k+1 行首变量之前零的个数多于第 k 行首变量之前零的个数;
+3. 所有元素均为零的行比在不全为零的行之后,
+
+则称其为行阶梯型矩阵。
+
+> - 例 4
+>   下列矩阵前边 3 个为行阶梯型矩阵,第 4 个不是行阶梯型矩阵。
+>   \begin{bmatrix}
+>   1 & 4 & 2 \\
+>   0 & 1 & -6 \\
+>   0 & 0 & 3
+>   \end{bmatrix},
+
+\begin{bmatrix}
+1 & 4 & 2 \\
+0 & 0 & -6 \\
+0 & 0 & 0
+\end{bmatrix},
+
+\begin{bmatrix}
+1 & 4 & 2 & 0 \\
+0 & 0 & -6 & 6 \\
+0 & 0 & 0 & 0
+\end{bmatrix},
+
+\begin{bmatrix}
+2 & 4 & 2 \\
+0 & 1 & -6 \\
+0 & 0 & 3
+\end{bmatrix}
+
+### 定义
+
+利用上述行运算将线性方程组的增广矩阵转化为行阶梯型增广矩阵称为高斯消元法。
+
+## 超定方程组
+
+若一个线性方程组中方程的个数多于未知量的个数,则称其为超定的。超定方程组通常是(但不总是)不相容的。
+
+> - 例 5
+>   求方程组的解</script><p>\begin{cases}<br>x_1 + 2x_2 + x_3 = 1 \<br>2x_1 - x_2 + x_3 = 2 \<br>4x_1 + 3x_2 + 3x_3 = 4 \<br>3x_1 + x_2 + 2x_3 = 3<br>\end{cases}</p>
+<script type="math/tex; mode=display">
+解:</script><pre><code>\begin &#123;array&#125; &#123;ccc|c&#125;
+ 1 &amp; 2 &amp;  1 &amp; 1  \\
+ 2 &amp; -2 &amp; 1 &amp; 2  \\
+ 4 &amp; 3 &amp; 3 &amp; 4  \\
+ 3 &amp; 1 &amp; 2 &amp; 3
+\end &#123;array&#125;
+</code></pre><p>\right] \longrightarrow \left[<br>\begin {array} {ccc|c}<br>1 &amp; 2 &amp; 1 &amp; 1 \<br>0 &amp; 1 &amp; \frac{1}{5} &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 0<br>\end {array}<br>\right]</p>
+<script type="math/tex; mode=display">
+</script><p>\begin{cases}<br>x_2 = -0.2x_3 \<br>x_1 = 1-2x_2-x_3 = 1- 0.6x_3<br>\end{cases}<br>$$。由此可得,方程组的解集为形如 $(1-0.6a,-0.2a,a)$ 的有序三元组集合,其中 a 为实数。由于存在自由变量$x_3$，所以方程组是相容的且有无穷多个解。</p>
+<h2 id="亚定方程组"><a href="#亚定方程组" class="headerlink" title="亚定方程组"></a>亚定方程组</h2><p>一个有 n 个未知量的 m 个线性方程的方程组,方程的个数少于未知量的个数(m &lt; n )称该方程组为亚定的。一个相容的亚定方程组通常有无穷多个解。</p>
+<h2 id="行最简形"><a href="#行最简形" class="headerlink" title="行最简形"></a>行最简形</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><p>如果一个矩阵满足:</p>
+<blockquote>
+<ul>
+<li>矩阵是行阶梯型的</li>
+<li>每一行的第一个非零元是该列唯一的非零元<br>，则称该矩阵是行最简形。</li>
+</ul>
+</blockquote>
+<p>采用基本运算将矩阵转化为行最简形的过程称为高斯-诺尔当消元法。</p>
+<h2 id="齐次方程组"><a href="#齐次方程组" class="headerlink" title="齐次方程组"></a>齐次方程组</h2><p>如果方程组的右端项全为 0，则称其为齐次的。齐次方程组总是形容的。</p>
+<h1 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h1><h2 id="矩阵记号"><a href="#矩阵记号" class="headerlink" title="矩阵记号"></a>矩阵记号</h2><p>如果我们要引入矩阵,而且又不需要列出矩阵的元素,则可以用大写字母 A、B、C…来表示。一般 $ a<em>{ij}$表示矩阵的 i 行 j 列的元素，可以用(i,j)表示。一个$m \times n$的矩阵可以表示为:<br>$<br>\begin{bmatrix}<br>{a</em>{11}}&amp;{a<em>{12}}&amp;{\cdots}&amp;{a</em>{1n}}\<br>{a<em>{21}}&amp;{a</em>{22}}&amp;{\cdots}&amp;{a<em>{2n}}\<br>{\vdots}&amp;{\vdots}&amp;{\cdots}&amp;{\vdots}\<br>{a</em>{m1}}&amp;{a<em>{m2}}&amp;{\cdots}&amp;{a</em>{mn}}<br>\end{bmatrix}<br>$。有时矩阵可以简记为$A=(a_{ij})$。</p>
+<h2 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h2><p>由于仅有一行或一列的矩阵可以用来表示线性方程组的解。具有 m 个线性方程 n 个变量的线性方程组的解是一个实的 n 元组。我们以后称由实数组成的 n 元组为向量。如果将 n 元组表示为一个$ 1 \times n $的矩阵，则称为行向量。此外,若将 n 元组表示为一个$ n \times 1 $的矩阵，则称为列向量。例如,线性方程组$<br>\begin{cases}<br>x_1 + x_2 = 3 \<br>x_1 - x_2 = 1<br>\end{cases}<br>$ 的解可表示为行向量$ \begin{bmatrix}<br>2 &amp; 1<br>\end{bmatrix} $,或者列向量$ \begin{bmatrix}<br>{2}\<br>{1}<br>\end{bmatrix}$.</p>
+<p>所有$n\times 1$的实矩阵构成的集合称为 n 维欧几里得空间，通常记为$R_n$。一般大部分时间使用列向量,因此一般省略”列”字,并简称为$R_n$中的向量。列向量的标准记号采用黑斜体小写字母。为区分行向量和列向量,通常在行向量上加一水平箭头,如:<br>$<br>\vec{x} = (x_1,x_2,x_3,x_4), y = \begin{bmatrix}<br>{y_1}\<br>{y_2}\<br>{y_3}\<br>{y_4}<br>\end{bmatrix}<br>$,分别为有 4 项的行向量和列向量。</p>
+<p>给定一个$ m\times n$的矩阵 A,经常会使用它的特定行或列。A 的第 j 个列向量的标准记号为$a<em>j$,第 i 个行向量通常没有标准记号,通常用水平箭头表示行向量，记为$\vec{a_i}$。假设 A 为一个$m \times n$的矩阵,则 A 的行向量表示为$\vec{a_i}=(a</em>{i1},a<em>{i2},a</em>{i3}…a<em>{in}), i=1,2…n$,列向量表示为 $ a_j = \begin{bmatrix}<br>a</em>{1j}\<br>a<em>{2j}\<br>{\vdots}\<br>a</em>{mj}<br>\end{bmatrix} , j = 1,2…m $。</p>
+<h2 id="矩阵加法"><a href="#矩阵加法" class="headerlink" title="矩阵加法"></a>矩阵加法</h2><h3 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h3><p>假设有两个$m\times n$矩阵$A=(a<em>{ij})$和$B=(b</em>{ij})$,那么矩阵 A 和 B 的和记做 A+B,规定为<br>$<br>A+B = \begin{bmatrix}<br>{a<em>{11}+b</em>{11}} &amp; {a<em>{12}+b</em>{12}} &amp; {\cdots} &amp; {a<em>{1n}+b</em>{1n}}\<br>{a<em>{21}+b</em>{21}} &amp; {a<em>{22}+b</em>{22}} &amp; {\cdots} &amp; {a<em>{2n}+b</em>{2n}}\<br>{\vdots} &amp; {\vdots} &amp; {\cdots} &amp; {\vdots}\<br>{a<em>{m1}+b</em>{m1}} &amp; {a<em>{m2}+b</em>{m2}} &amp; {\cdots} &amp; {a<em>{mn}+b</em>{mn}}\<br>\end{bmatrix}<br>$,需要注意的是只有两个矩阵是同型矩阵是才行进行加法运算。<br>矩阵运算满足以下运算规律(设 A,B,C 为$m\times n$的矩阵)</p>
+<blockquote>
+<ul>
+<li>A+B = B+A</li>
+<li>(A+B)+C = A+(B+C)<br>设矩阵$A=(a<em>{ij})$,记$ -A=(-a</em>{ij})$,-A 称为矩阵 A 的负矩阵,显然有 A+(-A)=O,由此矩阵的减法为 A-B = A +(-B)。<br>如果用 O 表示与 A 维数相同且元素全为 0 的矩阵，则 A+O=O+A=A,O 称为零矩阵。</li>
+</ul>
+</blockquote>
+<h2 id="数与矩阵相乘"><a href="#数与矩阵相乘" class="headerlink" title="数与矩阵相乘"></a>数与矩阵相乘</h2><h3 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h3><p>数$\lambda$与矩阵 A 的乘积,记做$\lambda A$或$ A\lambda$,规定为<br>$<br>\lambda A=A\lambda = \begin{bmatrix}<br>{\lambda a<em>{11}} &amp; {\lambda a</em>{12}} &amp; {\cdots} &amp; {\lambda a<em>{1n}}\<br>{\lambda a</em>{21}} &amp; {\lambda a<em>{22}} &amp; {\cdots} &amp; {\lambda a</em>{2n}}\<br>{\vdots} &amp; {\vdots} &amp; {\cdots} &amp; {\vdots}\<br>{\lambda a<em>{m1}} &amp; {\lambda a</em>{m2}} &amp; {\cdots} &amp; {\lambda a_{mn}}\<br>\end{bmatrix}<br>$.<br>矩阵的数乘满足以下运算规律(设 A,B 为$m\times n$的矩阵,a,b 为数)</p>
+<blockquote>
+<ul>
+<li>(ab)A=a(bA)</li>
+<li>(a+b)A = aA+bA</li>
+<li>a(A+B) = aA+aB</li>
+</ul>
+</blockquote>
+<p>矩阵相加与数乘矩阵合起来，统称为矩阵的线性运算。</p>
+<h2 id="矩阵与矩阵相乘"><a href="#矩阵与矩阵相乘" class="headerlink" title="矩阵与矩阵相乘"></a>矩阵与矩阵相乘</h2><h3 id="定义-5"><a href="#定义-5" class="headerlink" title="定义"></a>定义</h3><p>设$A=(a<em>{ij})$是一个$m\times r$的矩阵,$B=(b</em>{ij})$是一个$r\times n$的矩阵，那么规定矩阵 A 和 B 的乘积是一个$m\times n$的矩阵$C=(c<em>{ij})$,其中$<br>c</em>{ij} = a<em>{i1}b</em>{1j} + a<em>{i2}b</em>{2j}+…+a<em>{is}b</em>{sj} = \sum<em>{k=1}^s a</em>{ik}b_{kj},(i=1,2..m;j=1,2..n)<br>$,将此乘积记做 C=AB。<br>注意只有左矩阵的列数和右矩阵的行数相等,两个矩阵才能相乘。</p>
+<p>矩阵的乘法不满足交换律，但是满足结合律和分配律:</p>
+<blockquote>
+<ul>
+<li>(AB)C=A(BC)</li>
+<li>a(AB)=(aA)B = A(aB) ,(a 为数字)</li>
+<li>A(B+C)=AB+AC</li>
+</ul>
+</blockquote>
+<h4 id="例-6"><a href="#例-6" class="headerlink" title="例 6"></a>例 6</h4><p>$<br> A=<br>\begin{bmatrix}<br>-3 &amp; 1 \<br>2 &amp; 5 \<br>4 &amp; 2 \end{bmatrix},x=\begin{bmatrix} 2\ 4\end{bmatrix},则 Ax = \begin{bmatrix}<br>-3 \times 2 + 1 \times 4 \<br>2 \times 2 + 5 \times 4\<br>4 \times 2 + 2\times 4<br>\end{bmatrix} = \begin{bmatrix}<br> -2\<br>24\<br>16<br>\end{bmatrix}<br>$</p>
+<h4 id="例-7"><a href="#例-7" class="headerlink" title="例 7"></a>例 7</h4><p>线性方程组<br>$<br> \begin{cases}<br>2x_1 + 3x_2 - 2x_3 = 5 \<br>5x_1 - 4x_2 + 2x_3 = 6<br>\end{cases},可以写成为矩阵方程  x_1\begin{bmatrix}2\5 \end{bmatrix}+ x_2\begin{bmatrix} {3} \{-4} \end{bmatrix}+ x_3\begin{bmatrix} -2\2 \end{bmatrix} = \begin{bmatrix}5\6 \end{bmatrix}<br>$</p>
+<h3 id="定义-6"><a href="#定义-6" class="headerlink" title="定义"></a>定义</h3><p>若$a_1,a_2…a_n为R^m中的向量,且c_1,c_2…c_n为标量,则和式c_1a_1+c_2a_2+…+c_na_n称为向量a_1,a_2…a_n的一个线性组合。$</p>
+<h2 id="矩阵转置"><a href="#矩阵转置" class="headerlink" title="矩阵转置"></a>矩阵转置</h2><h3 id="定义-7"><a href="#定义-7" class="headerlink" title="定义"></a>定义</h3><p>一个$m\times n$的矩阵 A 的转置为$n\times m$的矩阵 B,定义为$b<em>{ji}=a</em>{ij}$,其中 i=1,2…m;j=1,2..n。A 的转置记做$A^T$。</p>
+<p>矩阵的转置也是一种运算，符合以下运算规律:</p>
+<ol>
+<li>$(A^T)^T=A$</li>
+<li>$(A+B)^T=A^T+B^T$</li>
+<li>$(aA)^T =aA^T$</li>
+<li>$(AB)^T=B^TA^T $</li>
+</ol>
+<p>具体的证明可参考定义。</p>
+<h3 id="定义-8"><a href="#定义-8" class="headerlink" title="定义"></a>定义</h3><p>一个$n\times n$的矩阵 A,若满足$A^T=A$,则称 A 为对称矩阵,简称对称阵。对称阵的特点是：它的元素以对角线为对称轴对应相等。</p>
+<h2 id="方阵的行列式"><a href="#方阵的行列式" class="headerlink" title="方阵的行列式"></a>方阵的行列式</h2><h3 id="定义-9"><a href="#定义-9" class="headerlink" title="定义"></a>定义</h3><p>由 n 阶方阵 A 的元素所构成的行列式(各元素位置不变),称为方阵 A 的行列式,记做$\left| A \right| 或detA$。</p>
+<p>A 和$\left| A \right|$ 满足的以下运算规律(A,B 为 n 阶方阵,a 为数):</p>
+<ol>
+<li>$\left| A^T \right| = \left| A \right| $</li>
+<li>$\left| aA \right| = a^n \left| A \right| $</li>
+<li>$\left| AB \right| = \left| A \right| \left| B \right| $</li>
+</ol>
+<p>行列式$\left| A \right|$的各个元素的代数余子式$A<em>{ij}$所构成的如下的矩阵$ A^{*} = \begin{bmatrix}<br>{A</em>{11}}&amp;{A<em>{12}}&amp;{\cdots}&amp;{A</em>{1n}}\<br>{A<em>{21}}&amp;{A</em>{22}}&amp;{\cdots}&amp;{A<em>{2n}}\<br>{\vdots}&amp;{\vdots}&amp;{\cdots}&amp;{\vdots}\<br>{A</em>{n1}}&amp;{A<em>{n2}}&amp;{\cdots}&amp;{A</em>{nn}}<br>\end{bmatrix}$,称为矩阵 A 的伴随矩阵,简称伴随阵。$A A^{*} =A^{*}A=\left| A \right|E $</p>
+<h1 id="矩阵代数"><a href="#矩阵代数" class="headerlink" title="矩阵代数"></a>矩阵代数</h1><h2 id="单位矩阵"><a href="#单位矩阵" class="headerlink" title="单位矩阵"></a>单位矩阵</h2><h3 id="定义-10"><a href="#定义-10" class="headerlink" title="定义"></a>定义</h3><p>$n \times n$的单位矩阵为矩阵 I = $(\delta<em>{ij})$,其中$<br>\delta</em>{ij} = \begin{cases}<br>1,  &amp; 当i=j \<br>0, &amp; 当 i \not= j<br>\end{cases}<br>$。</p>
+<h2 id="矩阵的逆"><a href="#矩阵的逆" class="headerlink" title="矩阵的逆"></a>矩阵的逆</h2><p>任何非零的数 a 均有一个乘法逆元$b = \frac {1}{a}$。可将此定义推广到矩阵。</p>
+<h3 id="定义-11"><a href="#定义-11" class="headerlink" title="定义"></a>定义</h3><p>若存在一个矩阵 B 使得 AB=BA=I,则称$n\times n$矩阵 A 为非奇异的或可逆的。矩阵 B 称为 A 的乘法逆元。</p>
+<p>一个矩阵最多有一个乘法逆元,我们把非奇异矩阵 A 的乘法逆元简称为 A 的逆,并记为$A^{-1}$。</p>
+<h4 id="例-8"><a href="#例-8" class="headerlink" title="例 8"></a>例 8</h4><p>矩阵$<br> \begin{bmatrix}<br>2 &amp; 4 \<br>3 &amp; 1<br>\end{bmatrix} 和 \begin{bmatrix}<br>-\frac{1}{10} &amp; \frac{2}{5} \<br>\frac{3}{10} &amp;  -\frac{1}{5}<br>\end{bmatrix} 互为逆元,因为\begin{bmatrix}<br>2 &amp; 4 \<br>3 &amp; 1<br>\end{bmatrix} \begin{bmatrix}<br>-\frac{1}{10} &amp; \frac{2}{5} \<br>\frac{3}{10} &amp;  -\frac{1}{5}<br>\end{bmatrix} = \begin{bmatrix}<br>1 &amp; 0 \<br>0 &amp; 1<br>\end{bmatrix}<br>$。</p>
+<h3 id="定义-12"><a href="#定义-12" class="headerlink" title="定义"></a>定义</h3><p>一个$n\times n$的矩阵若不存在乘法逆元,则称为奇异的。<br>注意： 只有方阵有乘法逆元。对于非方阵,不应该使用术语奇异或非奇异。</p>
+<h4 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h4><p>若 A 和 B 为非奇异的$n\times n$矩阵，则 AB 也是非奇异的，且$(AB)^{-1} = B^{-1}A^{-1}$。</p>
+<h1 id="初等矩阵"><a href="#初等矩阵" class="headerlink" title="初等矩阵"></a>初等矩阵</h1><h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>如果从单位矩阵 I 开始,只进行一次初等行运算,得到的矩阵为初等矩阵。分别对应于三类初等行运算,有三类初等矩阵。</p>
+<h3 id="类型-I"><a href="#类型-I" class="headerlink" title="类型 I"></a>类型 I</h3><p>第 I 类初等矩阵由交换 I 的两行得到。</p>
+<h3 id="类型-II"><a href="#类型-II" class="headerlink" title="类型 II"></a>类型 II</h3><p>第 II 类初等矩阵由单位矩阵 I 的某一行乘以一个非零常数得到。</p>
+<h3 id="类型-III"><a href="#类型-III" class="headerlink" title="类型 III"></a>类型 III</h3><p>第 III 类初等矩阵由矩阵 I 的某一行的倍数加到另一行得到。</p>
+<h3 id="定理-1"><a href="#定理-1" class="headerlink" title="定理"></a>定理</h3><p>若 E 为一初等矩阵,则 E 为非奇异的,且$E^{-1}$为一与它同类型的初等矩阵。</p>
+<h2 id="行等价定义"><a href="#行等价定义" class="headerlink" title="行等价定义"></a>行等价定义</h2><p>若存在一个有限初等矩阵的序列$E<em>1,E_2,…E_k,使得B=E_kE</em>{k-1}…E_1A$,则称 A 与 B 为行等价的。</p>
+<h3 id="定理-非奇异矩阵的等价条件"><a href="#定理-非奇异矩阵的等价条件" class="headerlink" title="定理 (非奇异矩阵的等价条件)"></a>定理 (非奇异矩阵的等价条件)</h3><p>令 A 为一个$n\times n$的矩阵,则下列命题是等价的:</p>
+<ol>
+<li>A 是非奇异的</li>
+<li>Ax=0 仅有平凡解 0</li>
+<li>A 与 I 行等价</li>
+</ol>
+<h2 id="对角矩阵和三角形矩阵"><a href="#对角矩阵和三角形矩阵" class="headerlink" title="对角矩阵和三角形矩阵"></a>对角矩阵和三角形矩阵</h2><p>一个$n\times n$的矩阵 A,当$i\ge j时,a<em>{ij}=0 $,则称为上三角形的;当$i\le j时,a</em>{ij}=0 $,则称为下三角形的。如果 A 为上三角形的或下三角形的，又称为三角形的。</p>
+<p>一个$n\times n$的矩阵 A,当$i\not=j时,a_{ij}=0 $,则称为对角的。</p>
+<h3 id="三角形分解"><a href="#三角形分解" class="headerlink" title="三角形分解"></a>三角形分解</h3><p>如果一个$n\times n$的矩阵 A 可以仅利用行运算 III 化简为严格的上三角形的，则可将化简过程用矩阵分解表示。</p>
+<p>如果矩阵 L 为对角元素为 1 的下三角形矩阵。我们称 L 为单位下三角形矩阵。我们将一个矩阵 A 分解为一个单位下三角形矩阵和一个严格上三角形矩阵 U 的乘积的过程,通常称为 LU 分解。</p>
+<h1 id="分块矩阵"><a href="#分块矩阵" class="headerlink" title="分块矩阵"></a>分块矩阵</h1><p>通常，将矩阵看作由多个子矩阵复合而来。一个矩阵 C 可通过在其行中画一条横线，在其列中画一条竖线来分为较小的矩阵。这种较小的矩阵称为块。例如,矩阵$C=\begin{bmatrix}<br>2 &amp; 4 &amp; 2 &amp; 1 &amp; 5  \<br>0 &amp; 1 &amp; -6 &amp; 1 &amp; 5  \<br>0 &amp; 0 &amp; 3 &amp; 1 &amp; 5 \<br>4 &amp; 2 &amp; 1 &amp; 4 &amp; 2<br>\end{bmatrix}  $,在第二行、第三行之间画一条横线,第三列、四列之间画一条竖线，则矩阵 C 被划分为四个子矩阵$C<em>{11},C</em>{12},C<em>{21},C</em>{22}$。<br>$<br>\begin{bmatrix}<br>{C<em>{11}} &amp; {C</em>{12}}  \<br>{C<em>{21}} &amp; {C</em>{22}}<br>\end{bmatrix}= \left[<br>    \begin {array} {ccc|cc}<br>     2 &amp; 4 &amp; 2 &amp; 1 &amp; 5  \<br>     0 &amp; 1 &amp; -6 &amp; 1 &amp; 5  \<br>     \hline               \<br>     0 &amp; 0 &amp; 3 &amp; 1 &amp; 5 \<br>     4 &amp; 2 &amp; 1 &amp; 4 &amp; 2<br>    \end {array}<br>\right]<br>$。</p>
+<h2 id="按列分块"><a href="#按列分块" class="headerlink" title="按列分块"></a>按列分块</h2><p>一种有用的方法是将矩阵按列分块。设$B=\begin{bmatrix}<br>1 &amp; 3 &amp; 5  \<br>2 &amp; 4 &amp; 7  \<br>3 &amp; 1 &amp; 9<br>\end{bmatrix}$,可将 B 划分为三个列子矩阵: $B=(b_1,b_2,b_3)=\left[<br>    \begin {array} {c|c|c}<br>     1 &amp; 3 &amp; 5  \<br>    2 &amp; 4 &amp; 7  \<br>    3 &amp; 1 &amp; 9<br>    \end {array}<br>\right]$。</p>
+<p>假设我们给定一个有三列的矩阵 A,则乘积 AB 可以看成一个分块乘法,矩阵 B 的每一块均乘以 A，并且结果矩阵也有三块,即:$Ab_1,Ab_2,Ab_3$；也就是说$AB=A(b_1,b_2,b_3) =(Ab_1,Ab_2,Ab_3) $。</p>
+<p>例如,若:<br>$<br>A=\begin{bmatrix}<br>1 &amp; 3 &amp; 1  \<br>2 &amp; 4 &amp; 7<br>\end{bmatrix},Ab_1=\begin{bmatrix}<br>3  \<br>5<br>\end{bmatrix},Ab_2=\begin{bmatrix}<br>5  \<br>-1<br>\end{bmatrix},Ab_3=\begin{bmatrix}<br>10  \<br>-4<br>\end{bmatrix},因此 A(b_1,b_2,b_3) = \left[<br>    \begin {array} {c|c|c}<br>     3 &amp; 5 &amp; 10  \<br>     5 &amp; -1 &amp; -4<br>    \end {array}<br>\right]<br>$。</p>
+<p>一般地，如果 A 为一个$m\times n$的矩阵,而 B 为一个按列划分的$n\times r$的矩阵(b_1,b_2…b_r)$,那么A乘B的分块乘法由下式给出:$AB=(Ab_1,Ab_2,…,Ab_r)$。</p>
+<h2 id="按行分块"><a href="#按行分块" class="headerlink" title="按行分块"></a>按行分块</h2><p>令 A 为一个$n\times r$矩阵,乘积 AB 的第 i 行是由 A 的第 i 行乘以 B 得到的。因此，AB 的第 i 行为$\vec{a_i}B$。一般地，乘积 AB 可以写成如下的分块行的形式:$<br>AB= \begin{bmatrix}<br>{\vec{a_1} B}  \<br>{\vec{a_2} B}  \<br>{\vdots} \<br>{\vec{a_m} B }<br>\end{bmatrix}<br>$。<br>设$A=\begin{bmatrix}<br>2 &amp; 5  \<br>3 &amp; 4\<br>1 &amp; 7<br>\end{bmatrix},B=\begin{bmatrix}<br>3 &amp; 2 &amp; -3  \<br>-1 &amp; 1 &amp; 1<br>\end{bmatrix}。则\vec{a_1}B=\begin{bmatrix}<br>1 &amp; 9 &amp; -1<br>\end{bmatrix},\vec{a_2}B=\begin{bmatrix}<br>5 &amp; 10 &amp; -5<br>\end{bmatrix},\vec{a_1}B=\begin{bmatrix}<br>-4 &amp; 9 &amp; 4<br>\end{bmatrix}$，这就是 AB 乘积的行向量。<br>$<br>AB=\begin{bmatrix}<br>{\vec{a_1} B}  \<br>{\vec{a_2} B}  \<br>{\vec{a_3} B }<br>\end{bmatrix} =  \left[<br>    \begin {array}<br>     1 &amp; 9 &amp; -1   \<br>     \hline<br>     5 &amp; 10 &amp; -5 \<br>     \hline<br>     -4 &amp; 9 &amp; 4<br>    \end {array}<br>\right]<br>$。</p>
+<p>下面考虑用一般的分块来计算矩阵 A、B 的乘积 AB.</p>
+<h3 id="情形-1"><a href="#情形-1" class="headerlink" title="情形 1"></a>情形 1</h3><p>$B=\begin{bmatrix}<br>B<em>1 &amp; B_2<br>\end{bmatrix},其中B_1为一个n\times t矩阵,且B_2为一个n\times(r-t)的矩阵。$<br>$\begin{align}<br>AB &amp; = A(b_1,b_2,…,b_t,b</em>{t+1},…b<em>r) \<br>&amp; =  (Ab_1,Ab_2,…,Ab_t,Ab</em>{t+1},…Ab<em>r) \<br>&amp; =  (A(b_1,Ab_2,…,Ab_t),A(b</em>{t+1},…Ab_r)) \<br>&amp; =\begin{bmatrix}<br>AB_1 &amp; AB_2<br>\end{bmatrix}<br>\end{align},$<br>因此$A\begin{bmatrix}<br>B_1 &amp; B_2<br>\end{bmatrix}=\begin{bmatrix}<br>AB_1 &amp; AB_2<br>\end{bmatrix} $</p>
+<h3 id="情形-2"><a href="#情形-2" class="headerlink" title="情形 2"></a>情形 2</h3><p><img src="https://i.imgur.com/8LcQTO5.png" alt><br><img src="https://i.imgur.com/ranigMT.png" alt></p>
+<h3 id="情形-3"><a href="#情形-3" class="headerlink" title="情形 3"></a>情形 3</h3><p><img src="https://i.imgur.com/2hyKSQd.png" alt></p>
+<h3 id="情形-4"><a href="#情形-4" class="headerlink" title="情形 4"></a>情形 4</h3><p><img src="https://i.imgur.com/7NiKhim.png" alt><br><img src="https://i.imgur.com/kURtMJS.png" alt><br><img src="https://i.imgur.com/70hnAK0.png" alt><br><img src="https://i.imgur.com/RYKFJYg.png" alt></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
+<ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E7%9F%A9%E9%98%B5">矩阵</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Augmented_matrix">增广矩阵(Augmented_matrix)</a></li>
+<li>同济线性代数第五版</li>
+<li>线性代数 Steven J Leon(原书第 8 版)</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/线代/" rel="tag"># 线代</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/12/数学/线性代数一之行列式/" rel="next" title="线性代数一之行列式">
+                <i class="fa fa-chevron-left"></i> 线性代数一之行列式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/19/开发工具/hexo创建tags和categories/" rel="prev" title="hexo创建tags和categories">
+                hexo创建tags和categories <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xwolf</p>
+              <div class="site-description motion-element" itemprop="description">JAVAEE、大数据、人工智能学习</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/xwolf191" title="GitHub &rarr; https://github.com/xwolf191" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/snowxwolf@foxmail.com" title="E-Mail &rarr; snowxwolf@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性方程组"><span class="nav-number">1.</span> <span class="nav-text">线性方程组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-1"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#亚定方程组"><span class="nav-number">1.3.</span> <span class="nav-text">亚定方程组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行最简形"><span class="nav-number">1.4.</span> <span class="nav-text">行最简形</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#齐次方程组"><span class="nav-number">1.5.</span> <span class="nav-text">齐次方程组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#矩阵运算"><span class="nav-number">2.</span> <span class="nav-text">矩阵运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵记号"><span class="nav-number">2.1.</span> <span class="nav-text">矩阵记号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量"><span class="nav-number">2.2.</span> <span class="nav-text">向量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵加法"><span class="nav-number">2.3.</span> <span class="nav-text">矩阵加法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-3"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数与矩阵相乘"><span class="nav-number">2.4.</span> <span class="nav-text">数与矩阵相乘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-4"><span class="nav-number">2.4.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵与矩阵相乘"><span class="nav-number">2.5.</span> <span class="nav-text">矩阵与矩阵相乘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-5"><span class="nav-number">2.5.1.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例-6"><span class="nav-number">2.5.1.1.</span> <span class="nav-text">例 6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例-7"><span class="nav-number">2.5.1.2.</span> <span class="nav-text">例 7</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-6"><span class="nav-number">2.5.2.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵转置"><span class="nav-number">2.6.</span> <span class="nav-text">矩阵转置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-7"><span class="nav-number">2.6.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-8"><span class="nav-number">2.6.2.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方阵的行列式"><span class="nav-number">2.7.</span> <span class="nav-text">方阵的行列式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-9"><span class="nav-number">2.7.1.</span> <span class="nav-text">定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#矩阵代数"><span class="nav-number">3.</span> <span class="nav-text">矩阵代数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单位矩阵"><span class="nav-number">3.1.</span> <span class="nav-text">单位矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-10"><span class="nav-number">3.1.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的逆"><span class="nav-number">3.2.</span> <span class="nav-text">矩阵的逆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-11"><span class="nav-number">3.2.1.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例-8"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">例 8</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-12"><span class="nav-number">3.2.2.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定理"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">定理</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初等矩阵"><span class="nav-number">4.</span> <span class="nav-text">初等矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型"><span class="nav-number">4.1.</span> <span class="nav-text">类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型-I"><span class="nav-number">4.1.1.</span> <span class="nav-text">类型 I</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型-II"><span class="nav-number">4.1.2.</span> <span class="nav-text">类型 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型-III"><span class="nav-number">4.1.3.</span> <span class="nav-text">类型 III</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定理-1"><span class="nav-number">4.1.4.</span> <span class="nav-text">定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行等价定义"><span class="nav-number">4.2.</span> <span class="nav-text">行等价定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定理-非奇异矩阵的等价条件"><span class="nav-number">4.2.1.</span> <span class="nav-text">定理 (非奇异矩阵的等价条件)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对角矩阵和三角形矩阵"><span class="nav-number">4.3.</span> <span class="nav-text">对角矩阵和三角形矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三角形分解"><span class="nav-number">4.3.1.</span> <span class="nav-text">三角形分解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分块矩阵"><span class="nav-number">5.</span> <span class="nav-text">分块矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#按列分块"><span class="nav-number">5.1.</span> <span class="nav-text">按列分块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按行分块"><span class="nav-number">5.2.</span> <span class="nav-text">按行分块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#情形-1"><span class="nav-number">5.2.1.</span> <span class="nav-text">情形 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情形-2"><span class="nav-number">5.2.2.</span> <span class="nav-text">情形 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情形-3"><span class="nav-number">5.2.3.</span> <span class="nav-text">情形 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情形-4"><span class="nav-number">5.2.4.</span> <span class="nav-text">情形 4</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xwolf</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">813k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">24:37</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'rqvt1pdlqsfcoMaUV34AtqwX-gzGzoHsz',
+    appKey: '9d3lSojiD6ccALSPy1sDeQYe',
+    placeholder: '^8^,不想说两句再走么?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('5');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

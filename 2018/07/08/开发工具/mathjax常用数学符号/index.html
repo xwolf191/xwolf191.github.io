@@ -1,23 +1,2447 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
 
-{% block content %}
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="mathjax 提供了很多数学工具,本篇主要介绍一些常用的数学符号及其写法.  数学符号希腊字母     mathjax 表达式 显示效果 国际音标     \alpha \alpha /‘ælfə/   \beta \beta /‘bi:tə/或 /‘beɪtə/   \gamma \gamma /‘gæmə/   \Gamma \Gamma /‘gæmə/   \digamma \digamm">
+<meta name="keywords" content="latex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mathjax常用数学符号">
+<meta property="og:url" content="http://xwolf191.github.io/2018/07/08/开发工具/mathjax常用数学符号/index.html">
+<meta property="og:site_name" content="Xwolf">
+<meta property="og:description" content="mathjax 提供了很多数学工具,本篇主要介绍一些常用的数学符号及其写法.  数学符号希腊字母     mathjax 表达式 显示效果 国际音标     \alpha \alpha /‘ælfə/   \beta \beta /‘bi:tə/或 /‘beɪtə/   \gamma \gamma /‘gæmə/   \Gamma \Gamma /‘gæmə/   \digamma \digamm">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-19T00:23:27.972Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mathjax常用数学符号">
+<meta name="twitter:description" content="mathjax 提供了很多数学工具,本篇主要介绍一些常用的数学符号及其写法.  数学符号希腊字母     mathjax 表达式 显示效果 国际音标     \alpha \alpha /‘ælfə/   \beta \beta /‘bi:tə/或 /‘beɪtə/   \gamma \gamma /‘gæmə/   \Gamma \Gamma /‘gæmə/   \digamma \digamm">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://xwolf191.github.io/2018/07/08/开发工具/mathjax常用数学符号/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>mathjax常用数学符号 | Xwolf</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e201c03696b77e30e2ed8c52937d5ccb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xwolf</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">IT编程学习</p>
+      
+    
+    
   </div>
 
-{% endblock %}
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwolf191.github.io/2018/07/08/开发工具/mathjax常用数学符号/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xwolf">
+      <meta itemprop="description" content="JAVAEE、大数据、人工智能学习">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xwolf">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mathjax常用数学符号
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-08 08:45:00" itemprop="dateCreated datePublished" datetime="2018-07-08T08:45:00+08:00">2018-07-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-19 08:23:27" itemprop="dateModified" datetime="2020-07-19T08:23:27+08:00">2020-07-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/开发工具/" itemprop="url" rel="index"><span itemprop="name">开发工具</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/07/08/开发工具/mathjax常用数学符号/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/08/开发工具/mathjax常用数学符号/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">40k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1:13</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>mathjax 提供了很多数学工具,本篇主要介绍一些常用的数学符号及其写法.</p>
+<blockquote>
+<h1 id="数学符号"><a href="#数学符号" class="headerlink" title="数学符号"></a>数学符号</h1><h2 id="希腊字母"><a href="#希腊字母" class="headerlink" title="希腊字母"></a>希腊字母</h2></blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">mathjax 表达式</th>
+<th style="text-align:center">显示效果</th>
+<th style="text-align:center">国际音标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">\alpha</td>
+<td style="text-align:center"><script type="math/tex">\alpha</script></td>
+<td style="text-align:center">/‘ælfə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\beta</td>
+<td style="text-align:center"><script type="math/tex">\beta</script></td>
+<td style="text-align:center">/‘bi:tə/或 /‘beɪtə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\gamma</td>
+<td style="text-align:center"><script type="math/tex">\gamma</script></td>
+<td style="text-align:center">/‘gæmə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\Gamma</td>
+<td style="text-align:center"><script type="math/tex">\Gamma</script></td>
+<td style="text-align:center">/‘gæmə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\digamma</td>
+<td style="text-align:center"><script type="math/tex">\digamma</script></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">\delta</td>
+<td style="text-align:center"><script type="math/tex">\delta</script></td>
+<td style="text-align:center">/‘deltə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\Delta</td>
+<td style="text-align:center"><script type="math/tex">\Delta</script></td>
+<td style="text-align:center">/‘deltə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\epsilon</td>
+<td style="text-align:center"><script type="math/tex">\epsilon</script></td>
+<td style="text-align:center">/‘epsɪlɒn/</td>
+</tr>
+<tr>
+<td style="text-align:left">\varepsilon</td>
+<td style="text-align:center"><script type="math/tex">\varepsilon</script></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">\zeta</td>
+<td style="text-align:center"><script type="math/tex">\zeta</script></td>
+<td style="text-align:center">/‘zi:tə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\eta</td>
+<td style="text-align:center"><script type="math/tex">\eta</script></td>
+<td style="text-align:center">/‘i:tə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\theta</td>
+<td style="text-align:center"><script type="math/tex">\theta</script></td>
+<td style="text-align:center">/‘θi:tə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\Theta</td>
+<td style="text-align:center"><script type="math/tex">\Theta</script></td>
+<td style="text-align:center">/‘θi:tə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\vartheta</td>
+<td style="text-align:center"><script type="math/tex">\vartheta</script></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">\iota</td>
+<td style="text-align:center"><script type="math/tex">\iota</script></td>
+<td style="text-align:center">/aɪ’əʊtə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\kappa</td>
+<td style="text-align:center"><script type="math/tex">\kappa</script></td>
+<td style="text-align:center">/‘kæpə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\varkappa</td>
+<td style="text-align:center"><script type="math/tex">\varkappa</script></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">\lambda</td>
+<td style="text-align:center"><script type="math/tex">\lambda</script></td>
+<td style="text-align:center">/‘læmdə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\Lambda</td>
+<td style="text-align:center"><script type="math/tex">\Lambda</script></td>
+<td style="text-align:center">/‘læmdə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\mu</td>
+<td style="text-align:center"><script type="math/tex">\mu</script></td>
+<td style="text-align:center">/mju:/</td>
+</tr>
+<tr>
+<td style="text-align:left">\nu</td>
+<td style="text-align:center"><script type="math/tex">\nu</script></td>
+<td style="text-align:center">/nju:/</td>
+</tr>
+<tr>
+<td style="text-align:left">\xi</td>
+<td style="text-align:center"><script type="math/tex">\xi</script></td>
+<td style="text-align:center">希腊 /ksi/ 英美 /ˈzaɪ/ 或 /ˈksaɪ/</td>
+</tr>
+<tr>
+<td style="text-align:left">\Xi</td>
+<td style="text-align:center"><script type="math/tex">\Xi</script></td>
+<td style="text-align:center">希腊 /ksi/ 英美 /ˈzaɪ/ 或 /ˈksaɪ/</td>
+</tr>
+<tr>
+<td style="text-align:left">\omicron</td>
+<td style="text-align:center"><script type="math/tex">\omicron</script></td>
+<td style="text-align:center">/əuˈmaikrən/ 或 /ˈɑmɪˌkrɑn/</td>
+</tr>
+<tr>
+<td style="text-align:left">\pi</td>
+<td style="text-align:center"><script type="math/tex">\pi</script></td>
+<td style="text-align:center">/paɪ/</td>
+</tr>
+<tr>
+<td style="text-align:left">\Pi</td>
+<td style="text-align:center"><script type="math/tex">\Pi</script></td>
+<td style="text-align:center">/paɪ/</td>
+</tr>
+<tr>
+<td style="text-align:left">\varpi</td>
+<td style="text-align:center"><script type="math/tex">\varpi</script></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">\rho</td>
+<td style="text-align:center"><script type="math/tex">\rho</script></td>
+<td style="text-align:center">/rəʊ/</td>
+</tr>
+<tr>
+<td style="text-align:left">\varrho</td>
+<td style="text-align:center"><script type="math/tex">\varrho</script></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">\sigma</td>
+<td style="text-align:center"><script type="math/tex">\sigma</script></td>
+<td style="text-align:center">/‘sɪɡmə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\Sigma</td>
+<td style="text-align:center"><script type="math/tex">\Sigma</script></td>
+<td style="text-align:center">/‘sɪɡmə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\varsigma</td>
+<td style="text-align:center"><script type="math/tex">\varsigma</script></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">\tau</td>
+<td style="text-align:center"><script type="math/tex">\tau</script></td>
+<td style="text-align:center">/tɔ:/ 或 /taʊ/</td>
+</tr>
+<tr>
+<td style="text-align:left">\upsilon</td>
+<td style="text-align:center"><script type="math/tex">\upsilon</script></td>
+<td style="text-align:center">/ˈipsilon/ 或 /ˈʌpsɨlɒn/</td>
+</tr>
+<tr>
+<td style="text-align:left">\Upsilon</td>
+<td style="text-align:center"><script type="math/tex">\Upsilon</script></td>
+<td style="text-align:center">/ˈipsilon/ 或 /ˈʌpsɨlɒn/</td>
+</tr>
+<tr>
+<td style="text-align:left">\phi</td>
+<td style="text-align:center"><script type="math/tex">\phi</script></td>
+<td style="text-align:center">/faɪ/</td>
+</tr>
+<tr>
+<td style="text-align:left">\Phi</td>
+<td style="text-align:center"><script type="math/tex">\Phi</script></td>
+<td style="text-align:center">/faɪ/</td>
+</tr>
+<tr>
+<td style="text-align:left">\varphi</td>
+<td style="text-align:center"><script type="math/tex">\varphi</script></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">\chi</td>
+<td style="text-align:center"><script type="math/tex">\chi</script></td>
+<td style="text-align:center">/kaɪ/</td>
+</tr>
+<tr>
+<td style="text-align:left">\psi</td>
+<td style="text-align:center"><script type="math/tex">\psi</script></td>
+<td style="text-align:center">/psaɪ/</td>
+</tr>
+<tr>
+<td style="text-align:left">\Psi</td>
+<td style="text-align:center"><script type="math/tex">\Psi</script></td>
+<td style="text-align:center">/psaɪ/</td>
+</tr>
+<tr>
+<td style="text-align:left">\omega</td>
+<td style="text-align:center"><script type="math/tex">\omega</script></td>
+<td style="text-align:center">/‘əʊmɪɡə/或 /oʊ’meɡə/</td>
+</tr>
+<tr>
+<td style="text-align:left">\Omega</td>
+<td style="text-align:center"><script type="math/tex">\Omega</script></td>
+<td style="text-align:center">/‘əʊmɪɡə/或 /oʊ’meɡə/</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h2 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h2></blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">mathjax 表达式</th>
+<th style="text-align:center">显示效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">\mid</td>
+<td style="text-align:center"><script type="math/tex">\mid</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\nmid</td>
+<td style="text-align:center"><script type="math/tex">\nmid</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\cdot</td>
+<td style="text-align:center"><script type="math/tex">\cdot</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\leq</td>
+<td style="text-align:center"><script type="math/tex">\leq</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\geq</td>
+<td style="text-align:center"><script type="math/tex">\geq</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\neq</td>
+<td style="text-align:center"><script type="math/tex">\neq</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\approx</td>
+<td style="text-align:center"><script type="math/tex">\approx</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\equiv</td>
+<td style="text-align:center"><script type="math/tex">\equiv</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\circ</td>
+<td style="text-align:center"><script type="math/tex">\circ</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\ast</td>
+<td style="text-align:center"><script type="math/tex">\ast</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\bigodot</td>
+<td style="text-align:center"><script type="math/tex">\bigodot</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\bigotimes</td>
+<td style="text-align:center"><script type="math/tex">\bigotimes</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\pm</td>
+<td style="text-align:center"><script type="math/tex">\pm</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\times</td>
+<td style="text-align:center"><script type="math/tex">\times</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\div</td>
+<td style="text-align:center"><script type="math/tex">\div</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\sum</td>
+<td style="text-align:center"><script type="math/tex">\sum</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\prod</td>
+<td style="text-align:center"><script type="math/tex">\prod</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\coprod</td>
+<td style="text-align:center"><script type="math/tex">\coprod</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h2 id="集合运算符"><a href="#集合运算符" class="headerlink" title="集合运算符"></a>集合运算符</h2></blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">mathjax 表达式</th>
+<th style="text-align:center">显示效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">\emptyset</td>
+<td style="text-align:center"><script type="math/tex">\emptyset</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\in</td>
+<td style="text-align:center"><script type="math/tex">\in</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\notin</td>
+<td style="text-align:center"><script type="math/tex">\notin</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\subset</td>
+<td style="text-align:center"><script type="math/tex">\subset</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\supset</td>
+<td style="text-align:center"><script type="math/tex">\supset</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\subseteq</td>
+<td style="text-align:center"><script type="math/tex">\subseteq</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\supseteq</td>
+<td style="text-align:center"><script type="math/tex">\supseteq</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\bigcap</td>
+<td style="text-align:center"><script type="math/tex">\bigcap</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\bigcup</td>
+<td style="text-align:center"><script type="math/tex">\bigcup</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\bigvee</td>
+<td style="text-align:center"><script type="math/tex">\bigvee</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\bigwedge</td>
+<td style="text-align:center"><script type="math/tex">\bigwedge</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\biguplus</td>
+<td style="text-align:center"><script type="math/tex">\biguplus</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\bigsqcup</td>
+<td style="text-align:center"><script type="math/tex">\bigsqcup</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h2 id="三角函数"><a href="#三角函数" class="headerlink" title="三角函数"></a>三角函数</h2></blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">mathjax 表达式</th>
+<th style="text-align:center">显示效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">\bot</td>
+<td style="text-align:center"><script type="math/tex">\bot</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\angle</td>
+<td style="text-align:center"><script type="math/tex">\angle</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\30^\circ</td>
+<td style="text-align:center"><script type="math/tex">30^\circ</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\sin</td>
+<td style="text-align:center"><script type="math/tex">\sin</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\cos</td>
+<td style="text-align:center"><script type="math/tex">\cos</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\tan</td>
+<td style="text-align:center"><script type="math/tex">\tan</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\cot</td>
+<td style="text-align:center"><script type="math/tex">\cot</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\sec</td>
+<td style="text-align:center"><script type="math/tex">\sec</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\csc</td>
+<td style="text-align:center"><script type="math/tex">\csc</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h2 id="对数运算"><a href="#对数运算" class="headerlink" title="对数运算"></a>对数运算</h2></blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">mathjax 表达式</th>
+<th style="text-align:center">显示效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">\log</td>
+<td style="text-align:center"><script type="math/tex">\log</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\lg</td>
+<td style="text-align:center"><script type="math/tex">\lg</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\ln</td>
+<td style="text-align:center"><script type="math/tex">\ln</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h2 id="微积分运算"><a href="#微积分运算" class="headerlink" title="微积分运算"></a>微积分运算</h2></blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">mathjax 表达式</th>
+<th style="text-align:center">显示效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">\prime</td>
+<td style="text-align:center"><script type="math/tex">\prime</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\int</td>
+<td style="text-align:center"><script type="math/tex">\int</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\iint</td>
+<td style="text-align:center"><script type="math/tex">\iint</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\iiint</td>
+<td style="text-align:center"><script type="math/tex">\iiint</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\iiiint</td>
+<td style="text-align:center"><script type="math/tex">\iiiint</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\oint</td>
+<td style="text-align:center"><script type="math/tex">\oint</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\lim</td>
+<td style="text-align:center"><script type="math/tex">\lim</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\infty</td>
+<td style="text-align:center"><script type="math/tex">\infty</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\nabla</td>
+<td style="text-align:center"><script type="math/tex">\nabla</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\partial x</td>
+<td style="text-align:center"><script type="math/tex">\partial x</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\mathrm{d}x</td>
+<td style="text-align:center"><script type="math/tex">\mathrm{d}x</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\dot x</td>
+<td style="text-align:center"><script type="math/tex">\dot x</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\ddot y</td>
+<td style="text-align:center"><script type="math/tex">\ddot y</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h2 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h2></blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">mathjax 表达式</th>
+<th style="text-align:center">显示效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">\because</td>
+<td style="text-align:center"><script type="math/tex">\because</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\therefore</td>
+<td style="text-align:center"><script type="math/tex">\therefore</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\forall</td>
+<td style="text-align:center"><script type="math/tex">\forall</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\exists</td>
+<td style="text-align:center"><script type="math/tex">\exists</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\not=</td>
+<td style="text-align:center"><script type="math/tex">\not=</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\not&gt;</td>
+<td style="text-align:center"><script type="math/tex">\not></script></td>
+</tr>
+<tr>
+<td style="text-align:left">\not\subset</td>
+<td style="text-align:center"><script type="math/tex">\not\subset</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h2 id="几何符号"><a href="#几何符号" class="headerlink" title="几何符号"></a>几何符号</h2></blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">mathjax 表达式</th>
+<th style="text-align:center">显示效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">\Diamond</td>
+<td style="text-align:center"><script type="math/tex">\Diamond</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\Box</td>
+<td style="text-align:center"><script type="math/tex">\Box</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\Delta</td>
+<td style="text-align:center"><script type="math/tex">\Delta</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\triangle</td>
+<td style="text-align:center"><script type="math/tex">\triangle</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\angle\alpha\beta\Gamma</td>
+<td style="text-align:center"><script type="math/tex">\angle\alpha\beta\Gamma</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\sin!\frac{\pi}{3}=\sin60^\circ=\frac{\sqrt{3}}{2}</td>
+<td style="text-align:center"><script type="math/tex">\sin\!\frac{\pi}{3}=\sin60^\circ=\frac{\sqrt{3}}{2}</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\perp</td>
+<td style="text-align:center"><script type="math/tex">\perp</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h2 id="箭头符号"><a href="#箭头符号" class="headerlink" title="箭头符号"></a>箭头符号</h2></blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">mathjax 表达式</th>
+<th style="text-align:center">显示效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">\uparrow</td>
+<td style="text-align:center"><script type="math/tex">\uparrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\downarrow</td>
+<td style="text-align:center"><script type="math/tex">\downarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\Uparrow</td>
+<td style="text-align:center"><script type="math/tex">\Uparrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\Downarrow</td>
+<td style="text-align:center"><script type="math/tex">\Downarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\updownarrow</td>
+<td style="text-align:center"><script type="math/tex">\updownarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\Updownarrow</td>
+<td style="text-align:center"><script type="math/tex">\Updownarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\rightarrow</td>
+<td style="text-align:center"><script type="math/tex">\rightarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\leftarrow</td>
+<td style="text-align:center"><script type="math/tex">\leftarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\Rightarrow</td>
+<td style="text-align:center"><script type="math/tex">\Rightarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\Leftarrow</td>
+<td style="text-align:center"><script type="math/tex">\Leftarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\leftrightarrow</td>
+<td style="text-align:center"><script type="math/tex">\leftrightarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\Leftrightarrow</td>
+<td style="text-align:center"><script type="math/tex">\Leftrightarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\longrightarrow</td>
+<td style="text-align:center"><script type="math/tex">\longrightarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\longleftarrow</td>
+<td style="text-align:center"><script type="math/tex">\longleftarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\Longrightarrow</td>
+<td style="text-align:center"><script type="math/tex">\Longrightarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\Longleftarrow</td>
+<td style="text-align:center"><script type="math/tex">\Longleftarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\longleftrightarrow</td>
+<td style="text-align:center"><script type="math/tex">\longleftrightarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\Longleftrightarrow</td>
+<td style="text-align:center"><script type="math/tex">\Longleftrightarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\mapsto</td>
+<td style="text-align:center"><script type="math/tex">\mapsto</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\longmapsto</td>
+<td style="text-align:center"><script type="math/tex">\longmapsto</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\hookleftarrow</td>
+<td style="text-align:center"><script type="math/tex">\hookleftarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\hookrightarrow</td>
+<td style="text-align:center"><script type="math/tex">\hookrightarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\leftharpoonup</td>
+<td style="text-align:center"><script type="math/tex">\leftharpoonup</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\rightharpoonup</td>
+<td style="text-align:center"><script type="math/tex">\rightharpoonup</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\leftharpoondown</td>
+<td style="text-align:center"><script type="math/tex">\leftharpoondown</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\rightharpoondown</td>
+<td style="text-align:center"><script type="math/tex">\rightharpoondown</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\rightleftharpoons</td>
+<td style="text-align:center"><script type="math/tex">\rightleftharpoons</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\nearrow</td>
+<td style="text-align:center"><script type="math/tex">\nearrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\leadsto</td>
+<td style="text-align:center"><script type="math/tex">\leadsto</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\searrow</td>
+<td style="text-align:center"><script type="math/tex">\searrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\nwarrow</td>
+<td style="text-align:center"><script type="math/tex">\nwarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\dashrightarrow</td>
+<td style="text-align:center"><script type="math/tex">\dashrightarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\dashleftarrow</td>
+<td style="text-align:center"><script type="math/tex">\dashleftarrow</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\curvearrowleft</td>
+<td style="text-align:center"><script type="math/tex">\curvearrowleft</script></td>
+</tr>
+<tr>
+<td style="text-align:left">\circlearrowleft</td>
+<td style="text-align:center"><script type="math/tex">\circlearrowleft</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h1 id="部分示例"><a href="#部分示例" class="headerlink" title="部分示例"></a>部分示例</h1><ul>
+<li>上下标</li>
+</ul>
+</blockquote>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y^3</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">y^3</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y_3</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">y_3</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a_3^2</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">a_3^2</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a^&#123;2+2&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">a^{2+2}</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a_&#123;i,j&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">a_{i,j}</script><blockquote>
+<ul>
+<li>极限</li>
+</ul>
+</blockquote>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\lim\limits_&#123;x \to 1&#125; \frac&#123;x^2-1&#125;&#123;x-1&#125;</span><br></pre></td></tr></table></figure>
+<p>$\lim\limits_{x \to 1} \frac{x^2-1}{x-1}$</p>
+<blockquote>
+<ul>
+<li>导数和微积分</li>
+</ul>
+</blockquote>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x&#x27;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">x'</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x^\prime</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">x^\prime</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\dot&#123;x&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\dot{x}</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\ddot&#123;y&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\ddot{y}</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\int_&#123;-N&#125;^&#123;N&#125; e^x\, dx</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\int_{-N}^{N} e^x\, dx</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;matrix&#125; \int_&#123;-N&#125;^&#123;N&#125; e^x\, dx\end&#123;matrix&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\begin{matrix} \int_{-N}^{N} e^x\, dx\end{matrix}</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\iint_&#123;D&#125;^&#123;W&#125; \, dx\,dy</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\iint_{D}^{W} \, dx\,dy</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\iiint_&#123;E&#125;^&#123;V&#125; \, dx\,dy\,dz</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\iiint_{E}^{V} \, dx\,dy\,dz</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\iiiint_&#123;F&#125;^&#123;U&#125; \, dx\,dy\,dz\,dt</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\iiiint_{F}^{U} \, dx\,dy\,dz\,dt</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\oint_&#123;C&#125; x^3\, dx + 4y^2\, dy</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\oint_{C} x^3\, dx + 4y^2\, dy</script><blockquote>
+<ul>
+<li>向量</li>
+</ul>
+</blockquote>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\vec&#123;c&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\vec{c}</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\overleftarrow&#123;a b&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\overleftarrow{a b}</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\overrightarrow&#123;c d&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\overrightarrow{c d}</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\widehat&#123;e f g&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\widehat{e f g}</script><blockquote>
+<ul>
+<li>高亮部分</li>
+</ul>
+</blockquote>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> \bbox[yellow]</span><br><span class="line">&#123;</span><br><span class="line">e^x=\lim_&#123;n\to\infty&#125; \left( 1+\frac&#123;x&#125;&#123;n&#125; \right)^n</span><br><span class="line">\qquad</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
+{
+e^x=\lim_{n\to\infty} \left( 1+\frac{x}{n} \right)^n
+\qquad
+}</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">\bbox[yellow,5px,border:2px solid red]</span><br><span class="line">&#123;</span><br><span class="line">e^x=\lim_&#123;n\to\infty&#125; \left( 1+\frac&#123;x&#125;&#123;n&#125; \right)^n</span><br><span class="line">\qquad (1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
+{
+e^x=\lim_{n\to\infty} \left( 1+\frac{x}{n} \right)^n
+\qquad (1)
+}</script><blockquote>
+<ul>
+<li>方程组</li>
+</ul>
+</blockquote>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;cases&#125;</span><br><span class="line">a_1x+b_1y+c_1z=d_1\\</span><br><span class="line">a_2x+b_2y+c_2z=d_2\\</span><br><span class="line">a_3x+b_3y+c_3z=d_3\\</span><br><span class="line">\end&#123;cases&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
+\begin{cases}
+a_1x+b_1y+c_1z=d_1\\
+a_2x+b_2y+c_2z=d_2\\
+a_3x+b_3y+c_3z=d_3\\
+\end{cases}</script><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\left\&#123;</span><br><span class="line">\begin&#123;aligned&#125; </span><br><span class="line">a_1x+b_1y+c_1z &amp;=d_1+e_1 \\ </span><br><span class="line">a_2x+b_2y&amp;=d_2 \\ </span><br><span class="line">a_3x+b_3y+c_3z &amp;=d_3 </span><br><span class="line">\end&#123;aligned&#125; </span><br><span class="line">\right. </span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned} 
+a_1x+b_1y+c_1z &=d_1+e_1 \\ 
+a_2x+b_2y&=d_2 \\ 
+a_3x+b_3y+c_3z &=d_3 
+\end{aligned} 
+\right.</script><blockquote>
+<ul>
+<li>除法</li>
+</ul>
+</blockquote>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">\require&#123;enclose&#125;</span><br><span class="line">\begin&#123;array&#125;&#123;r&#125;</span><br><span class="line">                13  \\[-3pt]</span><br><span class="line">4 \enclose&#123;longdiv&#125;&#123;52&#125; \\[-3pt]</span><br><span class="line">     \underline&#123;4&#125;\phantom&#123;2&#125; \\[-3pt]</span><br><span class="line">                12  \\[-3pt]</span><br><span class="line">     \underline&#123;12&#125;</span><br><span class="line">\end&#123;array&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
+\require{enclose}
+\begin{array}{r}
+                13  \\[-3pt]
+4 \enclose{longdiv}{52} \\[-3pt]
+     \underline{4}\phantom{2} \\[-3pt]
+                12  \\[-3pt]
+     \underline{12}
+\end{array}</script><blockquote>
+<ul>
+<li>求和</li>
+</ul>
+</blockquote>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\sum_&#123;n=1&#125;^\infty \frac&#123;1&#125;&#123;n^2&#125; \to</span><br><span class="line">  \textstyle \sum_&#123;n=1&#125;^\infty \frac&#123;1&#125;&#123;n^2&#125; \to</span><br><span class="line">  \displaystyle \sum_&#123;n=1&#125;^\infty \frac&#123;1&#125;&#123;n^2&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
+  \textstyle \sum_{n=1}^\infty \frac{1}{n^2} \to
+  \displaystyle \sum_{n=1}^\infty \frac{1}{n^2}</script><blockquote>
+<ul>
+<li>矩阵</li>
+</ul>
+</blockquote>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在起始、结束标记处用下列词替换 matrix:</span><br><span class="line">pmatrix：小括号边框 ,例如 ()</span><br><span class="line">bmatrix：中括号边框, 例如 []</span><br><span class="line">Bmatrix：大括号边框,例如 &#123;&#125;</span><br><span class="line">vmatrix：单竖线边框,例如 ||</span><br><span class="line">Vmatrix：双竖线边框,例如 ∥∥</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">\begin&#123;bmatrix&#125;</span><br><span class="line">1 &amp; 2 &amp; 2 \\</span><br><span class="line">2 &amp; 3 &amp; 4 \\</span><br><span class="line">4 &amp; 4 &amp; 2</span><br><span class="line">\end&#123;bmatrix&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+1 & 2 & 2 \\
+2 & 3 & 4 \\
+4 & 4 & 2
+\end{bmatrix}</script><p>横省略号：\cdots,例如 ⋯⋯<br>竖省略号：\vdots,例如 ⋮⋮<br>斜省略号：\ddots,例如 ⋱</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;bmatrix&#125;</span><br><span class="line">&#123;a_&#123;11&#125;&#125;&amp;&#123;a_&#123;12&#125;&#125;&amp;&#123;\cdots&#125;&amp;&#123;a_&#123;1n&#125;&#125;\\</span><br><span class="line">&#123;a_&#123;21&#125;&#125;&amp;&#123;a_&#123;22&#125;&#125;&amp;&#123;\cdots&#125;&amp;&#123;a_&#123;2n&#125;&#125;\\</span><br><span class="line">&#123;\vdots&#125;&amp;&#123;\vdots&#125;&amp;&#123;\cdots&#125;&amp;&#123;\vdots&#125;\\</span><br><span class="line">&#123;a_&#123;m1&#125;&#125;&amp;&#123;a_&#123;m2&#125;&#125;&amp;&#123;\cdots&#125;&amp;&#123;a_&#123;mn&#125;&#125;\\</span><br><span class="line">\end&#123;bmatrix&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
+
+\begin{bmatrix}
+{a_{11}}&{a_{12}}&{\cdots}&{a_{1n}}\\
+{a_{21}}&{a_{22}}&{\cdots}&{a_{2n}}\\
+{\vdots}&{\vdots}&{\cdots}&{\vdots}\\
+{a_{m1}}&{a_{m2}}&{\cdots}&{a_{mn}}\\
+\end{bmatrix}</script><blockquote>
+<ul>
+<li>小数及单位</li>
+</ul>
+</blockquote>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4321.1234</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">4321.1234</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">54\,321.123\,45 54321.12345</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">54\,321.123\,45 54321.12345</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\mathrm&#123;e&#125;\,6</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\mathrm{e}\,6</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\mathrm&#123;kg&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\mathrm{kg}</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\mathrm&#123;m&#125;/\mathrm&#123;s&#125;^2</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\mathrm{m}/\mathrm{s}^2</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\mathrm&#123;kg&#125;\!\cdot\!\mathrm&#123;m&#125;^2 /\left(\mathrm&#123;C&#125;\!\cdot\!\mathrm&#123;s&#125;\right)</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\mathrm{kg}\!\cdot\!\mathrm{m}^2 /\left(\mathrm{C}\!\cdot\!\mathrm{s}\right)</script><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">N_A = 6.022\times10^&#123;23&#125; \ \mathrm&#123;mol&#125;^&#123;-1&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">N_A = 6.022\times10^{23} \ \mathrm{mol}^{-1}</script><blockquote>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><p><a href="https://blog.csdn.net/MyLinChi/article/details/78527223">LaTex 各种命令、符号</a></p>
+</li>
+<li><p><a href="https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference?page=1&amp;tab=votes#tab-top">MathJax basic tutorial and quick reference</a></p>
+</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/latex/" rel="tag"># latex</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/04/读书笔记/东京一年/" rel="next" title="东京一年">
+                <i class="fa fa-chevron-left"></i> 东京一年
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/12/数学/线性代数一之行列式/" rel="prev" title="线性代数一之行列式">
+                线性代数一之行列式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xwolf</p>
+              <div class="site-description motion-element" itemprop="description">JAVAEE、大数据、人工智能学习</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/xwolf191" title="GitHub &rarr; https://github.com/xwolf191" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/snowxwolf@foxmail.com" title="E-Mail &rarr; snowxwolf@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数学符号"><span class="nav-number">1.</span> <span class="nav-text">数学符号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#希腊字母"><span class="nav-number">1.1.</span> <span class="nav-text">希腊字母</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关系运算符"><span class="nav-number">1.2.</span> <span class="nav-text">关系运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合运算符"><span class="nav-number">1.3.</span> <span class="nav-text">集合运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三角函数"><span class="nav-number">1.4.</span> <span class="nav-text">三角函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对数运算"><span class="nav-number">1.5.</span> <span class="nav-text">对数运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微积分运算"><span class="nav-number">1.6.</span> <span class="nav-text">微积分运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑运算"><span class="nav-number">1.7.</span> <span class="nav-text">逻辑运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几何符号"><span class="nav-number">1.8.</span> <span class="nav-text">几何符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头符号"><span class="nav-number">1.9.</span> <span class="nav-text">箭头符号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部分示例"><span class="nav-number">2.</span> <span class="nav-text">部分示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xwolf</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">813k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">24:37</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'rqvt1pdlqsfcoMaUV34AtqwX-gzGzoHsz',
+    appKey: '9d3lSojiD6ccALSPy1sDeQYe',
+    placeholder: '^8^,不想说两句再走么?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('5');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

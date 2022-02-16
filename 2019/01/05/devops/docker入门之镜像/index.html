@@ -1,23 +1,1636 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
 
-{% block content %}
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Docker 镜像是由文件系统叠加而成。最底端是一个文件引导系统，即 bootfs。Docker 用户不会与引导文件系统有直接的交互。Docker 镜像的第二层是 root 文件系统 rootfs，通常是一种或多种操作系统，例如 ubuntu 等。在 Docker 中，文件系统永远都是只读的，在每次修改时，都是进行拷贝叠加从而形成最终的文件系统。Docker 称这样的文件为镜像。一个镜像可以迭代在">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker入门之镜像">
+<meta property="og:url" content="http://xwolf191.github.io/2019/01/05/devops/docker入门之镜像/index.html">
+<meta property="og:site_name" content="Xwolf">
+<meta property="og:description" content="Docker 镜像是由文件系统叠加而成。最底端是一个文件引导系统，即 bootfs。Docker 用户不会与引导文件系统有直接的交互。Docker 镜像的第二层是 root 文件系统 rootfs，通常是一种或多种操作系统，例如 ubuntu 等。在 Docker 中，文件系统永远都是只读的，在每次修改时，都是进行拷贝叠加从而形成最终的文件系统。Docker 称这样的文件为镜像。一个镜像可以迭代在">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://xwolf191.github.io/2019/01/05/devops/docker%E5%85%A5%E9%97%A8%E4%B9%8B%E9%95%9C%E5%83%8F/docker_search.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/01/05/devops/docker%E5%85%A5%E9%97%A8%E4%B9%8B%E9%95%9C%E5%83%8F/docker_rmi.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/01/05/devops/docker%E5%85%A5%E9%97%A8%E4%B9%8B%E9%95%9C%E5%83%8F/docker_ps.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/01/05/devops/docker%E5%85%A5%E9%97%A8%E4%B9%8B%E9%95%9C%E5%83%8F/docker_rm_id.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/01/05/devops/docker%E5%85%A5%E9%97%A8%E4%B9%8B%E9%95%9C%E5%83%8F/docker_rmi_image.png">
+<meta property="og:updated_time" content="2020-07-19T00:23:27.775Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker入门之镜像">
+<meta name="twitter:description" content="Docker 镜像是由文件系统叠加而成。最底端是一个文件引导系统，即 bootfs。Docker 用户不会与引导文件系统有直接的交互。Docker 镜像的第二层是 root 文件系统 rootfs，通常是一种或多种操作系统，例如 ubuntu 等。在 Docker 中，文件系统永远都是只读的，在每次修改时，都是进行拷贝叠加从而形成最终的文件系统。Docker 称这样的文件为镜像。一个镜像可以迭代在">
+<meta name="twitter:image" content="http://xwolf191.github.io/2019/01/05/devops/docker%E5%85%A5%E9%97%A8%E4%B9%8B%E9%95%9C%E5%83%8F/docker_search.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://xwolf191.github.io/2019/01/05/devops/docker入门之镜像/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>docker入门之镜像 | Xwolf</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e201c03696b77e30e2ed8c52937d5ccb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xwolf</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">IT编程学习</p>
+      
+    
+    
   </div>
 
-{% endblock %}
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xwolf191.github.io/2019/01/05/devops/docker入门之镜像/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xwolf">
+      <meta itemprop="description" content="JAVAEE、大数据、人工智能学习">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xwolf">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">docker入门之镜像
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-05 17:00:00" itemprop="dateCreated datePublished" datetime="2019-01-05T17:00:00+08:00">2019-01-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-19 08:23:27" itemprop="dateModified" datetime="2020-07-19T08:23:27+08:00">2020-07-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/devops/" itemprop="url" rel="index"><span itemprop="name">devops</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/01/05/devops/docker入门之镜像/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/05/devops/docker入门之镜像/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">60k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1:49</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Docker 镜像是由文件系统叠加而成。最底端是一个文件引导系统，即 bootfs。Docker 用户不会与引导文件系统有直接的交互。Docker 镜像的第二层是 root 文件系统 rootfs，通常是一种或多种操作系统，例如 ubuntu 等。在 Docker 中，文件系统永远都是只读的，在每次修改时，都是进行拷贝叠加从而形成最终的文件系统。Docker 称这样的文件为镜像。一个镜像可以迭代在另一个镜像的顶部。位于下方的镜像称之为父镜像，最底层的镜像称之为基础镜像。最后，当从一个镜像启动容器时，Docker 会在最顶层加载一个读写文件系统作为容器。</p>
+<span id="more"></span>
+<p>其实上节已经介绍了部分的镜像操作的命令,本节继续介绍 docker 镜像相关的操作。</p>
+<h1 id="搜索镜像"><a href="#搜索镜像" class="headerlink" title="搜索镜像"></a>搜索镜像</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search nginx</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/01/05/devops/docker%E5%85%A5%E9%97%A8%E4%B9%8B%E9%95%9C%E5%83%8F/docker_search.png" alt></p>
+<p>其中各字段信息为:</p>
+<blockquote>
+<ul>
+<li>NAME:镜像仓库源的名称</li>
+<li>DESCRIPTION:镜像的描述</li>
+<li>STARS:表示评分</li>
+<li>OFFICIAL:是否 docker 官方发布</li>
+<li>AUTOMATED:是否自动创建。该类资源允许用户验证资源的来源和内容。</li>
+</ul>
+</blockquote>
+<h1 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h1><p>可以使用 docker pull NAME[:TAG]命令从网络上下载镜像。如果不显式指定 TAG,默认会选择 latest 标签,即下载最新版本的镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx</span><br></pre></td></tr></table></figure>
+<h2 id="查看镜像的详细信息"><a href="#查看镜像的详细信息" class="headerlink" title="查看镜像的详细信息"></a>查看镜像的详细信息</h2><p>用命令 docker images 查看所有安装的镜像信息,用 inspect IMAGE ID 查看详细信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon ~]<span class="comment"># docker images</span></span><br><span class="line"></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">consul              latest              21c1d4ed11da        2 weeks ago         105MB</span><br><span class="line">erlang              latest              fd257b036a25        4 weeks ago         1.06GB</span><br><span class="line">rabbitmq            management          d69a5113ceae        2 months ago        149MB</span><br><span class="line">rabbitmq            latest              e8261c2af9fe        2 months ago        125MB</span><br></pre></td></tr></table></figure>
+<p>其中各项信息含义为：</p>
+<blockquote>
+<ul>
+<li>REPOSITORY,镜像的来源仓库信息</li>
+<li>TAG,镜像的标签信息</li>
+<li>IMAGE ID,镜像的 ID</li>
+<li>CREATED,创建时间</li>
+<li>SIZE,镜像大小</li>
+</ul>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@docker ~]<span class="comment"># docker inspect 7b2ec12a5042</span></span><br></pre></td></tr></table></figure>
+<p>详细信息如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;7b2ec12a50420a859b2731071494750a1040b4e9c76a43ea5cf9179712df5f2a&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Parent&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1ae58a018d101a53ff771cb30a37e01fe1e0f3ff34abe335178673d8c2135bda&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Comment&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Created&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2018-07-24T17:21:51.548456912Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Container&quot;</span><span class="punctuation">:</span> <span class="string">&quot;895e85f09f69727097e9c1783362736d7ee9b5b32f9eae1e5e32f2e1002abf14&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;ContainerConfig&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Hostname&quot;</span><span class="punctuation">:</span> <span class="string">&quot;895e85f09f69&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Domainname&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;User&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;AttachStdin&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;AttachStdout&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;AttachStderr&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;PortSpecs&quot;</span><span class="punctuation">:</span> <span class="keyword">null</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;ExposedPorts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;80/tcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Tty&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;OpenStdin&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;StdinOnce&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Env&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;NGINX_VERSION=1.15.2-1~stretch&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;NJS_VERSION=1.15.2.0.2.2-1~stretch&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Cmd&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/bin/sh&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;-c&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;#(nop) &quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;CMD [\&quot;nginx\&quot; \&quot;-g\&quot; \&quot;daemon off;\&quot;]&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Image&quot;</span><span class="punctuation">:</span> <span class="string">&quot;sha256:f1eea4ec6bee804c269e8443513d7afe26adb1615518ad56d014973fd5faa5f3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Volumes&quot;</span><span class="punctuation">:</span> <span class="keyword">null</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;VolumeDriver&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;WorkingDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Entrypoint&quot;</span><span class="punctuation">:</span> <span class="keyword">null</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;NetworkDisabled&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;MacAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;OnBuild&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Labels&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;maintainer&quot;</span><span class="punctuation">:</span> <span class="string">&quot;NGINX Docker Maintainers \u003cdocker-maint@nginx.com\u003e&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;DockerVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;17.06.2-ce&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Config&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Hostname&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Domainname&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;User&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;AttachStdin&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;AttachStdout&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;AttachStderr&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;PortSpecs&quot;</span><span class="punctuation">:</span> <span class="keyword">null</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;ExposedPorts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;80/tcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Tty&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;OpenStdin&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;StdinOnce&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Env&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;NGINX_VERSION=1.15.2-1~stretch&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;NJS_VERSION=1.15.2.0.2.2-1~stretch&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Cmd&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;nginx&quot;</span><span class="punctuation">,</span> <span class="string">&quot;-g&quot;</span><span class="punctuation">,</span> <span class="string">&quot;daemon off;&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Image&quot;</span><span class="punctuation">:</span> <span class="string">&quot;sha256:f1eea4ec6bee804c269e8443513d7afe26adb1615518ad56d014973fd5faa5f3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Volumes&quot;</span><span class="punctuation">:</span> <span class="keyword">null</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;VolumeDriver&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;WorkingDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Entrypoint&quot;</span><span class="punctuation">:</span> <span class="keyword">null</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;NetworkDisabled&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;MacAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;OnBuild&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Labels&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;maintainer&quot;</span><span class="punctuation">:</span> <span class="string">&quot;NGINX Docker Maintainers \u003cdocker-maint@nginx.com\u003e&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Architecture&quot;</span><span class="punctuation">:</span> <span class="string">&quot;amd64&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Os&quot;</span><span class="punctuation">:</span> <span class="string">&quot;linux&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Size&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;VirtualSize&quot;</span><span class="punctuation">:</span> <span class="number">108954999</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+<p>默认会显示所有的镜像信息,可以加上-f 指定具体的字段信息。对应字段有一个.符号不能省略。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@bogon ~]<span class="comment"># docker inspect -f &#123;&#123;&quot;.VirtualSize&quot;&#125;&#125; 7b2ec12a5042</span></span><br><span class="line">108954999</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h1><p>docker images 命令查看镜像 id,docker rmi IMAGE ID 来删除镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi 3535063d9957</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/01/05/devops/docker%E5%85%A5%E9%97%A8%E4%B9%8B%E9%95%9C%E5%83%8F/docker_rmi.png" alt></p>
+<p>提示被容器使用,不能被删除。可以添加参数-f 来强制删除镜像，但是会有很多遗留问题，不建议。通常先删除容器再删除镜像。<br>查看正在运行的容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/01/05/devops/docker%E5%85%A5%E9%97%A8%E4%B9%8B%E9%95%9C%E5%83%8F/docker_ps.png" alt></p>
+<p>删除容器,用 docker rm CONTAINER ID 命令来删除容器,删除成功后返回 CONTAINER ID.</p>
+<p><img src="/2019/01/05/devops/docker%E5%85%A5%E9%97%A8%E4%B9%8B%E9%95%9C%E5%83%8F/docker_rm_id.png" alt></p>
+<p>容器删除成功后，执行删除镜像命令,</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi IMAGE ID</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/01/05/devops/docker%E5%85%A5%E9%97%A8%E4%B9%8B%E9%95%9C%E5%83%8F/docker_rmi_image.png" alt></p>
+<h1 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h1><p>Docker 创建镜像的方式有三种,基于已有镜像的容器创建、基于本地模板导入、基于 Dockerfile 创建。</p>
+<h2 id="基于已有镜像的容器创建"><a href="#基于已有镜像的容器创建" class="headerlink" title="基于已有镜像的容器创建"></a>基于已有镜像的容器创建</h2><p>主要是使用 docker commit 命令来创建镜像。基本语法 docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon ~]<span class="comment"># docker commit --help</span></span><br><span class="line"></span><br><span class="line">Usage:	docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</span><br><span class="line"></span><br><span class="line">Create a new image from a container<span class="string">&#x27;s changes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Options:</span></span><br><span class="line"><span class="string">  -a, --author string    Author (e.g., &quot;John Hannibal Smith &lt;hannibal@a-team.com&gt;&quot;)</span></span><br><span class="line"><span class="string">  -c, --change list      Apply Dockerfile instruction to the created image</span></span><br><span class="line"><span class="string">  -m, --message string   Commit message</span></span><br><span class="line"><span class="string">  -p, --pause            Pause container during commit (default true)</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+<p>-a, 指定作者信息;<br>-c, 指定改变列表;<br>-m, 指定注释信息;<br>-p, 提交过程中中断容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon ~]<span class="comment"># docker ps -a</span></span><br><span class="line">CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS                     PORTS               NAMES</span><br><span class="line">ffff9fdbe1f2        consul                <span class="string">&quot;docker-entrypoint.s…&quot;</span>   4 hours ago         Exited (1) 4 hours ago                         node1</span><br><span class="line">c3a9f6d71ad2        rabbitmq:management   <span class="string">&quot;docker-entrypoint.s…&quot;</span>   3 weeks ago         Exited (0) 5 seconds ago                       rabbitmq</span><br><span class="line">[root@bogon ~]<span class="comment"># docker commit -a &quot;xwolf&quot; -m &quot;test make docker images&quot; c3a9f6d71ad2 testrabbitmq:1.0</span></span><br><span class="line">sha256:10f9580054c750668c804269857e0c85efe830dee43b75263337db994b168b27</span><br><span class="line">[root@bogon ~]<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">testrabbitmq        1.0                 10f9580054c7        5 seconds ago       149MB</span><br><span class="line">consul              latest              21c1d4ed11da        2 weeks ago         105MB</span><br><span class="line">erlang              latest              fd257b036a25        4 weeks ago         1.06GB</span><br><span class="line">rabbitmq            management          d69a5113ceae        2 months ago        149MB</span><br><span class="line">rabbitmq            latest              e8261c2af9fe        2 months ago        125MB</span><br><span class="line"></span><br><span class="line">[root@bogon ~]<span class="comment"># docker inspect 10f9580054c7</span></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;Id&quot;</span>: <span class="string">&quot;sha256:10f9580054c750668c804269857e0c85efe830dee43b75263337db994b168b27&quot;</span>,</span><br><span class="line">        <span class="string">&quot;RepoTags&quot;</span>: [</span><br><span class="line">            <span class="string">&quot;testrabbitmq:1.0&quot;</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="string">&quot;RepoDigests&quot;</span>: [],</span><br><span class="line">        <span class="string">&quot;Parent&quot;</span>: <span class="string">&quot;sha256:d69a5113ceae5e68ab483f780c1ad712c3932a35753f69e6462b32a9f320ad9c&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Comment&quot;</span>: <span class="string">&quot;test make docker images&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Created&quot;</span>: <span class="string">&quot;2019-01-05T19:47:59.660937054Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Container&quot;</span>: <span class="string">&quot;c3a9f6d71ad22d14ec12e488a1917fbe59c7a6f18414402e3eac2418769c3fdf&quot;</span>,</span><br><span class="line">        <span class="string">&quot;ContainerConfig&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Hostname&quot;</span>: <span class="string">&quot;c3a9f6d71ad2&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Domainname&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;User&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;AttachStdin&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;AttachStdout&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;AttachStderr&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;ExposedPorts&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;15671/tcp&quot;</span>: &#123;&#125;,</span><br><span class="line">                <span class="string">&quot;15672/tcp&quot;</span>: &#123;&#125;,</span><br><span class="line">                <span class="string">&quot;25672/tcp&quot;</span>: &#123;&#125;,</span><br><span class="line">                <span class="string">&quot;4369/tcp&quot;</span>: &#123;&#125;,</span><br><span class="line">                <span class="string">&quot;5671/tcp&quot;</span>: &#123;&#125;,</span><br><span class="line">                <span class="string">&quot;5672/tcp&quot;</span>: &#123;&#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;Tty&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;OpenStdin&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;StdinOnce&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;Env&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;PATH=/usr/lib/rabbitmq/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;</span>,</span><br><span class="line">                <span class="string">&quot;GOSU_VERSION=1.10&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RABBITMQ_LOGS=-&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RABBITMQ_SASL_LOGS=-&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RABBITMQ_GPG_KEY=0A9AF2115F4687BD29803A206B73A36E6026DFCA&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RABBITMQ_VERSION=3.7.8&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RABBITMQ_GITHUB_TAG=v3.7.8&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RABBITMQ_DEBIAN_VERSION=3.7.8-1&quot;</span>,</span><br><span class="line">                <span class="string">&quot;LANG=C.UTF-8&quot;</span>,</span><br><span class="line">                <span class="string">&quot;HOME=/var/lib/rabbitmq&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;Cmd&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;rabbitmq-server&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;ArgsEscaped&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="string">&quot;Image&quot;</span>: <span class="string">&quot;rabbitmq:management&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Volumes&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;/var/lib/rabbitmq&quot;</span>: &#123;&#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;WorkingDir&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Entrypoint&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;docker-entrypoint.sh&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;OnBuild&quot;</span>: null,</span><br><span class="line">            <span class="string">&quot;Labels&quot;</span>: &#123;&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;DockerVersion&quot;</span>: <span class="string">&quot;18.09.1-rc1&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Author&quot;</span>: <span class="string">&quot;xwolf&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Config&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Hostname&quot;</span>: <span class="string">&quot;c3a9f6d71ad2&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Domainname&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;User&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;AttachStdin&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;AttachStdout&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;AttachStderr&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;ExposedPorts&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;15671/tcp&quot;</span>: &#123;&#125;,</span><br><span class="line">                <span class="string">&quot;15672/tcp&quot;</span>: &#123;&#125;,</span><br><span class="line">                <span class="string">&quot;25672/tcp&quot;</span>: &#123;&#125;,</span><br><span class="line">                <span class="string">&quot;4369/tcp&quot;</span>: &#123;&#125;,</span><br><span class="line">                <span class="string">&quot;5671/tcp&quot;</span>: &#123;&#125;,</span><br><span class="line">                <span class="string">&quot;5672/tcp&quot;</span>: &#123;&#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;Tty&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;OpenStdin&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;StdinOnce&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;Env&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;PATH=/usr/lib/rabbitmq/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;</span>,</span><br><span class="line">                <span class="string">&quot;GOSU_VERSION=1.10&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RABBITMQ_LOGS=-&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RABBITMQ_SASL_LOGS=-&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RABBITMQ_GPG_KEY=0A9AF2115F4687BD29803A206B73A36E6026DFCA&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RABBITMQ_VERSION=3.7.8&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RABBITMQ_GITHUB_TAG=v3.7.8&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RABBITMQ_DEBIAN_VERSION=3.7.8-1&quot;</span>,</span><br><span class="line">                <span class="string">&quot;LANG=C.UTF-8&quot;</span>,</span><br><span class="line">                <span class="string">&quot;HOME=/var/lib/rabbitmq&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;Cmd&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;rabbitmq-server&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;ArgsEscaped&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="string">&quot;Image&quot;</span>: <span class="string">&quot;rabbitmq:management&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Volumes&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;/var/lib/rabbitmq&quot;</span>: &#123;&#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;WorkingDir&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Entrypoint&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;docker-entrypoint.sh&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;OnBuild&quot;</span>: null,</span><br><span class="line">            <span class="string">&quot;Labels&quot;</span>: &#123;&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;Architecture&quot;</span>: <span class="string">&quot;amd64&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Os&quot;</span>: <span class="string">&quot;linux&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Size&quot;</span>: 149005125,</span><br><span class="line">        <span class="string">&quot;VirtualSize&quot;</span>: 149005125,</span><br><span class="line">        <span class="string">&quot;GraphDriver&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Data&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;LowerDir&quot;</span>: <span class="string">&quot;/var/lib/docker/overlay2/811b15f8872db9fdfbaf99c95f079a789a8d4802183879f63b6e9bbbb42683da/diff:/var/lib/docker/overlay2/591be8ad69e775d4a1a657fd95cf720b1ae08952ec1d6b3a5a4468e3e97af075/diff:/var/lib/docker/overlay2/9500494e826a223f1fdaf7f1111eba95a5de63daf838ab086856c7961554089b/diff:/var/lib/docker/overlay2/bbb241d9364f497218895e2193d7fb48ce809932000707c02e39f911099f896b/diff:/var/lib/docker/overlay2/b1231c320113693ffcd52d340975a0615ab55a1ce4b8ae9c2f2397587bc82ae1/diff:/var/lib/docker/overlay2/70722cbaba64480fbeebf6c829fdc35ddeffe8c693fc79590676448a4590de99/diff:/var/lib/docker/overlay2/a2c7ab007ca743b9f3e1ff01b485cc238cabc2a16b54ead94cfcc5125c995275/diff:/var/lib/docker/overlay2/0425a71599e4d9319cb027e1973887f94ab225a79ac1a1e7556eb39cc223122a/diff:/var/lib/docker/overlay2/4f46781c5e2d06ca1cc6af2569f4b211b3e7251f100a2711c1fba5f2b71c68b6/diff:/var/lib/docker/overlay2/53154bc70cb837da13d85fe45d56942ad7a8428c4da28aa7091ee08ab9e010d1/diff:/var/lib/docker/overlay2/6ae1115c34ab53b07b8ab67b9b8f3586bad3d9bb0e08eba8168d0e8c50157965/diff:/var/lib/docker/overlay2/42cabbb74e6f925684a37f777357fb58acb8aeb06b7cbe237a948dd9ee1980b0/diff:/var/lib/docker/overlay2/c836245b682b2e2fe184b3b50b91761d4a24cdae436a23da9aca3630ec66232e/diff:/var/lib/docker/overlay2/c413d51ccda1b0a9b9362363cdcfa9657cd50ef98e7675cdfea0abf534ceae9b/diff&quot;</span>,</span><br><span class="line">                <span class="string">&quot;MergedDir&quot;</span>: <span class="string">&quot;/var/lib/docker/overlay2/34f4cfb89aa9478067b1bcf994c0e8cfd625c9113745f18d458875f420f1df9e/merged&quot;</span>,</span><br><span class="line">                <span class="string">&quot;UpperDir&quot;</span>: <span class="string">&quot;/var/lib/docker/overlay2/34f4cfb89aa9478067b1bcf994c0e8cfd625c9113745f18d458875f420f1df9e/diff&quot;</span>,</span><br><span class="line">                <span class="string">&quot;WorkDir&quot;</span>: <span class="string">&quot;/var/lib/docker/overlay2/34f4cfb89aa9478067b1bcf994c0e8cfd625c9113745f18d458875f420f1df9e/work&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;Name&quot;</span>: <span class="string">&quot;overlay2&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;RootFS&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Type&quot;</span>: <span class="string">&quot;layers&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Layers&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;sha256:237472299760d6726d376385edd9e79c310fe91d794bc9870d038417d448c2d5&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:9ce2f4becd217f5b787bc6fc93cea756860d7f0c025c8b0da5289eb5dd2d9791&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:e6508aa518e57bf272703c5245478a9ece3eff4e4cd9d62bba43f2469437b092&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:1a40011024642e11ad451725ee8936b6678fe70bad7b4322f5e74d19cefcf618&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:a59b527680e8b7002d9d94a762f04336bdd0d83741ed712b9124b8694f7f164a&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:0c2a7c5ad55428818ae62be5858d11be38a9c1cc3a0cf2d54b44d34eaf2c74c8&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:3f0c7b29a0e01a0837d6d69c968caa239eb3069bc19bcee05ed9359ec493c17f&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:f836c753fbcf607f36c198650aec2c96fefc8de8f9231ffc5cb2ff0d2fcbd38f&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:18305be5f19def5d5a98ee9b3161691eafcac3dc1642fc8c65725606b365fb8c&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:873e9b3484d07246f9746aa142132b217f62ac1fb2ff133ae9985d89316c9382&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:605ab53ecae3ff2cd3f4633940918a58c0450542ac0973cafa4faf5a7f18ba0b&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:8b84056bae1b7a7dd7b91ceeb279047e75f80e1ea77dfc74fd8ff8599867b6dd&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:327e9aa33c61766c3cd2062caad462f03433fd90b2bb9488b72aca07f5e6566f&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:2f34184930dd172ed432f10fd75d2417093c300273d27aa133b771a77ab91a05&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:edc8c8220a3358abcf0f81fa025549b98a79933f8b656a9d6c0b15886ed86460&quot;</span></span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;Metadata&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;LastTagTime&quot;</span>: <span class="string">&quot;2019-01-06T03:47:59.677227504+08:00&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">[root@bogon ~]<span class="comment"># docker inspect 10f9580054c7 -f &#123;&#123;&quot;.Author&quot;&#125;&#125;</span></span><br><span class="line">xwolf</span><br><span class="line">[root@bogon ~]<span class="comment"># docker inspect 10f9580054c7 -f &#123;&#123;&quot;.Comment&quot;&#125;&#125;</span></span><br><span class="line"><span class="built_in">test</span> make docker images</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="基于本地模板导入"><a href="#基于本地模板导入" class="headerlink" title="基于本地模板导入"></a>基于本地模板导入</h2><p>首先到 <a href="https://openvz.org/">https://openvz.org/</a> 下载模板，这里我们仅仅是演示一下怎么导入模板就下载一个比较小的文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon ~]<span class="comment"># wget https://download.openvz.org/template/precreated/ubuntu-12.04-x86_64-minimal.tar.gz</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>下载完成后执行下面 docker import 命令导入镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入镜像</span></span><br><span class="line">[root@docker opt]<span class="comment"># cat ubuntu-12.04-x86_64-minimal.tar.gz | docker import - ubuntu:12.04</span></span><br><span class="line">sha256:ec505c11e4ee43924b4da2b94d686e36293dd8665fbb60871001a64823a1e486</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看镜像信息</span></span><br><span class="line">[root@docker opt]<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">ubuntu              12.04               ec505c11e4ee        45 seconds ago      149MB</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这样表示镜像创建成功了。</p>
+<h2 id="基于-Dockerfile-创建"><a href="#基于-Dockerfile-创建" class="headerlink" title="基于 Dockerfile 创建"></a>基于 Dockerfile 创建</h2><h3 id="Dockerfile-基础命令"><a href="#Dockerfile-基础命令" class="headerlink" title="Dockerfile 基础命令"></a>Dockerfile 基础命令</h3><ol>
+<li>ADD</li>
+</ol>
+<p>ADD 有下面两种形式,</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD</span><span class="language-bash"> [--<span class="built_in">chown</span>=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> [--<span class="built_in">chown</span>=&lt;user&gt;:&lt;group&gt;] [<span class="string">&quot;&lt;src&gt;&quot;</span>,... <span class="string">&quot;&lt;dest&gt;&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+<p>ADD 指令从<src>复制新文件，目录或远程文件 URL，并将它们添加到路径<dest>的图像文件系统中。<br>可以指定多个<src>资源，但如果它们是文件或目录，则它们的路径将被解释为相对于构建上下文的源。<br>每个<src>可能包含通配符，匹配将使用 Go 的 filepath.Match 规则完成.</src></src></dest></src></p>
+<ol>
+<li>COPY</li>
+</ol>
+<p>COPY 是复制新文件或目录到指定的目录。</p>
+<ol>
+<li>ENV</li>
+</ol>
+<p>主要用于定义变量,不过多介绍。</p>
+<ol>
+<li>EXPOSE</li>
+</ol>
+<p>EXPOSE 指令通知 Docker 容器在运行时侦听指定的网络端口。您可以指定端口是侦听 TCP 还是 UDP，如果未指定协议，则默认为 TCP。EXPOSE 指令实际上不会发布端口。它在构建映像的人和运行容器的人之间起到一种文档的作用，关于哪些端口要发布。要在运行容器时实际发布端口，请在 docker run 上使用-p 标志发布和映射一个或多个端口，或使用-P 标志发布所有公开的端口并将它们映射到高阶端口。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -p 80:80/tcp -p 80:80/udp ...</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>FROM</li>
+</ol>
+<p>Dockfile 必须以 FROM 开始,定义要从公共仓库下载的镜像信息。</p>
+<ol>
+<li>LABEL</li>
+</ol>
+<p>添加键值对的标签信息,用 docker inspect 看到的 json 数据中 label 节点对应的信息。</p>
+<ol>
+<li>STOPSIGNAL</li>
+</ol>
+<p>STOPSIGNAL 指令设置将发送到容器的系统调用信号以退出。<br>此信号可以是与内核的系统调用表中的位置匹配的有效无符号数，例如 9，或 SIGNAME 格式的信号名，例如 SIGKILL。</p>
+<ol>
+<li>USER</li>
+</ol>
+<p>USER 指令设置用户名（或 UID）以及可选的用户组（或 GID），以便在运行映像时以及 Dockerfile 中跟随它的任何 RUN，CMD 和 ENTRYPOINT 指令时使用。</p>
+<ol>
+<li>VOLUME</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> &lt;dire&gt;</span></span><br></pre></td></tr></table></figure>
+<p>VOLUME 指令创建具有指定名称的安装点，并将其标记为从本机主机或其他容器保存外部安装的卷。<br>在 docker 运行时，docker 会创建一个匿名的 volume，并将此 volume 绑定到 container 的<dire>目录中，如果 container 的<dire>目录下已经有内容，则会将内容拷贝的 volume 中。也即，Dockerfile 中的 VOLUME <dire>与 docker run -v <dire> alpine 的效果一样。</dire></dire></dire></dire></p>
+<ol>
+<li>WORKDIR</li>
+</ol>
+<p>WORKDIR 指令为 Dockerfile 中的任何 RUN，CMD，ENTRYPOINT，COPY 和 ADD 指令设置工作目录。<br>如果 WORKDIR 不存在，即使它未在任何后续 Dockerfile 指令中使用，也将创建它。<br>WORKDIR 指令可以在 Dockerfile 中多次使用。<br>如果提供了相对路径，则它将相对于先前 WORKDIR 指令的路径。</p>
+<ol>
+<li>CMD</li>
+</ol>
+<p>CMD 执行 shell 命令，如果有多个 CMD 指令只有最后一个生效。</p>
+<ol>
+<li>RUN</li>
+</ol>
+<p>执行 shell 命令</p>
+<ol>
+<li>MAINTAINER</li>
+</ol>
+<p>对应的开发者信息</p>
+<h4 id="基于-dockerfile-部署-jar-项目"><a href="#基于-dockerfile-部署-jar-项目" class="headerlink" title="基于 dockerfile 部署 jar 项目"></a>基于 dockerfile 部署 jar 项目</h4><ol>
+<li>Dockerfile 内容</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> java:<span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">MAINTAINER</span> xwolf &lt;<span class="number">2324808561</span>@qq.com&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">9090</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> MIN_HEAP <span class="number">512</span>m</span><br><span class="line"><span class="keyword">ENV</span> MAX_HEAP <span class="number">2048</span>m</span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">mkdir</span> /opt/data</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /opt/data</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">mkdir</span> /opt/logs</span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /opt/logs</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">LABEL</span><span class="language-bash"> develps=<span class="string">&quot;xwolf&lt;32143@qq.com&gt;&quot;</span></span></span><br><span class="line"><span class="keyword">LABEL</span><span class="language-bash"> tester=<span class="string">&quot;王司徒&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> MODULE ms</span><br><span class="line"><span class="keyword">ENV</span> MODULE_VERSION <span class="number">0.0</span>.<span class="number">1</span>-SNAPSHOT</span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> ./<span class="variable">$&#123;MODULE&#125;</span>-<span class="variable">$&#123;MODULE_VERSION&#125;</span>.jar /opt/data</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> java -jar -Xms<span class="variable">$&#123;MIN_HEAP&#125;</span> -Xmx<span class="variable">$&#123;MAX_HEAP&#125;</span>  \</span></span><br><span class="line"><span class="language-bash">     <span class="variable">$&#123;MODULE&#125;</span>-<span class="variable">$&#123;MODULE_VERSION&#125;</span>.jar \</span></span><br><span class="line"><span class="language-bash">     &gt; /opt/logs/<span class="variable">$&#123;MODULE&#125;</span>-`<span class="built_in">date</span> +%m%d%H%M`.<span class="built_in">log</span>  2&gt; /opt/logs/<span class="variable">$&#123;MODULE&#125;</span>-error-`<span class="built_in">date</span> +%m%d%H%M`.<span class="built_in">log</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol>
+<li>构建镜像</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">docker build -t xwolf/ms:1.0.0 -f Dockerfile target/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol>
+<li>启动容器</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动对应镜像ID</span></span><br><span class="line"></span><br><span class="line">[root@docker ~]<span class="comment"># docker run -d -p 9090:9090  IMAGE_ID</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看所有容器,UP状态表示启动成功</span></span><br><span class="line">[root@docker ~]<span class="comment"># docker ps -a</span></span><br><span class="line">CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS                           PORTS                    NAMES</span><br><span class="line">c0e2b88b86a6        8d47d112584a          <span class="string">&quot;/bin/sh -c &#x27;java -j…&quot;</span>   3 minutes ago       Up 3 minutes                     0.0.0.0:9090-&gt;9090/tcp   eloquent_jackson</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>至此，docker 镜像搞完了。</p>
+<h3 id="如有错误欢迎批评指正。"><a href="#如有错误欢迎批评指正。" class="headerlink" title="如有错误欢迎批评指正。"></a>如有错误欢迎批评指正。</h3>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/28/数据结构和算法/leetcode/First Missing Positive/" rel="next" title="41. First Missing Positive">
+                <i class="fa fa-chevron-left"></i> 41. First Missing Positive
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/08/julia/julia not found in project, manifest or registry/" rel="prev" title="julia not found in project, manifest or registry">
+                julia not found in project, manifest or registry <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xwolf</p>
+              <div class="site-description motion-element" itemprop="description">JAVAEE、大数据、人工智能学习</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/xwolf191" title="GitHub &rarr; https://github.com/xwolf191" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/snowxwolf@foxmail.com" title="E-Mail &rarr; snowxwolf@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#搜索镜像"><span class="nav-number">1.</span> <span class="nav-text">搜索镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载镜像"><span class="nav-number">2.</span> <span class="nav-text">下载镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看镜像的详细信息"><span class="nav-number">2.1.</span> <span class="nav-text">查看镜像的详细信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除镜像"><span class="nav-number">3.</span> <span class="nav-text">删除镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建镜像"><span class="nav-number">4.</span> <span class="nav-text">创建镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于已有镜像的容器创建"><span class="nav-number">4.1.</span> <span class="nav-text">基于已有镜像的容器创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于本地模板导入"><span class="nav-number">4.2.</span> <span class="nav-text">基于本地模板导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于-Dockerfile-创建"><span class="nav-number">4.3.</span> <span class="nav-text">基于 Dockerfile 创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dockerfile-基础命令"><span class="nav-number">4.3.1.</span> <span class="nav-text">Dockerfile 基础命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于-dockerfile-部署-jar-项目"><span class="nav-number">4.3.1.1.</span> <span class="nav-text">基于 dockerfile 部署 jar 项目</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如有错误欢迎批评指正。"><span class="nav-number">4.3.2.</span> <span class="nav-text">如有错误欢迎批评指正。</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xwolf</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">813k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">24:37</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'rqvt1pdlqsfcoMaUV34AtqwX-gzGzoHsz',
+    appKey: '9d3lSojiD6ccALSPy1sDeQYe',
+    placeholder: '^8^,不想说两句再走么?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('5');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
