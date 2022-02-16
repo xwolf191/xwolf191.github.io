@@ -104,12 +104,12 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="https 配置首先需要去购买 ssl 证书.我是从西部数据购买的证书。当然阿里云、腾讯、百度、华为都有免费的 SSL 证书。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2019/08/02/linux/nginx%E9%85%8D%E7%BD%AEhttps/20190802201927.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/08/02/linux/nginx配置https/20190802201927.png">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.882Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx配置https">
 <meta name="twitter:description" content="https 配置首先需要去购买 ssl 证书.我是从西部数据购买的证书。当然阿里云、腾讯、百度、华为都有免费的 SSL 证书。">
-<meta name="twitter:image" content="http://xwolf191.github.io/2019/08/02/linux/nginx%E9%85%8D%E7%BD%AEhttps/20190802201927.png">
+<meta name="twitter:image" content="http://xwolf191.github.io/2019/08/02/linux/nginx配置https/20190802201927.png">
 
 
 
@@ -491,11 +491,11 @@
 
       
         <p>https 配置首先需要去购买 ssl 证书.<br>我是从西部数据购买的证书。当然阿里云、腾讯、百度、华为都有免费的 SSL 证书。</p>
-<span id="more"></span>
-<h1 id="购买证书"><a href="#购买证书" class="headerlink" title="购买证书"></a>购买证书</h1><p>购买后下载 SSL 证书即可<br><img src="/2019/08/02/linux/nginx%E9%85%8D%E7%BD%AEhttps/20190802201927.png" alt></p>
+<a id="more"></a>
+<h1 id="购买证书"><a href="#购买证书" class="headerlink" title="购买证书"></a>购买证书</h1><p>购买后下载 SSL 证书即可<br><img src="/2019/08/02/linux/nginx配置https/20190802201927.png" alt></p>
 <p>将证书上传至服务器.</p>
 <h1 id="配置-nginx"><a href="#配置-nginx" class="headerlink" title="配置 nginx"></a>配置 nginx</h1><p>直接配置 nginx 的 ssl 证书路径即可.</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># HTTPS server</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       443 ssl;</span><br><span class="line">        server_name  www.example.com;</span><br><span class="line"></span><br><span class="line">        ssl_certificate      /var/ssl/example.com.crt;</span><br><span class="line">        ssl_certificate_key  /var/ssl/example.com.key;</span><br><span class="line"></span><br><span class="line">        ssl_session_cache    shared:SSL:1m;</span><br><span class="line">        ssl_session_timeout  5m;</span><br><span class="line"></span><br><span class="line">        ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line">        ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /life/api/v1/ &#123;</span><br><span class="line">            proxy_pass http://127.0.0.1:9090/api/v1/;</span><br><span class="line">            proxy_redirect  off;</span><br><span class="line">            proxy_set_header        Host    $http_host;</span><br><span class="line">            proxy_set_header        X-Real-IP       $remote_addr;</span><br><span class="line">            proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            proxy_set_header   Cookie $http_cookie;</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># HTTPS server</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       443 ssl;</span><br><span class="line">        server_name  www.example.com;</span><br><span class="line"></span><br><span class="line">        ssl_certificate      /var/ssl/example.com.crt;</span><br><span class="line">        ssl_certificate_key  /var/ssl/example.com.key;</span><br><span class="line"></span><br><span class="line">        ssl_session_cache    shared:SSL:1m;</span><br><span class="line">        ssl_session_timeout  5m;</span><br><span class="line"></span><br><span class="line">        ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line">        ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /life/api/v1/ &#123;</span><br><span class="line">            proxy_pass http://127.0.0.1:9090/api/v1/;</span><br><span class="line">            proxy_redirect  off;</span><br><span class="line">            proxy_set_header        Host    $http_host;</span><br><span class="line">            proxy_set_header        X-Real-IP       $remote_addr;</span><br><span class="line">            proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            proxy_set_header   Cookie $http_cookie;</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>nginx 配置的话也比较简单。</p>
 
       
@@ -618,7 +618,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -933,7 +933,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -944,7 +944,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

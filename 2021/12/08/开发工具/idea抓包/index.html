@@ -104,14 +104,14 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="由于项目中部分请求需要调用第三放接口,为了方便调试,抓取一下真正的请求信息,方便对可能出现的问题进行排查. 下面就来配置一下idea来抓取请求。 导出证书为了抓取https请求，这一步必不可少。首先,fiddler中在options-&amp;gt;https-&amp;gt;Actions-&amp;gt;Export Root Certificate to Desktop,将证书保存到桌面。  jre配置找到jdk的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2021/12/08/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/idea%E6%8A%93%E5%8C%85/2021-12-08_123910.jpg">
-<meta property="og:image" content="http://xwolf191.github.io/2021/12/08/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/idea%E6%8A%93%E5%8C%85/20211208124512.png">
-<meta property="og:image" content="http://xwolf191.github.io/2021/12/08/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/idea%E6%8A%93%E5%8C%85/20211208124655.png">
+<meta property="og:image" content="http://xwolf191.github.io/2021/12/08/开发工具/idea抓包/2021-12-08_123910.jpg">
+<meta property="og:image" content="http://xwolf191.github.io/2021/12/08/开发工具/idea抓包/20211208124512.png">
+<meta property="og:image" content="http://xwolf191.github.io/2021/12/08/开发工具/idea抓包/20211208124655.png">
 <meta property="og:updated_time" content="2021-12-08T04:49:29.159Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fiddler抓取idea请求数据包">
 <meta name="twitter:description" content="由于项目中部分请求需要调用第三放接口,为了方便调试,抓取一下真正的请求信息,方便对可能出现的问题进行排查. 下面就来配置一下idea来抓取请求。 导出证书为了抓取https请求，这一步必不可少。首先,fiddler中在options-&amp;gt;https-&amp;gt;Actions-&amp;gt;Export Root Certificate to Desktop,将证书保存到桌面。  jre配置找到jdk的">
-<meta name="twitter:image" content="http://xwolf191.github.io/2021/12/08/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/idea%E6%8A%93%E5%8C%85/2021-12-08_123910.jpg">
+<meta name="twitter:image" content="http://xwolf191.github.io/2021/12/08/开发工具/idea抓包/2021-12-08_123910.jpg">
 
 
 
@@ -446,7 +446,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.7k</span>
+                <span title="本文字数">1.6k</span>
               
 
               
@@ -483,10 +483,11 @@
         <p>由于项目中部分请求需要调用第三放接口,为了方便调试,抓取一下真正的请求信息,方便对可能出现的问题进行排查.</p>
 <p>下面就来配置一下idea来抓取请求。</p>
 <h1 id="导出证书"><a href="#导出证书" class="headerlink" title="导出证书"></a>导出证书</h1><p>为了抓取https请求，这一步必不可少。<br>首先,fiddler中在options-&gt;https-&gt;Actions-&gt;Export Root Certificate to Desktop,将证书保存到桌面。</p>
-<p><img src="/2021/12/08/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/idea%E6%8A%93%E5%8C%85/2021-12-08_123910.jpg" alt></p>
-<h1 id="jre配置"><a href="#jre配置" class="headerlink" title="jre配置"></a>jre配置</h1><p>找到jdk的安装目录，进入到jre/lib/security下，将证书复制到该目录。<br>执行如下命令,导入证书,默认密码: <code>changeit</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -keystore cacerts -importcert -<span class="built_in">alias</span> fiddlerRoot -file FiddlerRoot.cer</span><br></pre></td></tr></table></figure><br>选择信任密钥库即可.<br><img src="/2021/12/08/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/idea%E6%8A%93%E5%8C%85/20211208124512.png" alt></p>
-<h1 id="spring-boot项目配置"><a href="#spring-boot项目配置" class="headerlink" title="spring boot项目配置"></a>spring boot项目配置</h1><p>在idea中配置项目的虚拟机参数,指定代理的地址和端口,对应fiddler配置的端口号,此处为<code>8888</code>。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-DproxySet=true </span><br><span class="line">-DproxyHost=127.0.0.1</span><br><span class="line">-DproxyPort=8888</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2021/12/08/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/idea%E6%8A%93%E5%8C%85/20211208124655.png" alt></p>
+<p><img src="/2021/12/08/开发工具/idea抓包/2021-12-08_123910.jpg" alt></p>
+<h1 id="jre配置"><a href="#jre配置" class="headerlink" title="jre配置"></a>jre配置</h1><p>找到jdk的安装目录，进入到jre/lib/security下，将证书复制到该目录。<br>执行如下命令,导入证书,默认密码: <code>changeit</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -keystore cacerts -importcert -<span class="built_in">alias</span> fiddlerRoot -file FiddlerRoot.cer</span><br></pre></td></tr></table></figure></p>
+<p>选择信任密钥库即可.<br><img src="/2021/12/08/开发工具/idea抓包/20211208124512.png" alt></p>
+<h1 id="spring-boot项目配置"><a href="#spring-boot项目配置" class="headerlink" title="spring boot项目配置"></a>spring boot项目配置</h1><p>在idea中配置项目的虚拟机参数,指定代理的地址和端口,对应fiddler配置的端口号,此处为<code>8888</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-DproxySet=true </span><br><span class="line">-DproxyHost=127.0.0.1</span><br><span class="line">-DproxyPort=8888</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2021/12/08/开发工具/idea抓包/20211208124655.png" alt></p>
 <p>以上就完成了项目的抓包配置。</p>
 
       
@@ -609,7 +610,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -924,7 +925,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -935,7 +936,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

@@ -104,13 +104,13 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="此图涉及到CPU、内存、IO、网络等各种命令。本节也主要从这四个方面来介绍linux性能调优. CPUCPU优化之前来几个获取CPU核数的命令.123456789101112131415161718# CPU总核数 = 物理CPU个数 * 每颗物理CPU的核数 # 总逻辑CPU数 = 物理CPU个数 * 每颗物理CPU的核数 * 超线程数# 查看CPU信息（型号） [root@localhost">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2019/02/20/linux/Linux%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/linux_optimize.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/02/20/linux/Linux%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/top_20190220161153.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/02/20/linux/Linux性能调优/linux_optimize.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/02/20/linux/Linux性能调优/top_20190220161153.png">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux性能调优">
 <meta name="twitter:description" content="此图涉及到CPU、内存、IO、网络等各种命令。本节也主要从这四个方面来介绍linux性能调优. CPUCPU优化之前来几个获取CPU核数的命令.123456789101112131415161718# CPU总核数 = 物理CPU个数 * 每颗物理CPU的核数 # 总逻辑CPU数 = 物理CPU个数 * 每颗物理CPU的核数 * 超线程数# 查看CPU信息（型号） [root@localhost">
-<meta name="twitter:image" content="http://xwolf191.github.io/2019/02/20/linux/Linux%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/linux_optimize.png">
+<meta name="twitter:image" content="http://xwolf191.github.io/2019/02/20/linux/Linux性能调优/linux_optimize.png">
 
 
 
@@ -457,7 +457,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.3k</span>
+                <span title="本文字数">3.2k</span>
               
 
               
@@ -491,11 +491,11 @@
       
 
       
-        <p><img src="/2019/02/20/linux/Linux%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/linux_optimize.png" alt><br>此图涉及到CPU、内存、IO、网络等各种命令。本节也主要从这四个方面来介绍linux性能调优.</p>
-<h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><p>CPU优化之前来几个获取CPU核数的命令.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CPU总核数 = 物理CPU个数 * 每颗物理CPU的核数 </span></span><br><span class="line"><span class="comment"># 总逻辑CPU数 = 物理CPU个数 * 每颗物理CPU的核数 * 超线程数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看CPU信息（型号） </span></span><br><span class="line">[root@localhost ~]<span class="comment"># cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c</span></span><br><span class="line">      4  Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看物理CPU个数</span></span><br><span class="line">[root@localhost ~]<span class="comment"># cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</span></span><br><span class="line">2</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看每个物理CPU中core的个数(即核数)</span></span><br><span class="line">[root@localhost ~]<span class="comment"># cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq</span></span><br><span class="line">cpu cores	: 2</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看逻辑CPU的个数</span></span><br><span class="line">[root@localhost ~]<span class="comment"># cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l</span></span><br><span class="line">4</span><br></pre></td></tr></table></figure></p>
+        <p><img src="/2019/02/20/linux/Linux性能调优/linux_optimize.png" alt><br>此图涉及到CPU、内存、IO、网络等各种命令。本节也主要从这四个方面来介绍linux性能调优.</p>
+<h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><p>CPU优化之前来几个获取CPU核数的命令.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CPU总核数 = 物理CPU个数 * 每颗物理CPU的核数 </span></span><br><span class="line"><span class="comment"># 总逻辑CPU数 = 物理CPU个数 * 每颗物理CPU的核数 * 超线程数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看CPU信息（型号） </span></span><br><span class="line">[root@localhost ~]<span class="comment"># cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c</span></span><br><span class="line">      4  Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看物理CPU个数</span></span><br><span class="line">[root@localhost ~]<span class="comment"># cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l</span></span><br><span class="line">2</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看每个物理CPU中core的个数(即核数)</span></span><br><span class="line">[root@localhost ~]<span class="comment"># cat /proc/cpuinfo| grep "cpu cores"| uniq</span></span><br><span class="line">cpu cores	: 2</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看逻辑CPU的个数</span></span><br><span class="line">[root@localhost ~]<span class="comment"># cat /proc/cpuinfo| grep "processor"| wc -l</span></span><br><span class="line">4</span><br></pre></td></tr></table></figure></p>
 <h2 id="uptime"><a href="#uptime" class="headerlink" title="uptime"></a>uptime</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># uptime</span></span><br><span class="line"> 00:16:20 up  2:18,  1 user,  load average: 0.00, 0.01, 0.03</span><br></pre></td></tr></table></figure>
 <p>对应字段的意思:<br>当前时间 开机时间  在线用户数  平均负载<br>其中平均负载有三个值,分别代表 1分钟、5分钟、15分钟的平均负载。这三个值越来越大代表负载一直在减小,反之就是负载在增加。<br>load average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值。如果这个数除以逻辑CPU的数量，结果高于5的时候就表明系统在超负荷运转了。</p>
-<h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><p><img src="/2019/02/20/linux/Linux%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/top_20190220161153.png" alt></p>
+<h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><p><img src="/2019/02/20/linux/Linux性能调优/top_20190220161153.png" alt></p>
 <h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h1 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h1><h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1>
       
     </div>
@@ -617,7 +617,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -932,7 +932,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -943,7 +943,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

@@ -468,7 +468,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -490,8 +490,11 @@
       
         <p>当任何目录有 mount, 然后有程序使用/挂在那个目录上的话, 就没有办法 umount 掉, 於 umount 时会出现 Device is busy 的讯息.<br>要怎麼找出是哪个程序挂在那个目录上? 然后去把那个程式砍掉呢?使用 fuser 的指令<br>那要怎麼找出是哪个程式挂在那个目录上？可以使用 fuser - identify processes using files or sockets<br>假设现在 mount 起来的目录是 /media/share</p>
 <ul>
-<li>查询: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fuser -m /media/share</span><br></pre></td></tr></table></figure></li>
-<li>显示: /media/share: 25023c<br>就代表是 process 25023(pid) 有使用到此目录, 后面 c 代表的意思可参考下述:</li>
+<li><p>查询: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fuser -m /media/share</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>显示: /media/share: 25023c<br>就代表是 process 25023(pid) 有使用到此目录, 后面 c 代表的意思可参考下述:</p>
+</li>
 <li>c: current directory.</li>
 <li>e: executable being run.</li>
 <li>f: open file. f is omitted in default display mode.</li>
@@ -505,7 +508,7 @@ fuser -m -v -i -k /media/share # 会问你是不是要把 25023 这个 kill 掉,
  Kill process 25023 ? (y/N) y
 </code></pre></li>
 </ul>
-<h6 id="转自"><a href="#转自" class="headerlink" title="转自:"></a>转自:</h6><p><a href="http://blog.csdn.net/radkitty/article/details/5337304">linux umount 时出现device is busy 的处理方法</a>         </p>
+<h6 id="转自"><a href="#转自" class="headerlink" title="转自:"></a>转自:</h6><p><a href="http://blog.csdn.net/radkitty/article/details/5337304" target="_blank" rel="noopener">linux umount 时出现device is busy 的处理方法</a>         </p>
 
       
     </div>
@@ -627,7 +630,7 @@ fuser -m -v -i -k /media/share # 会问你是不是要把 25023 这个 kill 掉,
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -942,7 +945,7 @@ fuser -m -v -i -k /media/share # 会问你是不是要把 25023 这个 kill 掉,
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -953,7 +956,7 @@ fuser -m -v -i -k /media/share # 会问你是不是要把 25023 这个 kill 掉,
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

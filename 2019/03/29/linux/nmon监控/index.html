@@ -104,17 +104,17 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="nmon 是一种在 AIX 与各种 Linux 操作系统上广泛使用的监控与分析工具，相对于其它一些系统资源监控工具来说，nmon 所记录的信息是比较全面的，它能在系统运行过程中实时地捕捉系统资源的使用情况，并且能输出结果到文件中，然后通过 nmon_analyzer 工具产生数据文件与图形化结果。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/nmon_20190329094009.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/nmon_cpu_20190329095019.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/memoery_20190329095210.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/disk_io_20190329095338.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/nmon_tools_20190329104834.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/nmon_analyser_20190329104529.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon监控/nmon_20190329094009.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon监控/nmon_cpu_20190329095019.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon监控/memoery_20190329095210.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon监控/disk_io_20190329095338.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon监控/nmon_tools_20190329104834.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon监控/nmon_analyser_20190329104529.png">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.885Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nmon监控">
 <meta name="twitter:description" content="nmon 是一种在 AIX 与各种 Linux 操作系统上广泛使用的监控与分析工具，相对于其它一些系统资源监控工具来说，nmon 所记录的信息是比较全面的，它能在系统运行过程中实时地捕捉系统资源的使用情况，并且能输出结果到文件中，然后通过 nmon_analyzer 工具产生数据文件与图形化结果。">
-<meta name="twitter:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/nmon_20190329094009.png">
+<meta name="twitter:image" content="http://xwolf191.github.io/2019/03/29/linux/nmon监控/nmon_20190329094009.png">
 
 
 
@@ -461,7 +461,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">10k</span>
+                <span title="本文字数">9.8k</span>
               
 
               
@@ -496,26 +496,26 @@
 
       
         <p>nmon 是一种在 AIX 与各种 Linux 操作系统上广泛使用的监控与分析工具，相对于其它一些系统资源监控工具来说，nmon 所记录的信息是比较全面的，它能在系统运行过程中实时地捕捉系统资源的使用情况，并且能输出结果到文件中，然后通过 nmon_analyzer 工具产生数据文件与图形化结果。</p>
-<span id="more"></span>
+<a id="more"></a>
 <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装比较简单,直接 yum 安装即可.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install nmon</span><br></pre></td></tr></table></figure>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h2><p>输入 nmon 进入监控界面<br><img src="/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/nmon_20190329094009.png" alt></p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h2><p>输入 nmon 进入监控界面<br><img src="/2019/03/29/linux/nmon监控/nmon_20190329094009.png" alt></p>
 <p>通过键入提示的命令来查看不同的信息.</p>
 <ol>
 <li>CPU</li>
 </ol>
-<p>键入 C 查看 cpu 信息<br><img src="/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/nmon_cpu_20190329095019.png" alt></p>
+<p>键入 C 查看 cpu 信息<br><img src="/2019/03/29/linux/nmon监控/nmon_cpu_20190329095019.png" alt></p>
 <ol>
 <li>内存</li>
 </ol>
-<p><img src="/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/memoery_20190329095210.png" alt></p>
+<p><img src="/2019/03/29/linux/nmon监控/memoery_20190329095210.png" alt></p>
 <ol>
 <li>disk IO</li>
 </ol>
-<p><img src="/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/disk_io_20190329095338.png" alt></p>
+<p><img src="/2019/03/29/linux/nmon监控/disk_io_20190329095338.png" alt></p>
 <p>这里只列出上面的几个监控信息。</p>
 <h2 id="收集数据"><a href="#收集数据" class="headerlink" title="收集数据"></a>收集数据</h2><p>nmon 的命令信息:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">For Data-Collect-Mode Options</span><br><span class="line">        -f            spreadsheet output format [note: default -s300 -c288]</span><br><span class="line">                         output file is &lt;hostname&gt;_YYYYMMDD_HHMM.nmon</span><br><span class="line">        -F &lt;filename&gt; same as -f but user supplied filename</span><br><span class="line">                         Not recommended as the default file name is perfect</span><br><span class="line">        The other options <span class="keyword">in</span> alphabetical order:</span><br><span class="line">        -a            Include Accelerator GPU stats</span><br><span class="line">        -b            Online only: <span class="keyword">for</span> black and white mode (switch off colour)</span><br><span class="line">        -c &lt;number&gt;   The number of snapshots before nmon stops</span><br><span class="line">        -d &lt;disks&gt;    To <span class="built_in">set</span> the maximum number of disks [default 256]</span><br><span class="line">                      Ignores disks <span class="keyword">if</span> the systems has 100<span class="string">&#x27;s of disk or the config is odd!</span></span><br><span class="line"><span class="string">        -D            Use with -g to add the Disk Wait/Service Time &amp; in-flight stats</span></span><br><span class="line"><span class="string">        -f and -F     See above</span></span><br><span class="line"><span class="string">        -g &lt;filename&gt; User Defined Disk Groups (see above) - Data Capture: Generates  BBBG &amp; DG                               lines</span></span><br><span class="line"><span class="string">        -g auto       See above but makes the file &quot;auto&quot; for you of just the disks like sda etc                              .</span></span><br><span class="line"><span class="string">        -h            This help output</span></span><br><span class="line"><span class="string">        -I &lt;percent&gt;  Set the ignore process &amp; disks busy threshold (default 0.1%)</span></span><br><span class="line"><span class="string">                      Don&#x27;</span>t save or show proc/disk using less than this percent</span><br><span class="line">        -J            Switch-off Journel Filesystem stats collection (can causes issues with aut                              omound NFS)</span><br><span class="line">        -l &lt;dpl&gt;      Disks per line <span class="keyword">in</span> data capture to avoid spreadsheet width issues. Default                               150. EMC=64.</span><br><span class="line">        -m &lt;directory&gt; nmon changes to this directory before saving to file</span><br><span class="line">                      Useful when starting nmon via cron</span><br><span class="line">        -M              Adds MHz stats <span class="keyword">for</span> each CPU thread. Some POWER8 model CPU cores can be d                              ifferent frequencies</span><br><span class="line">        -N            Include NFS Network File System <span class="keyword">for</span> V2, V3 and V4</span><br><span class="line">        -p            nmon outputs the PID when it starts. Useful <span class="keyword">in</span> scripts to capture the PID                               <span class="keyword">for</span> a later safe stop.</span><br><span class="line">        -r &lt;runname&gt;  Use <span class="keyword">in</span> a benchmark to record the run details <span class="keyword">for</span> later analysis [default h                              ostname]</span><br><span class="line">        -R              Old rrdtool format used by some - may be removed <span class="keyword">in</span> the future. If you u                              se this email Nigel</span><br><span class="line">        -s &lt;seconds&gt;  Time between snap shots - with <span class="string">&quot;-c count&quot;</span> decides duration of the data <span class="built_in">cap</span>                              ture</span><br><span class="line">        -t            Include Top Processes <span class="keyword">in</span> the output</span><br><span class="line">        -T            As -t plus it saves <span class="built_in">command</span> line arguments <span class="keyword">in</span> UARG section</span><br><span class="line">        -U            Include the Linux 10 CPU utilisation stats (CPUUTIL lines <span class="keyword">in</span> the file)</span><br><span class="line">        -V            Print nmon version &amp; <span class="built_in">exit</span> immediately</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">For Data-Collect-Mode Options</span><br><span class="line">        -f            spreadsheet output format [note: default -s300 -c288]</span><br><span class="line">                         output file is &lt;hostname&gt;_YYYYMMDD_HHMM.nmon</span><br><span class="line">        -F &lt;filename&gt; same as -f but user supplied filename</span><br><span class="line">                         Not recommended as the default file name is perfect</span><br><span class="line">        The other options <span class="keyword">in</span> alphabetical order:</span><br><span class="line">        -a            Include Accelerator GPU stats</span><br><span class="line">        -b            Online only: <span class="keyword">for</span> black and white mode (switch off colour)</span><br><span class="line">        -c &lt;number&gt;   The number of snapshots before nmon stops</span><br><span class="line">        -d &lt;disks&gt;    To <span class="built_in">set</span> the maximum number of disks [default 256]</span><br><span class="line">                      Ignores disks <span class="keyword">if</span> the systems has 100<span class="string">'s of disk or the config is odd!</span></span><br><span class="line"><span class="string">        -D            Use with -g to add the Disk Wait/Service Time &amp; in-flight stats</span></span><br><span class="line"><span class="string">        -f and -F     See above</span></span><br><span class="line"><span class="string">        -g &lt;filename&gt; User Defined Disk Groups (see above) - Data Capture: Generates  BBBG &amp; DG                               lines</span></span><br><span class="line"><span class="string">        -g auto       See above but makes the file "auto" for you of just the disks like sda etc                              .</span></span><br><span class="line"><span class="string">        -h            This help output</span></span><br><span class="line"><span class="string">        -I &lt;percent&gt;  Set the ignore process &amp; disks busy threshold (default 0.1%)</span></span><br><span class="line"><span class="string">                      Don'</span>t save or show proc/disk using less than this percent</span><br><span class="line">        -J            Switch-off Journel Filesystem stats collection (can causes issues with aut                              omound NFS)</span><br><span class="line">        -l &lt;dpl&gt;      Disks per line <span class="keyword">in</span> data capture to avoid spreadsheet width issues. Default                               150. EMC=64.</span><br><span class="line">        -m &lt;directory&gt; nmon changes to this directory before saving to file</span><br><span class="line">                      Useful when starting nmon via cron</span><br><span class="line">        -M              Adds MHz stats <span class="keyword">for</span> each CPU thread. Some POWER8 model CPU cores can be d                              ifferent frequencies</span><br><span class="line">        -N            Include NFS Network File System <span class="keyword">for</span> V2, V3 and V4</span><br><span class="line">        -p            nmon outputs the PID when it starts. Useful <span class="keyword">in</span> scripts to capture the PID                               <span class="keyword">for</span> a later safe stop.</span><br><span class="line">        -r &lt;runname&gt;  Use <span class="keyword">in</span> a benchmark to record the run details <span class="keyword">for</span> later analysis [default h                              ostname]</span><br><span class="line">        -R              Old rrdtool format used by some - may be removed <span class="keyword">in</span> the future. If you u                              se this email Nigel</span><br><span class="line">        -s &lt;seconds&gt;  Time between snap shots - with <span class="string">"-c count"</span> decides duration of the data <span class="built_in">cap</span>                              ture</span><br><span class="line">        -t            Include Top Processes <span class="keyword">in</span> the output</span><br><span class="line">        -T            As -t plus it saves <span class="built_in">command</span> line arguments <span class="keyword">in</span> UARG section</span><br><span class="line">        -U            Include the Linux 10 CPU utilisation stats (CPUUTIL lines <span class="keyword">in</span> the file)</span><br><span class="line">        -V            Print nmon version &amp; <span class="built_in">exit</span> immediately</span><br></pre></td></tr></table></figure>
 <blockquote>
 <ul>
 <li>-f 指定文件的格式</li>
@@ -525,18 +525,18 @@
 </ul>
 </blockquote>
 <p>用下面的命令才保存采样信息:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@hadoop01 ~]<span class="comment"># nmon -s 1 -c 360 -f -m  /opt/nmon</span></span><br><span class="line">[root@hadoop01 ~]<span class="comment"># ll -h /opt/nmon/</span></span><br><span class="line">total 184K</span><br><span class="line">-rw-r--r-- 1 root root 134K Mar 29 10:16 hadoop01_190329_1014.nmon</span><br><span class="line">-rw-r--r-- 1 root root  46K Mar 29 10:21 hadoop01_190329_1021.nmon</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@hadoop01 ~]<span class="comment"># nmon -s 1 -c 360 -f -m  /opt/nmon</span></span><br><span class="line">[root@hadoop01 ~]<span class="comment"># ll -h /opt/nmon/</span></span><br><span class="line">total 184K</span><br><span class="line">-rw-r--r-- 1 root root 134K Mar 29 10:16 hadoop01_190329_1014.nmon</span><br><span class="line">-rw-r--r-- 1 root root  46K Mar 29 10:21 hadoop01_190329_1021.nmon</span><br></pre></td></tr></table></figure>
 <h2 id="nmon-analyser"><a href="#nmon-analyser" class="headerlink" title="nmon analyser"></a>nmon analyser</h2><p>将 nmon 文件转化为 csv 文件,</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop01 nmon]<span class="comment"># sort hadoop01_190329_1021.nmon &gt; hadoop01_190329_1021.csv</span></span><br><span class="line">[root@hadoop01 nmon]<span class="comment"># ll -ah</span></span><br><span class="line">total 776K</span><br><span class="line">drwxr-xr-x  2 root root  104 Mar 29 10:39 .</span><br><span class="line">drwxr-xr-x. 7 root root   73 Mar 29 10:14 ..</span><br><span class="line">-rw-r--r--  1 root root 134K Mar 29 10:16 hadoop01_190329_1014.nmon</span><br><span class="line">-rw-r--r--  1 root root 319K Mar 29 10:39 hadoop01_190329_1021.csv</span><br><span class="line">-rw-r--r--  1 root root 319K Mar 29 10:27 hadoop01_190329_1021.nmon</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>下载<a href="https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Power+Systems/page/nmon_analyser">分析工具</a>,</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop01 nmon]<span class="comment"># sort hadoop01_190329_1021.nmon &gt; hadoop01_190329_1021.csv</span></span><br><span class="line">[root@hadoop01 nmon]<span class="comment"># ll -ah</span></span><br><span class="line">total 776K</span><br><span class="line">drwxr-xr-x  2 root root  104 Mar 29 10:39 .</span><br><span class="line">drwxr-xr-x. 7 root root   73 Mar 29 10:14 ..</span><br><span class="line">-rw-r--r--  1 root root 134K Mar 29 10:16 hadoop01_190329_1014.nmon</span><br><span class="line">-rw-r--r--  1 root root 319K Mar 29 10:39 hadoop01_190329_1021.csv</span><br><span class="line">-rw-r--r--  1 root root 319K Mar 29 10:27 hadoop01_190329_1021.nmon</span><br></pre></td></tr></table></figure>
+<p>下载<a href="https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Power+Systems/page/nmon_analyser" target="_blank" rel="noopener">分析工具</a>,</p>
 <p>解压 nmon analyser v60.xlsm 这个文件就是分析工具,以为是个 exe 呢…</p>
 <p>主界面就是这样,点击 Analyze nmon data 载入文件即可看到下面的统计信息:</p>
-<p><img src="/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/nmon_tools_20190329104834.png" alt></p>
-<p><img src="/2019/03/29/linux/nmon%E7%9B%91%E6%8E%A7/nmon_analyser_20190329104529.png" alt></p>
+<p><img src="/2019/03/29/linux/nmon监控/nmon_tools_20190329104834.png" alt></p>
+<p><img src="/2019/03/29/linux/nmon监控/nmon_analyser_20190329104529.png" alt></p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Nmon">Nmon wiki</a></li>
-<li><a href="http://nmon.sourceforge.net/pmwiki.php">nmon for Linux</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Nmon" target="_blank" rel="noopener">Nmon wiki</a></li>
+<li><a href="http://nmon.sourceforge.net/pmwiki.php" target="_blank" rel="noopener">nmon for Linux</a></li>
 </ul>
 </blockquote>
 
@@ -660,7 +660,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -975,7 +975,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -986,7 +986,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

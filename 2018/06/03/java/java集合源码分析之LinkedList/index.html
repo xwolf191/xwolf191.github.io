@@ -104,12 +104,12 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="源码分析以JDK1.8为例. ArrayList就是动态数组,就是Array的复杂版本.它提供了动态的增加和减少元素,实现了Collection和List接口,灵活的设置数组的大小等好处.UML图如下:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2018/06/03/java/java%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BLinkedList/linkedList_1.png">
+<meta property="og:image" content="http://xwolf191.github.io/2018/06/03/java/java集合源码分析之LinkedList/linkedList_1.png">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java集合源码分析之LinkedList">
 <meta name="twitter:description" content="源码分析以JDK1.8为例. ArrayList就是动态数组,就是Array的复杂版本.它提供了动态的增加和减少元素,实现了Collection和List接口,灵活的设置数组的大小等好处.UML图如下:">
-<meta name="twitter:image" content="http://xwolf191.github.io/2018/06/03/java/java%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BLinkedList/linkedList_1.png">
+<meta name="twitter:image" content="http://xwolf191.github.io/2018/06/03/java/java集合源码分析之LinkedList/linkedList_1.png">
 
 
 
@@ -456,7 +456,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.8k</span>
+                <span title="本文字数">2.6k</span>
               
 
               
@@ -492,9 +492,9 @@
       
         <p>源码分析以JDK1.8为例.</p>
 <p>ArrayList就是动态数组,就是Array的复杂版本.它提供了动态的增加和减少元素,实现了Collection和List接口,灵活的设置数组的大小等好处.UML图如下:</p>
-<p><img src="/2018/06/03/java/java%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8BLinkedList/linkedList_1.png" alt="LinkedList"></p>
-<span id="more"></span>
-<h1 id="源码解读"><a href="#源码解读" class="headerlink" title="源码解读"></a>源码解读</h1><h2 id="公共属性"><a href="#公共属性" class="headerlink" title="公共属性"></a>公共属性</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"> <span class="comment">//元素个数</span></span><br><span class="line"><span class="keyword">transient</span> <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">   指向第一个节点</span></span><br><span class="line"><span class="comment">  * Pointer to first node.</span></span><br><span class="line"><span class="comment">  * Invariant: (first == null &amp;&amp; last == null) ||</span></span><br><span class="line"><span class="comment">  *            (first.prev == null &amp;&amp; first.item != null)</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">transient</span> Node&lt;E&gt; first;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 指向最后一个节点</span></span><br><span class="line"><span class="comment">  * Pointer to last node.</span></span><br><span class="line"><span class="comment">  * Invariant: (first == null &amp;&amp; last == null) ||</span></span><br><span class="line"><span class="comment">  *            (last.next == null &amp;&amp; last.item != null)</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">transient</span> Node&lt;E&gt; last;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/03/java/java集合源码分析之LinkedList/linkedList_1.png" alt="LinkedList"></p>
+<a id="more"></a>
+<h1 id="源码解读"><a href="#源码解读" class="headerlink" title="源码解读"></a>源码解读</h1><h2 id="公共属性"><a href="#公共属性" class="headerlink" title="公共属性"></a>公共属性</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"> <span class="comment">//元素个数</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">   指向第一个节点</span></span><br><span class="line"><span class="comment">  * Pointer to first node.</span></span><br><span class="line"><span class="comment">  * Invariant: (first == null &amp;&amp; last == null) ||</span></span><br><span class="line"><span class="comment">  *            (first.prev == null &amp;&amp; first.item != null)</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">transient</span> Node&lt;E&gt; first;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 指向最后一个节点</span></span><br><span class="line"><span class="comment">  * Pointer to last node.</span></span><br><span class="line"><span class="comment">  * Invariant: (first == null &amp;&amp; last == null) ||</span></span><br><span class="line"><span class="comment">  *            (last.next == null &amp;&amp; last.item != null)</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">transient</span> Node&lt;E&gt; last;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -616,7 +616,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -931,7 +931,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -942,7 +942,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

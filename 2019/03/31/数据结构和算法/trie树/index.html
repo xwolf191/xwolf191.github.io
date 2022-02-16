@@ -104,13 +104,13 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="简介[wiki]在计算机科学中，trie，又称前缀树或字典树，是一种有序树，用于保存关联数组，其中的键通常是字符串。与二叉查找树不同，键不是直接保存在节点中，而是由节点在树中的位置决定。一个节点的所有子孙都有相同的前缀，也就是这个节点对应的字符串，而根节点对应空字符串。一般情况下，不是所有的节点都有对应的值，只有叶子节点和部分内部节点所对应的键才有相关的值。 Trie这个术语来自于retrieva">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2019/03/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/trie%E6%A0%91/Trie_example.svg">
-<meta property="og:image" content="http://xwolf191.github.io/2019/03/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/trie%E6%A0%91/tree_20190331182733.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/03/31/数据结构和算法/trie树/Trie_example.svg">
+<meta property="og:image" content="http://xwolf191.github.io/2019/03/31/数据结构和算法/trie树/tree_20190331182733.png">
 <meta property="og:updated_time" content="2020-07-19T00:23:28.044Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="trie树">
 <meta name="twitter:description" content="简介[wiki]在计算机科学中，trie，又称前缀树或字典树，是一种有序树，用于保存关联数组，其中的键通常是字符串。与二叉查找树不同，键不是直接保存在节点中，而是由节点在树中的位置决定。一个节点的所有子孙都有相同的前缀，也就是这个节点对应的字符串，而根节点对应空字符串。一般情况下，不是所有的节点都有对应的值，只有叶子节点和部分内部节点所对应的键才有相关的值。 Trie这个术语来自于retrieva">
-<meta name="twitter:image" content="http://xwolf191.github.io/2019/03/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/trie%E6%A0%91/Trie_example.svg">
+<meta name="twitter:image" content="http://xwolf191.github.io/2019/03/31/数据结构和算法/trie树/Trie_example.svg">
 
 
 
@@ -457,7 +457,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.3k</span>
+                <span title="本文字数">1.2k</span>
               
 
               
@@ -493,14 +493,14 @@
       
         <h1 id="简介-wiki"><a href="#简介-wiki" class="headerlink" title="简介[wiki]"></a>简介[wiki]</h1><p>在计算机科学中，trie，又称前缀树或字典树，是一种有序树，用于保存关联数组，其中的键通常是字符串。与二叉查找树不同，键不是直接保存在节点中，而是由节点在树中的位置决定。一个节点的所有子孙都有相同的前缀，也就是这个节点对应的字符串，而根节点对应空字符串。一般情况下，不是所有的节点都有对应的值，只有叶子节点和部分内部节点所对应的键才有相关的值。</p>
 <p>Trie这个术语来自于retrieval。根据词源学，trie的发明者Edward Fredkin把它读作/ˈtriː/ “tree”。但是，其他作者把它读作/ˈtraɪ/ “try”。</p>
-<p><img src="/2019/03/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/trie%E6%A0%91/Trie_example.svg" alt="一个保存了8个键的trie结构，&quot;A&quot;, &quot;to&quot;, &quot;tea&quot;, &quot;ted&quot;, &quot;ten&quot;, &quot;i&quot;, &quot;in&quot;, and &quot;inn&quot;."></p>
+<p><img src="/2019/03/31/数据结构和算法/trie树/Trie_example.svg" alt="一个保存了8个键的trie结构，&quot;A&quot;, &quot;to&quot;, &quot;tea&quot;, &quot;ted&quot;, &quot;ten&quot;, &quot;i&quot;, &quot;in&quot;, and &quot;inn&quot;."></p>
 <p>在图示中，键标注在节点中，值标注在节点之下。每一个完整的英文单词对应一个特定的整数。Trie可以看作是一个确定有限状态自动机，尽管边上的符号一般是隐含在分支的顺序中的。</p>
 <p>键不需要被显式地保存在节点中。图示中标注出完整的单词，只是为了演示trie的原理。</p>
-<p>trie中的键通常是字符串，但也可以是其它的结构。trie的算法可以很容易地修改为处理其它结构的有序序列，比如一串数字或者形状的排列。比如，bitwise trie中的键是一串比特，可以用于表示整数或者内存地址。<br><span id="more"></span></p>
-<p><img src="/2019/03/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/trie%E6%A0%91/tree_20190331182733.png" alt="计算机中相关的树"></p>
+<p>trie中的键通常是字符串，但也可以是其它的结构。trie的算法可以很容易地修改为处理其它结构的有序序列，比如一串数字或者形状的排列。比如，bitwise trie中的键是一串比特，可以用于表示整数或者内存地址。<br><a id="more"></a></p>
+<p><img src="/2019/03/31/数据结构和算法/trie树/tree_20190331182733.png" alt="计算机中相关的树"></p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Trie">Trie</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Trie" target="_blank" rel="noopener">Trie</a></li>
 </ul>
 </blockquote>
 
@@ -624,7 +624,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -939,7 +939,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -950,7 +950,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

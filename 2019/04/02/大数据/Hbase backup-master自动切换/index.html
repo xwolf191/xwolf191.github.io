@@ -104,14 +104,14 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="启动 hbase 的时候,进入 shell 界面,">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2019/04/02/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hbase%20backup-master%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2/hbase_20190402194614.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/04/02/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hbase%20backup-master%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2/hbase_20190402200922.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/04/02/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hbase%20backup-master%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2/hbase_20190402201209.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/04/02/大数据/Hbase%20backup-master自动切换/hbase_20190402194614.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/04/02/大数据/Hbase%20backup-master自动切换/hbase_20190402200922.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/04/02/大数据/Hbase%20backup-master自动切换/hbase_20190402201209.png">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.956Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hbase backup-master自动切换">
 <meta name="twitter:description" content="启动 hbase 的时候,进入 shell 界面,">
-<meta name="twitter:image" content="http://xwolf191.github.io/2019/04/02/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hbase%20backup-master%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2/hbase_20190402194614.png">
+<meta name="twitter:image" content="http://xwolf191.github.io/2019/04/02/大数据/Hbase%20backup-master自动切换/hbase_20190402194614.png">
 
 
 
@@ -458,7 +458,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.1k</span>
+                <span title="本文字数">1.9k</span>
               
 
               
@@ -472,7 +472,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -492,16 +492,16 @@
       
 
       
-        <p>启动 hbase 的时候,进入 shell 界面,<br><img src="/2019/04/02/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hbase%20backup-master%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2/hbase_20190402194614.png" alt></p>
-<span id="more"></span>
+        <p>启动 hbase 的时候,进入 shell 界面,<br><img src="/2019/04/02/大数据/Hbase backup-master自动切换/hbase_20190402194614.png" alt></p>
+<a id="more"></a>
 <p>hbase master 自动切换失败.</p>
 <p>hbase-site.xml 增加配置</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.unsafe.stream.capability.enforce<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>分发到各个节点，重启 hbase 集群.<br>查看 zk 中 master 节点的信息<br><img src="/2019/04/02/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hbase%20backup-master%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2/hbase_20190402200922.png" alt><br>此时，hadoop01 就是 master。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.unsafe.stream.capability.enforce<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>分发到各个节点，重启 hbase 集群.<br>查看 zk 中 master 节点的信息<br><img src="/2019/04/02/大数据/Hbase backup-master自动切换/hbase_20190402200922.png" alt><br>此时，hadoop01 就是 master。</p>
 <p>在 hadoop01 节点上执行命令,停止 hbase master 节点:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop01 hbase-2.1.4]<span class="comment"># /opt/bigdata/hbase-2.1.4/bin/hbase-daemon.sh stop master</span></span><br><span class="line">running master, logging to /opt/bigdata/hbase-2.1.4/logs/hbase-root-master-hadoop01.out</span><br><span class="line">stopping master.</span><br></pre></td></tr></table></figure>
 <p>查看 zk 中 master 节点的信息:</p>
-<p><img src="/2019/04/02/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hbase%20backup-master%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2/hbase_20190402201209.png" alt><br>此时,备用 master 成为 active 状态,zk 中记录为 hadoop02。</p>
+<p><img src="/2019/04/02/大数据/Hbase backup-master自动切换/hbase_20190402201209.png" alt><br>此时,备用 master 成为 active 状态,zk 中记录为 hadoop02。</p>
 
       
     </div>
@@ -614,7 +614,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -912,7 +912,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -923,7 +923,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

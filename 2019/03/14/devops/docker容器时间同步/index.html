@@ -454,7 +454,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.2k</span>
+                <span title="本文字数">1.1k</span>
               
 
               
@@ -488,11 +488,16 @@
       
 
       
-        <p>通常 docker 容器和宿主机的时间是不同的。<br>有一下三种方式来解决这个问题:<br><span id="more"></span></p>
+        <p>通常 docker 容器和宿主机的时间是不同的。<br>有一下三种方式来解决这个问题:<br><a id="more"></a></p>
 <ol>
-<li>共享主机的localtime<br>创建容器的时候指定启动参数,挂载localtime文件到容器内,保证两者所采用的时区是一致的.(o是只读的意义)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name &lt;name&gt; -v /etc/localtime:/etc/localtime:ro ....</span><br></pre></td></tr></table></figure></li>
-<li>复制主机的localtime  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">cp</span> /etc/localtime containerid:/etc/localtime</span><br></pre></td></tr></table></figure></li>
-<li>软连接<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -sf /usr/share/zoneinfo/Asia/Shanghai/etc/localtime</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Asia/Shanghai&quot;</span> &gt;/etc/timezone</span><br></pre></td></tr></table></figure>
+<li><p>共享主机的localtime<br>创建容器的时候指定启动参数,挂载localtime文件到容器内,保证两者所采用的时区是一致的.(o是只读的意义)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name &lt;name&gt; -v /etc/localtime:/etc/localtime:ro ....</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复制主机的localtime  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp /etc/localtime containerid:/etc/localtime</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>软连接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln -sf /usr/share/zoneinfo/Asia/Shanghai/etc/localtime</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Asia/Shanghai"</span> &gt;/etc/timezone</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 
@@ -607,7 +612,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -905,7 +910,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -916,7 +921,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

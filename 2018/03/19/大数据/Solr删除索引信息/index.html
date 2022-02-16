@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="在solr管理页面document视图下操作,切记 commit。操作面板选择信息: Request-Handler (qt) /update Document Type  XML 1.清空索引库 commit 不能少,否则不会提交. 12345&amp;lt;delete&amp;gt;&amp;lt;query&amp;gt;*:*&amp;lt;/query&amp;gt;&amp;lt;/delete&amp;gt;&amp;lt;commit/&amp;gt; 2.">
+  <meta name="description" content="在solr管理页面document视图下操作,切记 commit。操作面板选择信息: Request-Handler (qt) /update Document Type  XML 1.清空索引库 commit 不能少,否则不会提交. 1234&amp;lt;delete&amp;gt;&amp;lt;query&amp;gt;*:*&amp;lt;/query&amp;gt;&amp;lt;/delete&amp;gt;&amp;lt;commit/&amp;gt; 2.根">
 <meta name="keywords" content="solr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Solr删除索引信息">
 <meta property="og:url" content="http://xwolf191.github.io/2018/03/19/大数据/Solr删除索引信息/index.html">
 <meta property="og:site_name" content="Xwolf">
-<meta property="og:description" content="在solr管理页面document视图下操作,切记 commit。操作面板选择信息: Request-Handler (qt) /update Document Type  XML 1.清空索引库 commit 不能少,否则不会提交. 12345&amp;lt;delete&amp;gt;&amp;lt;query&amp;gt;*:*&amp;lt;/query&amp;gt;&amp;lt;/delete&amp;gt;&amp;lt;commit/&amp;gt; 2.">
+<meta property="og:description" content="在solr管理页面document视图下操作,切记 commit。操作面板选择信息: Request-Handler (qt) /update Document Type  XML 1.清空索引库 commit 不能少,否则不会提交. 1234&amp;lt;delete&amp;gt;&amp;lt;query&amp;gt;*:*&amp;lt;/query&amp;gt;&amp;lt;/delete&amp;gt;&amp;lt;commit/&amp;gt; 2.根">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.964Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Solr删除索引信息">
-<meta name="twitter:description" content="在solr管理页面document视图下操作,切记 commit。操作面板选择信息: Request-Handler (qt) /update Document Type  XML 1.清空索引库 commit 不能少,否则不会提交. 12345&amp;lt;delete&amp;gt;&amp;lt;query&amp;gt;*:*&amp;lt;/query&amp;gt;&amp;lt;/delete&amp;gt;&amp;lt;commit/&amp;gt; 2.">
+<meta name="twitter:description" content="在solr管理页面document视图下操作,切记 commit。操作面板选择信息: Request-Handler (qt) /update Document Type  XML 1.清空索引库 commit 不能少,否则不会提交. 1234&amp;lt;delete&amp;gt;&amp;lt;query&amp;gt;*:*&amp;lt;/query&amp;gt;&amp;lt;/delete&amp;gt;&amp;lt;commit/&amp;gt; 2.根">
 
 
 
@@ -454,7 +454,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.2k</span>
+                <span title="本文字数">2.1k</span>
               
 
               
@@ -493,7 +493,7 @@
 <p>Document Type  XML</p>
 <p>1.清空索引库</p>
 <p>commit 不能少,否则不会提交.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">delete</span>&gt;</span><span class="tag">&lt;<span class="name">query</span>&gt;</span>*:*<span class="tag">&lt;/<span class="name">query</span>&gt;</span><span class="tag">&lt;/<span class="name">delete</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">commit</span>/&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">delete</span>&gt;</span><span class="tag">&lt;<span class="name">query</span>&gt;</span>*:*<span class="tag">&lt;/<span class="name">query</span>&gt;</span><span class="tag">&lt;/<span class="name">delete</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">commit</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 <p>2.根据指定属性删除索引</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">delete</span>&gt;</span><span class="tag">&lt;<span class="name">query</span>&gt;</span>key:value<span class="tag">&lt;/<span class="name">query</span>&gt;</span><span class="tag">&lt;/<span class="name">delete</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">commit</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">delete</span>&gt;</span><span class="tag">&lt;<span class="name">id</span>&gt;</span>1<span class="tag">&lt;/<span class="name">id</span>&gt;</span><span class="tag">&lt;/<span class="name">delete</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">commit</span>/&gt;</span></span><br></pre></td></tr></table></figure>
@@ -608,7 +608,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -906,7 +906,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -917,7 +917,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

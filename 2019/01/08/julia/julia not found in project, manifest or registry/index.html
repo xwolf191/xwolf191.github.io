@@ -456,7 +456,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.3k</span>
+                <span title="本文字数">2.2k</span>
               
 
               
@@ -492,12 +492,13 @@
       
         <p>julia 1.0.3 版本添加包的时候抛出异常.julia not found in project, manifest or registry</p>
 <figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(v1<span class="number">.0</span>) pkg&gt; add https://github.com/JuliaIO/JSON.jl</span><br><span class="line">   Cloning git-repo <span class="string">`https://github.com/JuliaIO/JSON.jl`</span></span><br><span class="line">  Updating git-repo <span class="string">`https://github.com/JuliaIO/JSON.jl`</span></span><br><span class="line">[ Info: Assigning UUID a4e475aa-<span class="number">2</span>c49-<span class="number">59</span>aa-<span class="number">8</span>c9b-<span class="number">6</span>b302a36b041 to JSON</span><br><span class="line"> Resolving package versions...</span><br><span class="line">ERROR: The following package names could not be resolved:</span><br><span class="line"> * julia (not found <span class="keyword">in</span> project, manifest or registry)</span><br><span class="line">Please specify by known <span class="string">`name=uuid`</span>.</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>添加JSON包的时候抛出这个错误,最终在julia论坛中发现这个问题的解决方法,这个是julia的一个bug。执行下面命令即可.<br><figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">julia&gt; rm(joinpath(homedir(), <span class="string">&quot;.julia&quot;</span>, <span class="string">&quot;registries&quot;</span>); recursive=<span class="literal">true</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>再次添加包即可.</p>
-<p><img src="/2019/01/08/julia/julia%20not%20found%20in%20project,%20manifest%20or%20registry/20190108163704.png" alt></p>
+<a id="more"></a>
+<p>添加JSON包的时候抛出这个错误,最终在julia论坛中发现这个问题的解决方法,这个是julia的一个bug。执行下面命令即可.<br><figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">julia&gt; rm(joinpath(homedir(), <span class="string">".julia"</span>, <span class="string">"registries"</span>); recursive=<span class="literal">true</span>)</span><br></pre></td></tr></table></figure></p>
+<p>再次添加包即可.</p>
+<p><img src="/2019/01/08/julia/julia not found in project, manifest or registry/20190108163704.png" alt></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
-<li><a href="https://discourse.julialang.org/t/pkg-add-ijulia-can-not-work/13341">pkg-add-ijulia-can-not-work</a></li>
+<li><a href="https://discourse.julialang.org/t/pkg-add-ijulia-can-not-work/13341" target="_blank" rel="noopener">pkg-add-ijulia-can-not-work</a></li>
 </ul>
 </blockquote>
 
@@ -621,7 +622,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -936,7 +937,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -947,7 +948,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

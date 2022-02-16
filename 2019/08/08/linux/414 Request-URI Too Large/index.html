@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="发布文章时,访问服务器nginx错误信息:123456789101112&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;	&amp;lt;title&amp;gt;414 Request-URI Too Large&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body bgcolor=&amp;quot;white&amp;quot;&amp;gt;	&amp;lt;center&amp;gt;		&amp;lt;h1&amp;gt;414 Reque">
+  <meta name="description" content="发布文章时,访问服务器nginx错误信息:123456789101112&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;	&amp;lt;title&amp;gt;414 Request-URI Too Large&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body bgcolor=&quot;white&quot;&amp;gt;	&amp;lt;center&amp;gt;		&amp;lt;h1&amp;gt;414 Request-URI Too">
 <meta name="keywords" content="linux,nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="414 Request-URI Too Large">
 <meta property="og:url" content="http://xwolf191.github.io/2019/08/08/linux/414 Request-URI Too Large/index.html">
 <meta property="og:site_name" content="Xwolf">
-<meta property="og:description" content="发布文章时,访问服务器nginx错误信息:123456789101112&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;	&amp;lt;title&amp;gt;414 Request-URI Too Large&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body bgcolor=&amp;quot;white&amp;quot;&amp;gt;	&amp;lt;center&amp;gt;		&amp;lt;h1&amp;gt;414 Reque">
+<meta property="og:description" content="发布文章时,访问服务器nginx错误信息:123456789101112&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;	&amp;lt;title&amp;gt;414 Request-URI Too Large&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body bgcolor=&quot;white&quot;&amp;gt;	&amp;lt;center&amp;gt;		&amp;lt;h1&amp;gt;414 Request-URI Too">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.874Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="414 Request-URI Too Large">
-<meta name="twitter:description" content="发布文章时,访问服务器nginx错误信息:123456789101112&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;	&amp;lt;title&amp;gt;414 Request-URI Too Large&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body bgcolor=&amp;quot;white&amp;quot;&amp;gt;	&amp;lt;center&amp;gt;		&amp;lt;h1&amp;gt;414 Reque">
+<meta name="twitter:description" content="发布文章时,访问服务器nginx错误信息:123456789101112&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;	&amp;lt;title&amp;gt;414 Request-URI Too Large&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body bgcolor=&quot;white&quot;&amp;gt;	&amp;lt;center&amp;gt;		&amp;lt;h1&amp;gt;414 Request-URI Too">
 
 
 
@@ -488,8 +488,10 @@
       
 
       
-        <p>发布文章时,访问服务器nginx错误信息:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>414 Request-URI Too Large<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">&quot;white&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">center</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span>&gt;</span>414 Request-URI Too Large<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">center</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">center</span>&gt;</span>openresty/1.13.6.2<span class="tag">&lt;/<span class="name">center</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><br><span id="more"></span><br>文章内容数据量比较大,修改nginx的缓存区大小</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">client_header_buffer_size 1m;</span><br><span class="line">large_client_header_buffers 4 1m;</span><br></pre></td></tr></table></figure>
+        <p>发布文章时,访问服务器nginx错误信息:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>414 Request-URI Too Large<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">"white"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">center</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span>&gt;</span>414 Request-URI Too Large<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">center</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">center</span>&gt;</span>openresty/1.13.6.2<span class="tag">&lt;/<span class="name">center</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>文章内容数据量比较大,修改nginx的缓存区大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">client_header_buffer_size 1m;</span><br><span class="line">large_client_header_buffers 4 1m;</span><br></pre></td></tr></table></figure>
 <p>重启nginx即可.</p>
 
       
@@ -605,7 +607,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -903,7 +905,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -914,7 +916,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

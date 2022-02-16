@@ -104,15 +104,15 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="wireshark抓取https的数据包不做任何配置的话抓取到数数据包全部是加密的TLSv1.2协议的数据包。需要配置一下来解析数据包,在此记录一下。 配置环境变量(windows)创建对应的文件并配置系统环境变量,变量名为”SSLKEYLOGFILE”,变量值是导出的密钥具体文件地址。 wireshark 配置SSLwireshark中配置上边环境变量中配置的文件路径。 Edit -&amp;gt; p">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2019/02/20/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wireshark%E6%8A%93%E5%8F%96%E5%B9%B6%E8%A7%A3%E5%AF%86https%E6%95%B0%E6%8D%AE%E5%8C%85/system_variables_20190220104202.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/02/20/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wireshark%E6%8A%93%E5%8F%96%E5%B9%B6%E8%A7%A3%E5%AF%86https%E6%95%B0%E6%8D%AE%E5%8C%85/wireshark_20190220103905.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/02/20/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wireshark%E6%8A%93%E5%8F%96%E5%B9%B6%E8%A7%A3%E5%AF%86https%E6%95%B0%E6%8D%AE%E5%8C%85/wireshark_20190220104956.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/02/20/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wireshark%E6%8A%93%E5%8F%96%E5%B9%B6%E8%A7%A3%E5%AF%86https%E6%95%B0%E6%8D%AE%E5%8C%85/wireshark_ssl_stream_20190220105654.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/02/20/开发工具/wireshark抓取并解密https数据包/system_variables_20190220104202.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/02/20/开发工具/wireshark抓取并解密https数据包/wireshark_20190220103905.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/02/20/开发工具/wireshark抓取并解密https数据包/wireshark_20190220104956.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/02/20/开发工具/wireshark抓取并解密https数据包/wireshark_ssl_stream_20190220105654.png">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.973Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wireshark抓取并解密https数据包">
 <meta name="twitter:description" content="wireshark抓取https的数据包不做任何配置的话抓取到数数据包全部是加密的TLSv1.2协议的数据包。需要配置一下来解析数据包,在此记录一下。 配置环境变量(windows)创建对应的文件并配置系统环境变量,变量名为”SSLKEYLOGFILE”,变量值是导出的密钥具体文件地址。 wireshark 配置SSLwireshark中配置上边环境变量中配置的文件路径。 Edit -&amp;gt; p">
-<meta name="twitter:image" content="http://xwolf191.github.io/2019/02/20/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wireshark%E6%8A%93%E5%8F%96%E5%B9%B6%E8%A7%A3%E5%AF%86https%E6%95%B0%E6%8D%AE%E5%8C%85/system_variables_20190220104202.png">
+<meta name="twitter:image" content="http://xwolf191.github.io/2019/02/20/开发工具/wireshark抓取并解密https数据包/system_variables_20190220104202.png">
 
 
 
@@ -459,7 +459,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.4k</span>
+                <span title="本文字数">1k</span>
               
 
               
@@ -473,7 +473,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -494,14 +494,14 @@
 
       
         <p>wireshark抓取https的数据包不做任何配置的话抓取到数数据包全部是加密的TLSv1.2协议的数据包。需要配置一下来解析数据包,在此记录一下。</p>
-<h1 id="配置环境变量-windows"><a href="#配置环境变量-windows" class="headerlink" title="配置环境变量(windows)"></a>配置环境变量(windows)</h1><p>创建对应的文件并配置系统环境变量,变量名为”SSLKEYLOGFILE”,变量值是导出的密钥具体文件地址。<br><img src="/2019/02/20/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wireshark%E6%8A%93%E5%8F%96%E5%B9%B6%E8%A7%A3%E5%AF%86https%E6%95%B0%E6%8D%AE%E5%8C%85/system_variables_20190220104202.png" alt></p>
+<h1 id="配置环境变量-windows"><a href="#配置环境变量-windows" class="headerlink" title="配置环境变量(windows)"></a>配置环境变量(windows)</h1><p>创建对应的文件并配置系统环境变量,变量名为”SSLKEYLOGFILE”,变量值是导出的密钥具体文件地址。<br><img src="/2019/02/20/开发工具/wireshark抓取并解密https数据包/system_variables_20190220104202.png" alt></p>
 <h1 id="wireshark-配置SSL"><a href="#wireshark-配置SSL" class="headerlink" title="wireshark 配置SSL"></a>wireshark 配置SSL</h1><p>wireshark中配置上边环境变量中配置的文件路径。</p>
 <p>Edit -&gt; preferences -&gt; Protocols -&gt; SSL </p>
-<p><img src="/2019/02/20/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wireshark%E6%8A%93%E5%8F%96%E5%B9%B6%E8%A7%A3%E5%AF%86https%E6%95%B0%E6%8D%AE%E5%8C%85/wireshark_20190220103905.png" alt></p>
+<p><img src="/2019/02/20/开发工具/wireshark抓取并解密https数据包/wireshark_20190220103905.png" alt></p>
 <h1 id="wireshark-抓包"><a href="#wireshark-抓包" class="headerlink" title="wireshark 抓包"></a>wireshark 抓包</h1><p>开始抓取https数据包,正常的话会解密数据包,可以看到有HTTP请求了。</p>
-<p><img src="/2019/02/20/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wireshark%E6%8A%93%E5%8F%96%E5%B9%B6%E8%A7%A3%E5%AF%86https%E6%95%B0%E6%8D%AE%E5%8C%85/wireshark_20190220104956.png" alt></p>
+<p><img src="/2019/02/20/开发工具/wireshark抓取并解密https数据包/wireshark_20190220104956.png" alt></p>
 <p>查看对应的SSL stream</p>
-<p><img src="/2019/02/20/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wireshark%E6%8A%93%E5%8F%96%E5%B9%B6%E8%A7%A3%E5%AF%86https%E6%95%B0%E6%8D%AE%E5%8C%85/wireshark_ssl_stream_20190220105654.png" alt></p>
+<p><img src="/2019/02/20/开发工具/wireshark抓取并解密https数据包/wireshark_ssl_stream_20190220105654.png" alt></p>
 
       
     </div>
@@ -623,7 +623,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -938,7 +938,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -949,7 +949,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

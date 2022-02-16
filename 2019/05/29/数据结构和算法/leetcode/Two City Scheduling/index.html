@@ -454,7 +454,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.3k</span>
+                <span title="本文字数">5.1k</span>
               
 
               
@@ -468,7 +468,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">9 分钟</span>
               
             </div>
           
@@ -495,7 +495,7 @@
 <li>Example 1:</li>
 </ul>
 </blockquote>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input: [[10,20],[30,200],[400,50],[30,20]]</span><br><span class="line">Output: 110</span><br><span class="line">Explanation:</span><br><span class="line">The first person goes to city A for a cost of 10.</span><br><span class="line">The second person goes to city A for a cost of 30.</span><br><span class="line">The third person goes to city B for a cost of 50.</span><br><span class="line">The fourth person goes to city B for a cost of 20.</span><br><span class="line"></span><br><span class="line">The total minimum cost is 10 + 30 + 50 + 20 = 110 to have half the people interviewing in each city.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input: [[10,20],[30,200],[400,50],[30,20]]</span><br><span class="line">Output: 110</span><br><span class="line">Explanation:</span><br><span class="line">The first person goes to city A for a cost of 10.</span><br><span class="line">The second person goes to city A for a cost of 30.</span><br><span class="line">The third person goes to city B for a cost of 50.</span><br><span class="line">The fourth person goes to city B for a cost of 20.</span><br><span class="line"></span><br><span class="line">The total minimum cost is 10 + 30 + 50 + 20 = 110 to have half the people interviewing in each city.</span><br></pre></td></tr></table></figure>
 <blockquote>
 <ul>
 <li>Note:</li>
@@ -506,7 +506,7 @@
 <li>It is guaranteed that costs.length is even.</li>
 <li>1 &lt;= costs[i][0], costs[i][1] &lt;= 1000</li>
 </ol>
-<span id="more"></span>
+<a id="more"></a>
 <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>公司计划采访的人数为 2N。 将第 i 个人飞往城市 A 的费用是[i][0]，将第 i 个人飞到城市 B 的费用是费用[i][1]。</p>
 <p>求将每个人带到一个城市的最低费用并且每个城市就有 N 个人到达。</p>
 <h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><blockquote>
@@ -515,10 +515,10 @@
 </ul>
 </blockquote>
 <p>DP</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">twoCitySchedCost</span><span class="params">(<span class="type">int</span>[][] costs)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> costs.length / <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span>[][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[N + <span class="number">1</span>][N + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">      dp[i][<span class="number">0</span>] = dp[i - <span class="number">1</span>][<span class="number">0</span>] + costs[i - <span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= N; j++) &#123;</span><br><span class="line">      dp[<span class="number">0</span>][j] = dp[<span class="number">0</span>][j - <span class="number">1</span>] + costs[j - <span class="number">1</span>][<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= N; j++) &#123;</span><br><span class="line">        dp[i][j] = Math.min(dp[i - <span class="number">1</span>][j] + costs[i + j - <span class="number">1</span>][<span class="number">0</span>], dp[i][j - <span class="number">1</span>] + costs[i + j - <span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[N][N];</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">twoCitySchedCost</span><span class="params">(<span class="keyword">int</span>[][] costs)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N = costs.length / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[N + <span class="number">1</span>][N + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">      dp[i][<span class="number">0</span>] = dp[i - <span class="number">1</span>][<span class="number">0</span>] + costs[i - <span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= N; j++) &#123;</span><br><span class="line">      dp[<span class="number">0</span>][j] = dp[<span class="number">0</span>][j - <span class="number">1</span>] + costs[j - <span class="number">1</span>][<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= N; j++) &#123;</span><br><span class="line">        dp[i][j] = Math.min(dp[i - <span class="number">1</span>][j] + costs[i + j - <span class="number">1</span>][<span class="number">0</span>], dp[i][j - <span class="number">1</span>] + costs[i + j - <span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[N][N];</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
 <ul>
-<li><a href="https://leetcode.com/problems/two-city-scheduling/discuss/?currentPage=1&amp;orderBy=most_votes&amp;query=">two-city-scheduling</a></li>
+<li><a href="https://leetcode.com/problems/two-city-scheduling/discuss/?currentPage=1&amp;orderBy=most_votes&amp;query=" target="_blank" rel="noopener">two-city-scheduling</a></li>
 </ul>
 </blockquote>
 
@@ -646,7 +646,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -961,7 +961,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -972,7 +972,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

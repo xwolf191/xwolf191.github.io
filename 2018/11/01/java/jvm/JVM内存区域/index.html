@@ -104,12 +104,12 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="Java 虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在 Java 虚拟机启动时创建的，仅在 Java 虚拟机退出时销毁。其他数据区域仅在当前线程有效。线程数据区域是在线程创建时创建和销毁线程时销毁的,和线程同生共死。本节以 JDK1.8 为例来探讨 java 的内存区域和内存溢出异常诊断。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2018/11/01/java/jvm/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM_1.png">
+<meta property="og:image" content="http://xwolf191.github.io/2018/11/01/java/jvm/JVM内存区域/JVM_1.png">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM内存区域">
 <meta name="twitter:description" content="Java 虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在 Java 虚拟机启动时创建的，仅在 Java 虚拟机退出时销毁。其他数据区域仅在当前线程有效。线程数据区域是在线程创建时创建和销毁线程时销毁的,和线程同生共死。本节以 JDK1.8 为例来探讨 java 的内存区域和内存溢出异常诊断。">
-<meta name="twitter:image" content="http://xwolf191.github.io/2018/11/01/java/jvm/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM_1.png">
+<meta name="twitter:image" content="http://xwolf191.github.io/2018/11/01/java/jvm/JVM内存区域/JVM_1.png">
 
 
 
@@ -491,9 +491,9 @@
 
       
         <p>Java 虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在 Java 虚拟机启动时创建的，仅在 Java 虚拟机退出时销毁。其他数据区域仅在当前线程有效。线程数据区域是在线程创建时创建和销毁线程时销毁的,和线程同生共死。<br>本节以 JDK1.8 为例来探讨 java 的内存区域和内存溢出异常诊断。</p>
-<span id="more"></span>
-<h1 id="一、-java-内存区域"><a href="#一、-java-内存区域" class="headerlink" title="一、 java 内存区域"></a>一、 java 内存区域</h1><p>java 运行时数据区域一共包括六个部分,<br><img src="/2018/11/01/java/jvm/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM_1.png" alt><br>pc 寄存器(程序计数器)、堆、栈、方法区、本地方法栈、运行时常量池。</p>
-<h2 id="pc-寄存器-程序计数器"><a href="#pc-寄存器-程序计数器" class="headerlink" title="pc 寄存器(程序计数器)"></a>pc 寄存器(程序计数器)</h2><p>Java 虚拟机可以同时支持许多执行线程。每个 Java 虚拟机线程都有自己的 pc（程序计数器）寄存器。在任何时候，每个 Java 虚拟机线程都在执行单个方法的代码，即该线程的当前方法。如果该方法不是本机方法，则 pc 寄存器包含当前正在执行的 Java 虚拟机指令的地址。如果线程当前正在执行的方法是 native 的,则 Java 虚拟机的 pc 寄存器的值是未定义的。Java 虚拟机的 pc 寄存器足够宽,可以在特定平台上保存<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.3.3">returnAddress</a>或本机指针。程序计数器也是 java 内存区域中唯一一块没有 OutOfMemeryError 的区域。</p>
+<a id="more"></a>
+<h1 id="一、-java-内存区域"><a href="#一、-java-内存区域" class="headerlink" title="一、 java 内存区域"></a>一、 java 内存区域</h1><p>java 运行时数据区域一共包括六个部分,<br><img src="/2018/11/01/java/jvm/JVM内存区域/JVM_1.png" alt><br>pc 寄存器(程序计数器)、堆、栈、方法区、本地方法栈、运行时常量池。</p>
+<h2 id="pc-寄存器-程序计数器"><a href="#pc-寄存器-程序计数器" class="headerlink" title="pc 寄存器(程序计数器)"></a>pc 寄存器(程序计数器)</h2><p>Java 虚拟机可以同时支持许多执行线程。每个 Java 虚拟机线程都有自己的 pc（程序计数器）寄存器。在任何时候，每个 Java 虚拟机线程都在执行单个方法的代码，即该线程的当前方法。如果该方法不是本机方法，则 pc 寄存器包含当前正在执行的 Java 虚拟机指令的地址。如果线程当前正在执行的方法是 native 的,则 Java 虚拟机的 pc 寄存器的值是未定义的。Java 虚拟机的 pc 寄存器足够宽,可以在特定平台上保存<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.3.3" target="_blank" rel="noopener">returnAddress</a>或本机指针。程序计数器也是 java 内存区域中唯一一块没有 OutOfMemeryError 的区域。</p>
 <h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>Java 虚拟机具有在所有 Java 虚拟机线程之间共享的堆。堆是运行时数据区，从中分配所有类实例和数组的内存。</p>
 <p>堆是在虚拟机启动时创建的。对象的堆存储由自动存储管理系统（称为垃圾收集器）回收;对象永远不会被显式释放。 Java 虚拟机假设没有特定类型的自动存储管理系统，可以根据实现者的系统要求选择存储管理技术。堆可以具有固定大小，或者可以根据计算的需要进行扩展，并且如果不需要更大的堆，则可以收缩。堆的内存不需要是连续的。</p>
 <p>Java 虚拟机实现可以为程序员或用户提供对堆的初始大小的控制，以及如果可以动态扩展或收缩堆，控制最大和最小内存空间限制。</p>
@@ -547,9 +547,9 @@
 <ul>
 <li><p>《深入理解 java 虚拟机》周志明著</p>
 </li>
-<li><p><a href="https://docs.oracle.com/javase/specs/jvms/se8/html/index.html">The Java Virtual Machine Specification Java SE 8 Edition</a></p>
+<li><p><a href="https://docs.oracle.com/javase/specs/jvms/se8/html/index.html" target="_blank" rel="noopener">The Java Virtual Machine Specification Java SE 8 Edition</a></p>
 </li>
-<li><p><a href="https://docs.oracle.com/javase/specs/">各个版本的 java&amp;虚拟机规范文档</a></p>
+<li><p><a href="https://docs.oracle.com/javase/specs/" target="_blank" rel="noopener">各个版本的 java&amp;虚拟机规范文档</a></p>
 </li>
 </ul>
 </blockquote>
@@ -674,7 +674,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -989,7 +989,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -1000,7 +1000,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

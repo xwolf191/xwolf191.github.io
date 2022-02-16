@@ -454,7 +454,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.2k</span>
+                <span title="本文字数">6.1k</span>
               
 
               
@@ -491,29 +491,34 @@
         <p>Given a sorted (in ascending order) integer array nums of n elements and a target value, write a function to search target in nums. If target exists, then return its index, otherwise return -1.</p>
 <blockquote>
 <ul>
-<li>Example 1:<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [-1,0,3,5,9,12], target = 9</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: 9 exists in nums and its index is 4</span><br></pre></td></tr></table></figure></li>
-<li>Example 2:<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [-1,0,3,5,9,12], target = 2</span><br><span class="line">Output: -1</span><br><span class="line">Explanation: 2 does not exist in nums so return -1</span><br></pre></td></tr></table></figure></li>
-<li>Note:</li>
+<li><p>Example 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [-1,0,3,5,9,12], target = 9</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: 9 exists in nums and its index is 4</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Example 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [-1,0,3,5,9,12], target = 2</span><br><span class="line">Output: -1</span><br><span class="line">Explanation: 2 does not exist in nums so return -1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Note:</p>
+</li>
 </ul>
 <ol>
 <li>You may assume that all elements in nums are unique.</li>
 <li>n will be in the range [1, 10000].</li>
-<li>The value of each element in nums will be in the range [-9999, 9999].<span id="more"></span>
+<li>The value of each element in nums will be in the range [-9999, 9999].<a id="more"></a>
 <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1>在一个升序数组中查找是否存在目标元素target,返回其索引。不存在返回-1.<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1></li>
 </ol>
 <ul>
 <li><p>java<br>双指针</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (nums == <span class="literal">null</span> || nums.length == <span class="number">0</span>)&#123;</span><br><span class="line">       <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>,right = nums.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> left; i&lt;= right;i++)&#123;</span><br><span class="line">      <span class="keyword">if</span> (nums[i] == target)&#123;</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (nums[right] == target)&#123;</span><br><span class="line">        <span class="keyword">return</span> right;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (left &lt; target)&#123;</span><br><span class="line">        left ++;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (right &gt; target)&#123;</span><br><span class="line">        right --;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>)&#123;</span><br><span class="line">       <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>,right = nums.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">int</span> i = left; i&lt;= right;i++)&#123;</span><br><span class="line">      <span class="keyword">if</span> (nums[i] == target)&#123;</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (nums[right] == target)&#123;</span><br><span class="line">        <span class="keyword">return</span> right;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (left &lt; target)&#123;</span><br><span class="line">        left ++;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (right &gt; target)&#123;</span><br><span class="line">        right --;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>java</p>
 </li>
 </ul>
 </blockquote>
 <p>二分查找</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">search</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="type">int</span> pivot, left = <span class="number">0</span>, right = nums.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">      pivot = (left + right) / <span class="number">2</span>;</span><br><span class="line">      <span class="keyword">if</span> (nums[pivot] == target) <span class="keyword">return</span> pivot;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (target &lt; nums[pivot]) right = pivot - <span class="number">1</span>;</span><br><span class="line">        <span class="type">else</span> <span class="variable">left</span> <span class="operator">=</span> pivot + <span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pivot, left = <span class="number">0</span>, right = nums.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">      pivot = (left + right) / <span class="number">2</span>;</span><br><span class="line">      <span class="keyword">if</span> (nums[pivot] == target) <span class="keyword">return</span> pivot;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (target &lt; nums[pivot]) right = pivot - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> left = pivot + <span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
 <ul>
-<li><a href="https://leetcode.com/problems/binary-search/solution/">Binary Search</a></li>
+<li><a href="https://leetcode.com/problems/binary-search/solution/" target="_blank" rel="noopener">Binary Search</a></li>
 </ul>
 </blockquote>
 
@@ -637,7 +642,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -952,7 +957,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -963,7 +968,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

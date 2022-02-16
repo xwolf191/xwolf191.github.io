@@ -104,14 +104,14 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="本节以zookeer 3.4.14来分析源码,IDE为IDEA,eclipse也可以。 前提  jdk1.8 Apache Ant安装配置 Apache Maven安装配置">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2019/04/06/distributed/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%80%E4%B9%8B%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/zk_20190406133545.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/04/06/distributed/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%80%E4%B9%8B%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/zk_20190406114820.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/04/06/distributed/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%80%E4%B9%8B%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/zk_20190406115341.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/04/06/distributed/zookeeper源码分析一之源码环境搭建/zk_20190406133545.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/04/06/distributed/zookeeper源码分析一之源码环境搭建/zk_20190406114820.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/04/06/distributed/zookeeper源码分析一之源码环境搭建/zk_20190406115341.png">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.837Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zookeeper源码分析一之源码环境搭建">
 <meta name="twitter:description" content="本节以zookeer 3.4.14来分析源码,IDE为IDEA,eclipse也可以。 前提  jdk1.8 Apache Ant安装配置 Apache Maven安装配置">
-<meta name="twitter:image" content="http://xwolf191.github.io/2019/04/06/distributed/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%80%E4%B9%8B%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/zk_20190406133545.png">
+<meta name="twitter:image" content="http://xwolf191.github.io/2019/04/06/distributed/zookeeper源码分析一之源码环境搭建/zk_20190406133545.png">
 
 
 
@@ -458,7 +458,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.2k</span>
+                <span title="本文字数">6.8k</span>
               
 
               
@@ -472,7 +472,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">13 分钟</span>
+                <span title="阅读时长">12 分钟</span>
               
             </div>
           
@@ -500,14 +500,14 @@
 <li>Apache Maven安装配置</li>
 </ul>
 </blockquote>
-<span id="more"></span>
+<a id="more"></a>
 <h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="下载编译源码"><a href="#下载编译源码" class="headerlink" title="下载编译源码"></a>下载编译源码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 下载源码</span></span><br><span class="line">$ git <span class="built_in">clone</span> -b branch-3.4.14 https://github.com/apache/zookeeper.git</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> zookeeper</span><br><span class="line"><span class="comment"># ant 编译</span></span><br><span class="line">$ ant </span><br><span class="line"><span class="comment"># 如果有eclispe,编译为eclipse项目</span></span><br><span class="line">$ ant eclipse</span><br></pre></td></tr></table></figure>
-<h2 id="导入idea"><a href="#导入idea" class="headerlink" title="导入idea"></a>导入idea</h2><p>idea 导入为maven项目即可.<br>最终的包结构信息:<br><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">D:.</span><br><span class="line">├─.revision</span><br><span class="line">├─bin   命令集合</span><br><span class="line">├─build     ant构建后目录</span><br><span class="line">│  </span><br><span class="line">├─conf   zk配置信息</span><br><span class="line">├─src</span><br><span class="line">│  </span><br><span class="line">├─zookeeper-client  C客户端</span><br><span class="line">│  └─zookeeper-client-c</span><br><span class="line">│      </span><br><span class="line">├─zookeeper-contrib  贡献工具集合</span><br><span class="line">│  ├─zookeeper-contrib-fatjar  fatjar</span><br><span class="line">│  │  </span><br><span class="line">│  ├─zookeeper-contrib-huebrowser   zkui图形化工具</span><br><span class="line">│  │ </span><br><span class="line">│  ├─zookeeper-contrib-loggraph  日志查看和过滤工具</span><br><span class="line"></span><br><span class="line">│  ├─zookeeper-contrib-monitoring  监控工具</span><br><span class="line">│  │ </span><br><span class="line">│  ├─zookeeper-contrib-rest rest接口</span><br><span class="line">│  │  </span><br><span class="line">│  ├─zookeeper-contrib-zkfuse  zkfuse工具,将zk挂载到文件系统</span><br><span class="line">│  │  └─src</span><br><span class="line">│  ├─zookeeper-contrib-zkperl  perl客户端</span><br><span class="line">│  │  </span><br><span class="line">│  ├─zookeeper-contrib-zkpython  python 客户端</span><br><span class="line">│  │  </span><br><span class="line">│  ├─zookeeper-contrib-zktreeutil  zookeeper 操作工具</span><br><span class="line">│  │  </span><br><span class="line">│  └─zookeeper-contrib-zooinspector inspector工具</span><br><span class="line">│     </span><br><span class="line">├─zookeeper-docs   zookeeper文档</span><br><span class="line">│  </span><br><span class="line">├─zookeeper-it   测试</span><br><span class="line">│  </span><br><span class="line">├─zookeeper-jute  jute序列化</span><br><span class="line">│  </span><br><span class="line">├─zookeeper-recipes  zk选举、锁和队列</span><br><span class="line">│  ├─zookeeper-recipes-election</span><br><span class="line">│  </span><br><span class="line">│  ├─zookeeper-recipes-lock</span><br><span class="line">│  </span><br><span class="line">│  └─zookeeper-recipes-queue</span><br><span class="line">│     </span><br><span class="line">└─zookeeper-server  zk server</span><br><span class="line">   </span><br></pre></td></tr></table></figure></p>
+<h2 id="导入idea"><a href="#导入idea" class="headerlink" title="导入idea"></a>导入idea</h2><p>idea 导入为maven项目即可.<br>最终的包结构信息:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">D:.</span><br><span class="line">├─.revision</span><br><span class="line">├─bin   命令集合</span><br><span class="line">├─build     ant构建后目录</span><br><span class="line">│  </span><br><span class="line">├─conf   zk配置信息</span><br><span class="line">├─src</span><br><span class="line">│  </span><br><span class="line">├─zookeeper-client  C客户端</span><br><span class="line">│  └─zookeeper-client-c</span><br><span class="line">│      </span><br><span class="line">├─zookeeper-contrib  贡献工具集合</span><br><span class="line">│  ├─zookeeper-contrib-fatjar  fatjar</span><br><span class="line">│  │  </span><br><span class="line">│  ├─zookeeper-contrib-huebrowser   zkui图形化工具</span><br><span class="line">│  │ </span><br><span class="line">│  ├─zookeeper-contrib-loggraph  日志查看和过滤工具</span><br><span class="line"></span><br><span class="line">│  ├─zookeeper-contrib-monitoring  监控工具</span><br><span class="line">│  │ </span><br><span class="line">│  ├─zookeeper-contrib-rest rest接口</span><br><span class="line">│  │  </span><br><span class="line">│  ├─zookeeper-contrib-zkfuse  zkfuse工具,将zk挂载到文件系统</span><br><span class="line">│  │  └─src</span><br><span class="line">│  ├─zookeeper-contrib-zkperl  perl客户端</span><br><span class="line">│  │  </span><br><span class="line">│  ├─zookeeper-contrib-zkpython  python 客户端</span><br><span class="line">│  │  </span><br><span class="line">│  ├─zookeeper-contrib-zktreeutil  zookeeper 操作工具</span><br><span class="line">│  │  </span><br><span class="line">│  └─zookeeper-contrib-zooinspector inspector工具</span><br><span class="line">│     </span><br><span class="line">├─zookeeper-docs   zookeeper文档</span><br><span class="line">│  </span><br><span class="line">├─zookeeper-it   测试</span><br><span class="line">│  </span><br><span class="line">├─zookeeper-jute  jute序列化</span><br><span class="line">│  </span><br><span class="line">├─zookeeper-recipes  zk选举、锁和队列</span><br><span class="line">│  ├─zookeeper-recipes-election</span><br><span class="line">│  </span><br><span class="line">│  ├─zookeeper-recipes-lock</span><br><span class="line">│  </span><br><span class="line">│  └─zookeeper-recipes-queue</span><br><span class="line">│     </span><br><span class="line">└─zookeeper-server  zk server</span><br></pre></td></tr></table></figure></p>
 <p>各个模块的结构还是很清晰的,不做过多解释.</p>
 <h2 id="启动server"><a href="#启动server" class="headerlink" title="启动server"></a>启动server</h2><p>查看zkServer.sh 文件,可以看到server main入口.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># for some reason these two options are necessary on jdk6 on Ubuntu</span></span><br><span class="line">   <span class="comment">#   accord to the docs they are not necessary, but otw jconsole cannot</span></span><br><span class="line">   <span class="comment">#   do a local attach</span></span><br><span class="line">   ZOOMAIN=<span class="string">&quot;-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=<span class="variable">$JMXLOCALONLY</span> org.apache.zookeeper.server.quorum.QuorumPeerMain&quot;</span></span><br></pre></td></tr></table></figure>
-<p>指定zoo.cfg配置文件,运行<br>org.apache.zookeeper.server.quorum.QuorumPeerMain.<br><img src="/2019/04/06/distributed/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%80%E4%B9%8B%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/zk_20190406133545.png" alt><br>,看到日志信息的输出，表示启动成功，当然是单节点的。<br><img src="/2019/04/06/distributed/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%80%E4%B9%8B%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/zk_20190406114820.png" alt></p>
-<h2 id="启动-client"><a href="#启动-client" class="headerlink" title="启动 client"></a>启动 client</h2><p>直接启动org.apache.zookeeper.ZooKeeperMain.<br>也可正常启动.<br><img src="/2019/04/06/distributed/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%80%E4%B9%8B%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/zk_20190406115341.png" alt></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># for some reason these two options are necessary on jdk6 on Ubuntu</span></span><br><span class="line">   <span class="comment">#   accord to the docs they are not necessary, but otw jconsole cannot</span></span><br><span class="line">   <span class="comment">#   do a local attach</span></span><br><span class="line">   ZOOMAIN=<span class="string">"-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=<span class="variable">$JMXLOCALONLY</span> org.apache.zookeeper.server.quorum.QuorumPeerMain"</span></span><br></pre></td></tr></table></figure>
+<p>指定zoo.cfg配置文件,运行<br>org.apache.zookeeper.server.quorum.QuorumPeerMain.<br><img src="/2019/04/06/distributed/zookeeper源码分析一之源码环境搭建/zk_20190406133545.png" alt><br>,看到日志信息的输出，表示启动成功，当然是单节点的。<br><img src="/2019/04/06/distributed/zookeeper源码分析一之源码环境搭建/zk_20190406114820.png" alt></p>
+<h2 id="启动-client"><a href="#启动-client" class="headerlink" title="启动 client"></a>启动 client</h2><p>直接启动org.apache.zookeeper.ZooKeeperMain.<br>也可正常启动.<br><img src="/2019/04/06/distributed/zookeeper源码分析一之源码环境搭建/zk_20190406115341.png" alt></p>
 <p>到此,zookeerp源码的调试环境已经ok。</p>
 
       
@@ -630,7 +630,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -945,7 +945,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -956,7 +956,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

@@ -104,15 +104,15 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="DVWA主要是用于学习Web的常见攻击，比如SQL注入、XSS等的一个渗透测试系统.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2019/07/13/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83DVWA%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/20190713184244.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/07/13/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83DVWA%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/20190713182441.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/07/13/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83DVWA%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/20190713183444.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/07/13/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83DVWA%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index_20190713_1837.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/07/13/security/渗透测试环境DVWA环境搭建/20190713184244.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/07/13/security/渗透测试环境DVWA环境搭建/20190713182441.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/07/13/security/渗透测试环境DVWA环境搭建/20190713183444.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/07/13/security/渗透测试环境DVWA环境搭建/index_20190713_1837.png">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="渗透测试环境DVWA环境搭建">
 <meta name="twitter:description" content="DVWA主要是用于学习Web的常见攻击，比如SQL注入、XSS等的一个渗透测试系统.">
-<meta name="twitter:image" content="http://xwolf191.github.io/2019/07/13/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83DVWA%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/20190713184244.png">
+<meta name="twitter:image" content="http://xwolf191.github.io/2019/07/13/security/渗透测试环境DVWA环境搭建/20190713184244.png">
 
 
 
@@ -459,7 +459,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.5k</span>
+                <span title="本文字数">2.2k</span>
               
 
               
@@ -473,7 +473,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -493,19 +493,19 @@
       
 
       
-        <p>DVWA主要是用于学习Web的常见攻击，比如SQL注入、XSS等的一个渗透测试系统.<br><span id="more"></span></p>
+        <p>DVWA主要是用于学习Web的常见攻击，比如SQL注入、XSS等的一个渗透测试系统.<br><a id="more"></a></p>
 <h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>由于DVWA是用php语言写的安全测试平台，所以我们先要创建一个php开发集成环境。</p>
 <blockquote>
 <ul>
 <li>XAMPP安装</li>
 </ul>
 </blockquote>
-<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>到 <a href="http://www.dvwa.co.uk/">DVWA</a>下载应用包,是一个zip。解压到xampp的htdocs目录并重命名为dvwa。</p>
-<h1 id="启动xampp"><a href="#启动xampp" class="headerlink" title="启动xampp"></a>启动xampp</h1><p><img src="/2019/07/13/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83DVWA%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/20190713184244.png" alt></p>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>到 <a href="http://www.dvwa.co.uk/" target="_blank" rel="noopener">DVWA</a>下载应用包,是一个zip。解压到xampp的htdocs目录并重命名为dvwa。</p>
+<h1 id="启动xampp"><a href="#启动xampp" class="headerlink" title="启动xampp"></a>启动xampp</h1><p><img src="/2019/07/13/security/渗透测试环境DVWA环境搭建/20190713184244.png" alt></p>
 <h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>浏览器输入localhost://82/dvma即可进入dvwa配置界面</p>
-<p><img src="/2019/07/13/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83DVWA%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/20190713182441.png" alt></p>
+<p><img src="/2019/07/13/security/渗透测试环境DVWA环境搭建/20190713182441.png" alt></p>
 <h2 id="配置数据库"><a href="#配置数据库" class="headerlink" title="配置数据库"></a>配置数据库</h2><p>点击创建即可,下面会提示错误信息.数据库未连接等.修改配置</p>
-<p>成功后进入登录页面<br><img src="/2019/07/13/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83DVWA%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/20190713183444.png" alt><br>输入密码 admin/password进入主界面.<br><img src="/2019/07/13/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83DVWA%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index_20190713_1837.png" alt></p>
+<p>成功后进入登录页面<br><img src="/2019/07/13/security/渗透测试环境DVWA环境搭建/20190713183444.png" alt><br>输入密码 admin/password进入主界面.<br><img src="/2019/07/13/security/渗透测试环境DVWA环境搭建/index_20190713_1837.png" alt></p>
 <p>至此DVWA的环境已经搭建ok.</p>
 <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><h2 id="DVWA-System-error-config-file-not-found-Copy-config-config-inc-php-dist-to-config-config-inc-php-and-configure-to-your-environment"><a href="#DVWA-System-error-config-file-not-found-Copy-config-config-inc-php-dist-to-config-config-inc-php-and-configure-to-your-environment" class="headerlink" title="DVWA System error - config file not found. Copy config/config.inc.php.dist to config/config.inc.php and configure to your environment."></a>DVWA System error - config file not found. Copy config/config.inc.php.dist to config/config.inc.php and configure to your environment.</h2><p>将config.inc.php.dist 重命名为config.inc.php即可.</p>
 <h2 id="Could-not-connect-to-the-MySQL-service-Please-check-the-config-file"><a href="#Could-not-connect-to-the-MySQL-service-Please-check-the-config-file" class="headerlink" title="Could not connect to the MySQL service.Please check the config file."></a>Could not connect to the MySQL service.Please check the config file.</h2><p>修改config.inc.php中对应的数据库用户名、密码等信息。</p>
@@ -630,7 +630,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -945,7 +945,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -956,7 +956,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

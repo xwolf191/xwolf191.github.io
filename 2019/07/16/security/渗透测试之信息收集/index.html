@@ -104,17 +104,17 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="渗透测试主要的一点就是获取服务器的各种信息.本节主要是一些基础的服务器信息收集的工具和常识.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/whois_20190717101406.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/dns_20190717151631.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/20190717152155.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/20190717153045.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/2019-07-17_142004.png">
-<meta property="og:image" content="http://xwolf191.github.io/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/sub_20190717110811.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/07/16/security/渗透测试之信息收集/whois_20190717101406.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/07/16/security/渗透测试之信息收集/dns_20190717151631.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/07/16/security/渗透测试之信息收集/20190717152155.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/07/16/security/渗透测试之信息收集/20190717153045.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/07/16/security/渗透测试之信息收集/2019-07-17_142004.png">
+<meta property="og:image" content="http://xwolf191.github.io/2019/07/16/security/渗透测试之信息收集/sub_20190717110811.png">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.930Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="渗透测试之信息收集">
 <meta name="twitter:description" content="渗透测试主要的一点就是获取服务器的各种信息.本节主要是一些基础的服务器信息收集的工具和常识.">
-<meta name="twitter:image" content="http://xwolf191.github.io/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/whois_20190717101406.png">
+<meta name="twitter:image" content="http://xwolf191.github.io/2019/07/16/security/渗透测试之信息收集/whois_20190717101406.png">
 
 
 
@@ -496,27 +496,27 @@
 
       
         <p>渗透测试主要的一点就是获取服务器的各种信息.本节主要是一些基础的服务器信息收集的工具和常识.</p>
-<span id="more"></span>
+<a id="more"></a>
 <h1 id="域名信息"><a href="#域名信息" class="headerlink" title="域名信息"></a>域名信息</h1><p>主要通过 whois 查看域名的拥有者等信息.Whois 简单来说，就是一个用来查询域名是否已经被注册，以及注册域名的详细信息的数据库（如域名所有人、域名注册商、域名注册日期和过期日期等）。通过域名 Whois 服务器查询，可以查询域名归属者联系方式，以及注册和到期时间,可以用 whois.chinaz.com 访问或者 linux 上已经集成了该命令.</p>
-<p><img src="/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/whois_20190717101406.png" alt></p>
+<p><img src="/2019/07/16/security/渗透测试之信息收集/whois_20190717101406.png" alt></p>
 <h1 id="获取真实-IP"><a href="#获取真实-IP" class="headerlink" title="获取真实 IP"></a>获取真实 IP</h1><h2 id="验证是否存在-CDN"><a href="#验证是否存在-CDN" class="headerlink" title="验证是否存在 CDN"></a>验证是否存在 CDN</h2><p>使用各种多地 ping 的服务，查看对应 IP 地址是否唯一，如果不唯一多半是使用了 CDN,多地 Ping 网站有：</p>
-<p><a href="http://ping.chinaz.com/">站长工具 &gt; Ping 检测</a></p>
-<p><a href="http://www.webkaka.com/Ping.aspx">网站 Ping 检测—检测网站在各地的 Ping 值—卡卡网</a></p>
-<p><a href="https://tools.ipip.net/ping.php">Ping 查询_专业的 IP 地址库_IPIP.NET</a></p>
-<p><a href="http://ping.aizhan.com/">PING 检测-爱站网</a></p>
-<p>以其中一个工具检测 dns 信息:<br><img src="/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/dns_20190717151631.png" alt></p>
+<p><a href="http://ping.chinaz.com/" target="_blank" rel="noopener">站长工具 &gt; Ping 检测</a></p>
+<p><a href="http://www.webkaka.com/Ping.aspx" target="_blank" rel="noopener">网站 Ping 检测—检测网站在各地的 Ping 值—卡卡网</a></p>
+<p><a href="https://tools.ipip.net/ping.php" target="_blank" rel="noopener">Ping 查询_专业的 IP 地址库_IPIP.NET</a></p>
+<p><a href="http://ping.aizhan.com/" target="_blank" rel="noopener">PING 检测-爱站网</a></p>
+<p>以其中一个工具检测 dns 信息:<br><img src="/2019/07/16/security/渗透测试之信息收集/dns_20190717151631.png" alt></p>
 <p>linux 下可以用 nslookup 查看 dns 信息.</p>
-<p><img src="/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/20190717152155.png" alt></p>
+<p><img src="/2019/07/16/security/渗透测试之信息收集/20190717152155.png" alt></p>
 <h2 id="绕过-CDN-查找网站真实-IP"><a href="#绕过-CDN-查找网站真实-IP" class="headerlink" title="绕过 CDN 查找网站真实 IP"></a>绕过 CDN 查找网站真实 IP</h2><p>查看 IP 与 域名绑定的历史记录，可能会存在使用 CDN 前的记录，相关查询网站有：</p>
-<p><a href="https://dnsdb.io/zh-cn/">DNSDB</a></p>
-<p><a href="https://x.threatbook.cn">微步在线</a></p>
-<p><a href="https://viewdns.info/">viewdns</a></p>
-<p><a href="https://www.netcraft.com/">netcraft</a></p>
+<p><a href="https://dnsdb.io/zh-cn/" target="_blank" rel="noopener">DNSDB</a></p>
+<p><a href="https://x.threatbook.cn" target="_blank" rel="noopener">微步在线</a></p>
+<p><a href="https://viewdns.info/" target="_blank" rel="noopener">viewdns</a></p>
+<p><a href="https://www.netcraft.com/" target="_blank" rel="noopener">netcraft</a></p>
 <p>用其中一个来查看的部分信息:</p>
-<p><img src="/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/20190717153045.png" alt></p>
+<p><img src="/2019/07/16/security/渗透测试之信息收集/20190717153045.png" alt></p>
 <h1 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h1><p>掌握搜索引擎的常用用法可以检索一些特定的信息,包括 url,正文,title 等特定位置的特定信息.</p>
-<h2 id="google-搜索引擎"><a href="#google-搜索引擎" class="headerlink" title="google 搜索引擎"></a>google 搜索引擎</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">inurl: 在url地址栏中显示的信息页面</span><br><span class="line"></span><br><span class="line">intext: 显示在正文信息中的内容页面</span><br><span class="line"></span><br><span class="line">site: 限制显示你某个域名的所有页面</span><br><span class="line"></span><br><span class="line">filetype: 搜索文件的后缀或者扩展名</span><br><span class="line"></span><br><span class="line">intitle: 限制你搜索的网页标题页面</span><br><span class="line"></span><br><span class="line">link: 将显示有到指定网页的链接的网页</span><br><span class="line"></span><br><span class="line">cache:将显示在Google cache中的网页</span><br><span class="line"></span><br><span class="line">allintitle: 搜索所有关键字构成标题的网页.（allintite:关键字或者url地址）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> + 把google可能忽略的字列如查询范围</span><br><span class="line"> - 把某个字忽略</span><br><span class="line">~  同意词</span><br><span class="line">.  单一的通配符</span><br><span class="line">*  通配符，可代表多个字母</span><br><span class="line">&quot;&quot; 精确查询</span><br></pre></td></tr></table></figure>
+<h2 id="google-搜索引擎"><a href="#google-搜索引擎" class="headerlink" title="google 搜索引擎"></a>google 搜索引擎</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">inurl: 在url地址栏中显示的信息页面</span><br><span class="line"></span><br><span class="line">intext: 显示在正文信息中的内容页面</span><br><span class="line"></span><br><span class="line">site: 限制显示你某个域名的所有页面</span><br><span class="line"></span><br><span class="line">filetype: 搜索文件的后缀或者扩展名</span><br><span class="line"></span><br><span class="line">intitle: 限制你搜索的网页标题页面</span><br><span class="line"></span><br><span class="line">link: 将显示有到指定网页的链接的网页</span><br><span class="line"></span><br><span class="line">cache:将显示在Google cache中的网页</span><br><span class="line"></span><br><span class="line">allintitle: 搜索所有关键字构成标题的网页.（allintite:关键字或者url地址）</span><br></pre></td></tr></table></figure>
+<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> + 把google可能忽略的字列如查询范围</span><br><span class="line"> - 把某个字忽略</span><br><span class="line">~  同意词</span><br><span class="line">.  单一的通配符</span><br><span class="line">*  通配符，可代表多个字母</span><br><span class="line">&quot;&quot; 精确查询</span><br></pre></td></tr></table></figure>
 <h1 id="服务端口信息"><a href="#服务端口信息" class="headerlink" title="服务端口信息"></a>服务端口信息</h1><p>通过 nmap,windows 下的图形化工具 zenmap 来检测服务的开放端口来猜测服务的类型,从而展开对应的安全测试、攻击.下面列举了部分应用的默认端口号.</p>
 <h2 id="常见网络协议端口"><a href="#常见网络协议端口" class="headerlink" title="常见网络协议端口"></a>常见网络协议端口</h2><div class="table-container">
 <table>
@@ -749,17 +749,17 @@
 <h1 id="检测服务目录"><a href="#检测服务目录" class="headerlink" title="检测服务目录"></a>检测服务目录</h1><p>渗透测试中，扫描服务器的敏感目录或文件是主要的环节,从中可以获取文件的后台控制页面、敏感秘钥文件目录、甚至获取到网站的源代码.比较常用的工</p>
 <p>具有御剑后台扫描,DirBuster,wwwscan 等工具来扫描服务器的目录信息。</p>
 <p>wwwscan 扫描的结果,发现的目录会直接显示出来.</p>
-<p><img src="/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/2019-07-17_142004.png" alt></p>
+<p><img src="/2019/07/16/security/渗透测试之信息收集/2019-07-17_142004.png" alt></p>
 <h1 id="子域名检测"><a href="#子域名检测" class="headerlink" title="子域名检测"></a>子域名检测</h1><p>到这几个网站上即可在线检测域名对应的子域名信息</p>
-<p><a href="https://phpinfo.me/domain/">https://phpinfo.me/domain/</a><br><a href="http://tool.chinaz.com/subdomain">站长工具 &gt; 子域名查询</a></p>
-<p><img src="/2019/07/16/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/sub_20190717110811.png" alt></p>
+<p><a href="https://phpinfo.me/domain/" target="_blank" rel="noopener">https://phpinfo.me/domain/</a><br><a href="http://tool.chinaz.com/subdomain" target="_blank" rel="noopener">站长工具 &gt; 子域名查询</a></p>
+<p><img src="/2019/07/16/security/渗透测试之信息收集/sub_20190717110811.png" alt></p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
 <ul>
-<li><p><a href="http://cert.sjtu.edu.cn/doc/linux/ch-ports.html">红帽企业 Linux 中的服务、守护进程、和程序所使用的最常见的通信端口</a></p>
+<li><p><a href="http://cert.sjtu.edu.cn/doc/linux/ch-ports.html" target="_blank" rel="noopener">红帽企业 Linux 中的服务、守护进程、和程序所使用的最常见的通信端口</a></p>
 </li>
-<li><p><a href="http://cert.sjtu.edu.cn/">上海交通大学网络信息中心网络紧急响应组</a></p>
+<li><p><a href="http://cert.sjtu.edu.cn/" target="_blank" rel="noopener">上海交通大学网络信息中心网络紧急响应组</a></p>
 </li>
-<li><p><a href="https://zhuanlan.zhihu.com/p/23208883">渗透测试研究中心 google hacker 语法手册</a></p>
+<li><p><a href="https://zhuanlan.zhihu.com/p/23208883" target="_blank" rel="noopener">渗透测试研究中心 google hacker 语法手册</a></p>
 </li>
 </ul>
 </blockquote>
@@ -884,7 +884,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1199,7 +1199,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -1210,7 +1210,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

@@ -454,7 +454,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.4k</span>
+                <span title="本文字数">2.2k</span>
               
 
               
@@ -488,8 +488,8 @@
       
 
       
-        <p>如题<br><span id="more"></span><br>在app.js中配置即可，设置全局分享页面</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">!<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> <span class="title class_">PageTmp</span> = <span class="title class_">Page</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title class_">Page</span> = <span class="keyword">function</span> (<span class="params">pageConfig</span>) &#123;</span><br><span class="line">    <span class="comment">// 设置全局默认分享</span></span><br><span class="line">    pageConfig = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;</span><br><span class="line">      <span class="attr">onShareAppMessage</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          <span class="attr">title</span>: <span class="string">&#x27;点滴&#x27;</span>,</span><br><span class="line">          <span class="attr">imageUrl</span>: <span class="string">&#x27;/images/share.jpg&#x27;</span>,</span><br><span class="line">          <span class="attr">path</span>: <span class="string">&#x27;/pages/home/home/index&#x27;</span></span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, pageConfig);</span><br><span class="line"></span><br><span class="line">    <span class="title class_">PageTmp</span>(pageConfig);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+        <p>如题<br><a id="more"></a><br>在app.js中配置即可，设置全局分享页面</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">!<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> PageTmp = Page;</span><br><span class="line"></span><br><span class="line">  Page = <span class="function"><span class="keyword">function</span> (<span class="params">pageConfig</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 设置全局默认分享</span></span><br><span class="line">    pageConfig = <span class="built_in">Object</span>.assign(&#123;</span><br><span class="line">      onShareAppMessage: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          title: <span class="string">'点滴'</span>,</span><br><span class="line">          imageUrl: <span class="string">'/images/share.jpg'</span>,</span><br><span class="line">          path: <span class="string">'/pages/home/home/index'</span></span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, pageConfig);</span><br><span class="line"></span><br><span class="line">    PageTmp(pageConfig);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -602,7 +602,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -900,7 +900,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -911,7 +911,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

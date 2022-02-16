@@ -454,7 +454,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.7k</span>
+                <span title="本文字数">2.6k</span>
               
 
               
@@ -567,18 +567,18 @@
 </tbody>
 </table>
 </div>
-<span id="more"></span>
+<a id="more"></a>
 <h1 id="题意解读"><a href="#题意解读" class="headerlink" title="题意解读"></a>题意解读</h1><p>写一个SQL交换性别信息,不能生成临时表。用子查询的话会生成临时表,自然就能想到用CASE WHEN实现。</p>
 <h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><blockquote>
 <ul>
 <li>mysql</li>
 </ul>
 </blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> salary <span class="keyword">SET</span>  sex <span class="operator">=</span> <span class="keyword">case</span> <span class="keyword">when</span> sex<span class="operator">=</span><span class="string">&#x27;f&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;m&#x27;</span> <span class="keyword">else</span> <span class="string">&#x27;f&#x27;</span> <span class="keyword">end</span> ;</span><br></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> salary <span class="keyword">set</span> sex <span class="operator">=</span> <span class="type">CHAR</span>(ASCII(<span class="string">&#x27;f&#x27;</span>) <span class="operator">^</span> ASCII(<span class="string">&#x27;m&#x27;</span>) <span class="operator">^</span> ASCII(sex));</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> salary <span class="keyword">SET</span>  sex = <span class="keyword">case</span> <span class="keyword">when</span> sex=<span class="string">'f'</span> <span class="keyword">then</span> <span class="string">'m'</span> <span class="keyword">else</span> <span class="string">'f'</span> <span class="keyword">end</span> ;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> salary <span class="keyword">set</span> sex = <span class="built_in">CHAR</span>(<span class="keyword">ASCII</span>(<span class="string">'f'</span>) ^ <span class="keyword">ASCII</span>(<span class="string">'m'</span>) ^ <span class="keyword">ASCII</span>(sex));</span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <ul>
-<li><a href="https://leetcode.com/problems/swap-salary/description/">627. Swap Salary</a></li>
+<li><a href="https://leetcode.com/problems/swap-salary/description/" target="_blank" rel="noopener">627. Swap Salary</a></li>
 </ul>
 </blockquote>
 
@@ -704,7 +704,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1019,7 +1019,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -1030,7 +1030,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="Integer.highestOneBit(i)作用是取i这个数的二进制形式最左边的最高一位且高位后面全部补零,最后返回int型的结果。 highestOneBit 源码 1234567891011121314151617181920@Test    public void test()&amp;#123;        int i = 100;        System.out.println(Int">
+  <meta name="description" content="Integer.highestOneBit(i)作用是取i这个数的二进制形式最左边的最高一位且高位后面全部补零,最后返回int型的结果。 highestOneBit 源码 12345678910111213141516171819@Test    public void test()&amp;#123;        int i = 100;        System.out.println(Integ">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Integer.highestOneBit(i)源码解读">
 <meta property="og:url" content="http://xwolf191.github.io/2017/12/19/java/Integer.highestOneBit(i)源码解读/index.html">
 <meta property="og:site_name" content="Xwolf">
-<meta property="og:description" content="Integer.highestOneBit(i)作用是取i这个数的二进制形式最左边的最高一位且高位后面全部补零,最后返回int型的结果。 highestOneBit 源码 1234567891011121314151617181920@Test    public void test()&amp;#123;        int i = 100;        System.out.println(Int">
+<meta property="og:description" content="Integer.highestOneBit(i)作用是取i这个数的二进制形式最左边的最高一位且高位后面全部补零,最后返回int型的结果。 highestOneBit 源码 12345678910111213141516171819@Test    public void test()&amp;#123;        int i = 100;        System.out.println(Integ">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Integer.highestOneBit(i)源码解读">
-<meta name="twitter:description" content="Integer.highestOneBit(i)作用是取i这个数的二进制形式最左边的最高一位且高位后面全部补零,最后返回int型的结果。 highestOneBit 源码 1234567891011121314151617181920@Test    public void test()&amp;#123;        int i = 100;        System.out.println(Int">
+<meta name="twitter:description" content="Integer.highestOneBit(i)作用是取i这个数的二进制形式最左边的最高一位且高位后面全部补零,最后返回int型的结果。 highestOneBit 源码 12345678910111213141516171819@Test    public void test()&amp;#123;        int i = 100;        System.out.println(Integ">
 
 
 
@@ -454,7 +454,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.6k</span>
+                <span title="本文字数">5.4k</span>
               
 
               
@@ -490,7 +490,7 @@
       
         <p>Integer.highestOneBit(i)作用是取i这个数的二进制形式最左边的最高一位且高位后面全部补零,最后返回int型的结果。</p>
 <p>highestOneBit 源码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">        System.out.println(Integer.toBinaryString(i));<span class="comment">//1100100</span></span><br><span class="line">        i |= (i &gt;&gt;  <span class="number">1</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;1:&quot;</span>+Integer.toBinaryString(i));<span class="comment">//1110110</span></span><br><span class="line">        i |= (i &gt;&gt;  <span class="number">2</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;2:&quot;</span>+Integer.toBinaryString(i));<span class="comment">//1111111</span></span><br><span class="line">        i |= (i &gt;&gt;  <span class="number">4</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;3:&quot;</span>+Integer.toBinaryString(i));<span class="comment">//1111111</span></span><br><span class="line">        i |= (i &gt;&gt;  <span class="number">8</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;4:&quot;</span>+Integer.toBinaryString(i));<span class="comment">//1111111</span></span><br><span class="line">        i |= (i &gt;&gt; <span class="number">16</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;5:&quot;</span>+Integer.toBinaryString(i));<span class="comment">//1111111</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span>  i - (i &gt;&gt;&gt; <span class="number">1</span>);</span><br><span class="line">        System.out.println(res);<span class="comment">//64</span></span><br><span class="line">        System.out.println(Integer.toBinaryString(res));<span class="comment">//1000000</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">100</span>;</span><br><span class="line">        System.out.println(Integer.toBinaryString(i));<span class="comment">//1100100</span></span><br><span class="line">        i |= (i &gt;&gt;  <span class="number">1</span>);</span><br><span class="line">        System.out.println(<span class="string">"1:"</span>+Integer.toBinaryString(i));<span class="comment">//1110110</span></span><br><span class="line">        i |= (i &gt;&gt;  <span class="number">2</span>);</span><br><span class="line">        System.out.println(<span class="string">"2:"</span>+Integer.toBinaryString(i));<span class="comment">//1111111</span></span><br><span class="line">        i |= (i &gt;&gt;  <span class="number">4</span>);</span><br><span class="line">        System.out.println(<span class="string">"3:"</span>+Integer.toBinaryString(i));<span class="comment">//1111111</span></span><br><span class="line">        i |= (i &gt;&gt;  <span class="number">8</span>);</span><br><span class="line">        System.out.println(<span class="string">"4:"</span>+Integer.toBinaryString(i));<span class="comment">//1111111</span></span><br><span class="line">        i |= (i &gt;&gt; <span class="number">16</span>);</span><br><span class="line">        System.out.println(<span class="string">"5:"</span>+Integer.toBinaryString(i));<span class="comment">//1111111</span></span><br><span class="line">        <span class="keyword">int</span> res =  i - (i &gt;&gt;&gt; <span class="number">1</span>);</span><br><span class="line">        System.out.println(res);<span class="comment">//64</span></span><br><span class="line">        System.out.println(Integer.toBinaryString(res));<span class="comment">//1000000</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>运算描述：</p>
 <blockquote>
 <ul>
@@ -672,7 +672,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -987,7 +987,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -998,7 +998,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

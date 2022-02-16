@@ -480,10 +480,10 @@
 
       
         <p>在spring boot 后端开发集成websocket的过程中，本地测试都OK,但是部署到服务器上后抛出了异常 Incompatibile SockJS! Main site uses: “1.1.5”, the iframe: “1.0.0”。</p>
-<p> <img src="/2020/11/16/java/Incompatibile%20SockJS/20200908095249926.png" alt></p>
-<p>大概意思是版本不匹配，和服务器部署唯一的不同之处就是服务器通过nginx来代理请求。<br><span id="more"></span><br>主要原因是upgrade header没有从nginx传给spring，nginx对应代理服务节点上配置下边的头信息即可:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#告诉nginx使用HTTP/1.1通信协议，这是websoket必须要使用的协议）</span><br><span class="line">proxy_http_version 1.1;</span><br><span class="line"></span><br><span class="line">#告诉nginx，当它想要使用WebSocket时，响应http升级请求</span><br><span class="line">proxy_set_header Upgrade $http_upgrade;</span><br><span class="line"></span><br><span class="line">proxy_set_header Connection &quot;upgrade&quot;;</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/11/16/java/Incompatibile%20SockJS/20200225162241569.png" alt></p>
+<p> <img src="/2020/11/16/java/Incompatibile SockJS/20200908095249926.png" alt></p>
+<p>大概意思是版本不匹配，和服务器部署唯一的不同之处就是服务器通过nginx来代理请求。<br><a id="more"></a><br>主要原因是upgrade header没有从nginx传给spring，nginx对应代理服务节点上配置下边的头信息即可:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#告诉nginx使用HTTP/1.1通信协议，这是websoket必须要使用的协议）</span><br><span class="line">proxy_http_version 1.1;</span><br><span class="line"></span><br><span class="line">#告诉nginx，当它想要使用WebSocket时，响应http升级请求</span><br><span class="line">proxy_set_header Upgrade $http_upgrade;</span><br><span class="line"></span><br><span class="line">proxy_set_header Connection &quot;upgrade&quot;;</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/11/16/java/Incompatibile SockJS/20200225162241569.png" alt></p>
 <p>nginx配置完成后重启nginx问题就解决了。</p>
 
       
@@ -597,7 +597,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -895,7 +895,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -906,7 +906,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 

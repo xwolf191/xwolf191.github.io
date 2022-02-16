@@ -104,12 +104,12 @@
 <meta property="og:site_name" content="Xwolf">
 <meta property="og:description" content="centos7启动防火墙失败,操作超时。 1systemctl start firewalld [root@bogon ~]# systemctl start firewalldJob for firewalld.service failed because a timeout was exceeded. See “systemctl status firewalld.service” and “">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xwolf191.github.io/2018/12/14/linux/problem/firewalld%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5/Firewalld.service%20Operation.png">
+<meta property="og:image" content="http://xwolf191.github.io/2018/12/14/linux/problem/firewalld启动失败/Firewalld.service%20Operation.png">
 <meta property="og:updated_time" content="2020-07-19T00:23:27.892Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Failed to start firewalld - dynamic firewall daemon">
 <meta name="twitter:description" content="centos7启动防火墙失败,操作超时。 1systemctl start firewalld [root@bogon ~]# systemctl start firewalldJob for firewalld.service failed because a timeout was exceeded. See “systemctl status firewalld.service” and “">
-<meta name="twitter:image" content="http://xwolf191.github.io/2018/12/14/linux/problem/firewalld%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5/Firewalld.service%20Operation.png">
+<meta name="twitter:image" content="http://xwolf191.github.io/2018/12/14/linux/problem/firewalld启动失败/Firewalld.service%20Operation.png">
 
 
 
@@ -456,7 +456,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.1k</span>
+                <span title="本文字数">6k</span>
               
 
               
@@ -495,15 +495,15 @@
 <p>[root@bogon ~]# systemctl start firewalld<br>Job for firewalld.service failed because a timeout was exceeded. See “systemctl status firewalld.service” and “journalctl -xe” for details.</p>
 <p>[root@bogon ~]# systemctl status firewalld<br>● firewalld.service - firewalld - dynamic firewall daemon<br>   Loaded: loaded t: enabled)<br>   Active:<font color="red"> failed (Result: timeout) </font> since 六 2018-12-15 00:54:55 CST; 42s ag(/usr/lib/systemd/system/firewalld.service; enabled; vendor preseo<br>     Docs: man:firewalld(1)<br>  Process: 14218 ExecStart=/usr/sbin/firewalld —nofork —nopid $FIREWALLD_ARGS (code=exited, status=0/SUCCESS)<br> Main PID: 14218 (code=exited, status=0/SUCCESS)</p>
 <p>12月 15 00:53:23 bogon systemd[1]: Starting firewalld - dynamic firewall daemon…<br>12月 15 00:54:53 bogon systemd[1]: firewalld.service start operation timed out. Terminating.<br>12月 15 00:54:55 bogon systemd[1]: <font color="red">Failed to start firewalld - dynamic firewall daemon.</font><br>12月 15 00:54:55 bogon systemd[1]: Unit firewalld.service entered failed state.<br>12月 15 00:54:55 bogon systemd[1]: firewalld.service failed.</p>
-<span id="more"></span>
+<a id="more"></a>
 <p>算是centos7的一个bug吧,<br>执行下面命令即可</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon ~]<span class="comment"># systemctl stop firewalld;pkill -f firewalld;systemctl start firewalld</span></span><br></pre></td></tr></table></figure>
 <p>查看防火墙状态</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon ~]<span class="comment"># systemctl status firewalld</span></span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since 六 2018-12-15 00:56:19 CST; 11s ago</span><br><span class="line">     Docs: man:firewalld(1)</span><br><span class="line"> Main PID: 14638 (firewalld)</span><br><span class="line">    Tasks: 2</span><br><span class="line">   Memory: 21.6M</span><br><span class="line">   CGroup: /system.slice/firewalld.service</span><br><span class="line">           └─14638 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid</span><br><span class="line"></span><br><span class="line">12月 15 00:56:20 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">&#x27;/usr/sbin/iptables -w2 -D FORWARD -i docker0 -o docker0 -j DROP&#x27;</span>...hain?).</span><br><span class="line">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">&#x27;/usr/sbin/iptables -w2 -t nat -C DOCKER -p tcp -d 0/0 --dport 15...t name.</span></span><br><span class="line"><span class="string">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: &#x27;</span>/usr/sbin/iptables -w2 -t filter -C DOCKER ! -i docker0 -o docke...hain?).</span><br><span class="line">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">&#x27;/usr/sbin/iptables -w2 -t nat -C POSTROUTING -p tcp -s 172.17.0....t name.</span></span><br><span class="line"><span class="string">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: &#x27;</span>/usr/sbin/iptables -w2 -t nat -C DOCKER -p tcp -d 0/0 --dport 56...t name.</span><br><span class="line">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">&#x27;/usr/sbin/iptables -w2 -t filter -C DOCKER ! -i docker0 -o docke...hain?).</span></span><br><span class="line"><span class="string">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: &#x27;</span>/usr/sbin/iptables -w2 -t nat -C POSTROUTING -p tcp -s 172.17.0....t name.</span><br><span class="line">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">&#x27;/usr/sbin/iptables -w2 -t filter -n -L DOCKER-USER&#x27;</span> failed: ipta...t name.</span><br><span class="line">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">&#x27;/usr/sbin/iptables -w2 -t filter -C DOCKER-USER -j RETURN&#x27;</span> faile...hain?).</span><br><span class="line">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">&#x27;/usr/sbin/iptables -w2 -t filter -C FORWARD -j DOCKER-USER&#x27;</span> fail...t name.</span><br><span class="line">Hint: Some lines were ellipsized, use -l to show <span class="keyword">in</span> full.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/14/linux/problem/firewalld%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5/Firewalld.service Operation.png" alt="firewalld issue"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon ~]<span class="comment"># systemctl status firewalld</span></span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since 六 2018-12-15 00:56:19 CST; 11s ago</span><br><span class="line">     Docs: man:firewalld(1)</span><br><span class="line"> Main PID: 14638 (firewalld)</span><br><span class="line">    Tasks: 2</span><br><span class="line">   Memory: 21.6M</span><br><span class="line">   CGroup: /system.slice/firewalld.service</span><br><span class="line">           └─14638 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid</span><br><span class="line"></span><br><span class="line">12月 15 00:56:20 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">'/usr/sbin/iptables -w2 -D FORWARD -i docker0 -o docker0 -j DROP'</span>...hain?).</span><br><span class="line">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">'/usr/sbin/iptables -w2 -t nat -C DOCKER -p tcp -d 0/0 --dport 15...t name.</span></span><br><span class="line"><span class="string">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: '</span>/usr/sbin/iptables -w2 -t filter -C DOCKER ! -i docker0 -o docke...hain?).</span><br><span class="line">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">'/usr/sbin/iptables -w2 -t nat -C POSTROUTING -p tcp -s 172.17.0....t name.</span></span><br><span class="line"><span class="string">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: '</span>/usr/sbin/iptables -w2 -t nat -C DOCKER -p tcp -d 0/0 --dport 56...t name.</span><br><span class="line">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">'/usr/sbin/iptables -w2 -t filter -C DOCKER ! -i docker0 -o docke...hain?).</span></span><br><span class="line"><span class="string">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: '</span>/usr/sbin/iptables -w2 -t nat -C POSTROUTING -p tcp -s 172.17.0....t name.</span><br><span class="line">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">'/usr/sbin/iptables -w2 -t filter -n -L DOCKER-USER'</span> failed: ipta...t name.</span><br><span class="line">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">'/usr/sbin/iptables -w2 -t filter -C DOCKER-USER -j RETURN'</span> faile...hain?).</span><br><span class="line">12月 15 00:56:21 bogon firewalld[14638]: WARNING: COMMAND_FAILED: <span class="string">'/usr/sbin/iptables -w2 -t filter -C FORWARD -j DOCKER-USER'</span> fail...t name.</span><br><span class="line">Hint: Some lines were ellipsized, use -l to show <span class="keyword">in</span> full.</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/14/linux/problem/firewalld启动失败/Firewalld.service Operation.png" alt="firewalld issue"></p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
 <ul>
-<li><a href="https://centosfaq.org/centos/centos-7-firewalldservice-operation-time-out-systemctl-firewalld-issues/">CentOS 7: Firewalld.service Operation Time Out – Systemctl Firewalld Issues</a></li>
+<li><a href="https://centosfaq.org/centos/centos-7-firewalldservice-operation-time-out-systemctl-firewalld-issues/" target="_blank" rel="noopener">CentOS 7: Firewalld.service Operation Time Out – Systemctl Firewalld Issues</a></li>
 </ul>
 </blockquote>
 
@@ -627,7 +627,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">238</span>
+                    <span class="site-state-item-count">237</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -942,7 +942,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">813k</span>
+    <span title="站点总字数">790k</span>
   
 
   
@@ -953,7 +953,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">24:37</span>
+    <span title="站点阅读时长">23:57</span>
   
 </div>
 
